@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人中心</title>
+    <link href="../js/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="../js/lib/ligerUI/skins/Gray2014/css/all.css" rel="stylesheet" />
+    <link href="../js/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/lib/ligerUI/js/ligerui.min.js"></script>
+    <script src="../js/base.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var Tname = "pcenter";
+            var args = bif.GetUrlParms();
+            if (args.Tname != undefined) {
+                Tname = args.Tname;
+                var oHead = document.getElementsByTagName('head').item(0);
+                var oScript = document.createElement("script");
+                oScript.type = "text/javascript";
+                oScript.src = "../js/scripts/" + Tname + ".js";
+                oHead.appendChild(oScript);
+            }
+        })
+    </script>
+    <style>
+        .l-form .l-form-buttons {
+            margin-left: 90px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div style="padding-top: 0px;">
+            <div id="form">
+
+            </div>
+            <div id="formpwd">
+
+            </div>
+            <div id="grid">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

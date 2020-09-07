@@ -1,0 +1,274 @@
+﻿
+.l-hidden{ display:none;}
+.l-form .l-group
+{ 
+margin-bottom: 5px; line-height:22px;height:22px;
+border-bottom: 2px solid #ccc;padding:2px;margin-bottom:6px;
+font-size: 12px;border-bottom: solid 2px #ebebeb; font-weight:bold;
+}
+/* -------------
+   * 多行文本框颜色 *
+* ------------- */  
+.l-textarea{border:1px solid #D0D0D0; margin-left:0px;outline:none; background:#FFFFFF url('../images/ui/input.gif') repeat-x top;}
+ .l-textarea:hover{border-color:#777777;}
+.l-textarea-invalid,.l-textarea:focus{ border-color:#777777;}
+.l-textarea-invalid{border-color:#FF7777; background:#FFEEEE url(../../Aqua/images/common/invalid-line.gif) repeat-x bottom;}
+.l-textarea-invalid:hover,.l-textarea-invalid:focus{border-color:#FF7777;}
+/* -------------
+   * 文本框/下拉框/日期框/调整器 *
+* ------------- */
+
+/* 文本框、下来框、日期框、调整器都使用到这个 */
+.l-text
+{
+    position:relative; 
+    border:1px solid #D0D0D0;height: 28px; line-height:28px;
+    width:130px; 
+}
+/* 文本框得到焦点的样式*/
+.l-text-focus
+{
+    border-color:#777777;
+}
+
+.l-text-invalid {
+background: #FEE url(../../Aqua/images/common/invalid-line.gif) repeat-x 50% 100%;
+border-color: #F77;
+}
+/*只读时文本框*/
+.l-text-disabled
+{
+   background: #f0f0f0;
+color: #999;
+} 
+.l-text-disabled .l-text-field{
+ 
+}
+/* 编辑状态 */
+.l-text-editing
+{
+     
+} 
+/* 只读状态*/
+.l-text-readonly {
+	background: #f0f0f0;border-color:#ddd;
+    color: #999;margin:0;padding:0;
+} 
+/* 表单文本框 input:text */
+.l-text-field
+{
+    position:absolute; top:0px; left:0px;
+    height: 28px; line-height:28px; padding-left:2px;
+    vertical-align: middle;
+    background-color: #fff;
+    width:110px;  
+    border:0; margin:0; outline:none; color:#555555; 
+}
+/* 表单文本框 内容为空时 */
+.l-text-field-null
+{ color:#C1C1C1;
+}
+ 
+/* 下拉框/日期/调整器 右侧那个可点击的区域 分别是普通、经过、按住状态 */
+.l-trigger,.l-trigger-hover,.l-trigger-pressed
+{
+    top:0px;right:0px;
+    width:16px;height:100%; border:0px; 
+    background:none; margin-right:2px;
+}  
+/* 下拉框/日期 取消选择 */
+.l-trigger-cancel {
+	right:19px;border-left:none;  background:none; 
+}
+.l-trigger-cancel .l-trigger-icon { 
+	background:url('../images/ui/icon-unselect.gif') no-repeat 50% 50% transparent;
+}
+/* 下拉框/日期 右侧那个可点击的区域里面的图标 */
+.l-trigger-icon
+{	width:100%;
+	height:100%;
+    background:url('../images/ui/icon-down.gif') no-repeat 50% 50% transparent;
+}
+.l-text-date .l-trigger-icon {
+background-image: url('../images/ui/date.gif');margin-right:2px;
+}
+/* l-text-popup */
+.l-text-popup .l-trigger,.l-text-popup .l-trigger-hover,.l-text-popup .l-trigger-pressed
+{
+	top:0px;right:0px;
+    width:16px;height:100%;border:none;
+}
+.l-text-popup .l-trigger-cancel
+{
+	right :17px; border:0; background:transparent;height:100%;
+}
+
+.l-trigger-icon-select
+{
+	background: url('../images/ui/icon-select2.gif') no-repeat 55% 55% transparent;
+}
+
+.l-text-popup .l-trigger-icon 
+{
+	background: url('../images/ui/icon-select2.gif') no-repeat 55% 55% transparent;
+}
+.l-text-popup .l-trigger-cancel .l-trigger-icon 
+{
+	background: url('../images/ui/icon-unselect.gif')  no-repeat 50% 53% transparent;
+}
+/* -------------
+  * 调整器 *
+* ------------- */
+.l-spinner-up .l-spinner-icon,.l-spinner-down .l-spinner-icon{overflow: hidden;position: absolute;left: 0px;top: 50%;margin-top: -3px;width: 100%;height: 6px;background: no-repeat center top;}
+.l-spinner-down-over,.l-spinner-up-over{background:#f1f1f1;}
+.l-spinner-up .l-spinner-icon{background-image: url(../images/ui/icon-up.gif);}
+.l-spinner-down .l-spinner-icon{background-image: url(../images/ui/icon-down.gif);}
+.l-spinner-up,.l-spinner-down {width: 100%;height: 50%;overflow: hidden;display: block;position: absolute;left: 0px;top: 0px;}
+.l-spinner-down{top: 50%;}
+.l-spinner-split{overflow: hidden;width: 13px;height: 1px;position: absolute;left: 1px;top: 50%;z-index: 10;background: #FFFFFF;   }
+
+/* -------------
+   * 验证 *
+* ------------- */
+.l-verify-star { color:Red;}
+
+/* -------------
+  * 下拉框 *
+* ------------- */
+.l-box-select-grid{border-bottom:1px solid #DBDBDB;border-right:1px solid #DBDBDB;}
+.l-box-select-grid thead td,.l-box-select-grid tr.l-table-headerow td{ 
+background:#F0F0F0; 
+}
+.l-box-select-grid td{padding:0;margin:0;height:22px; line-height:22px; border-left:1px solid #DBDBDB;border-top:1px solid #DBDBDB; }
+ 
+.l-box-select
+{
+    display:none;
+    position:absolute; padding:0px;  
+    border:1px solid #D0D0D0; background:white;
+    width:130px; height:auto;
+    margin-top:1px;
+    z-index:9300; font-size:12px; line-height:18px;
+}
+.l-box-select-absolute
+{
+    margin-top:0px;
+}
+.l-box-select-inner{ margin:0; padding:0; width:100%;overflow:auto;  height:120px;color:#333;}
+.l-box-select-inner .l-box-select-table{margin:0; padding:0; width:100%; }
+.l-box-select .l-table-nocheckbox td:hover,.l-box-select .l-table-nocheckbox td.l-over{ background-color:#EEE; cursor:pointer;}
+.l-box-select .l-table-nocheckbox td.l-selected{ background-color:#D2D2D2;}
+.l-box-select .l-box-select-table td{ padding:2px; text-align:left;} 
+
+.l-box-select-lookup {
+	height:auto;
+}
+.l-box-select-lookup .l-form {
+	margin:0; padding:2px; background:#F1F1F1;border-bottom: 1px solid #D6D6D6;
+}
+.l-box-select-lookup .l-box-select-inner {
+	padding:0;overflow:hidden;
+}
+
+/* listbox */
+.l-listbox {
+	border:1px solid #D6D6D6; background:white;
+    width:130px; height:120px;font-size:12px; line-height:18px;
+}
+.l-listbox-grid{border-bottom:1px solid #D6D6D6;border-right:1px solid #D6D6D6;}
+.l-listbox-grid thead td,.l-listbox-grid tr.l-table-headerow td{ 
+background: #F0F0F0; border-top:none;
+}
+.l-listbox-grid td{padding:0;margin:0;height:22px; line-height:22px; border-left:1px solid #D6D6D6;border-top:1px solid #D6D6D6; }
+.l-listbox-inner{ margin:0; padding:0; width:100%;overflow:auto; height:100%;color:#333;}
+.l-listbox-inner .l-listbox-table{margin:0; padding:0; width:100%; }
+.l-listbox tr:hover td,.l-listbox tr.l-over td{ background-color:#E7EDF8; cursor:pointer; border-bottom:1px dotted #89A8E3;border-top:1px dotted #89A8E3;  }
+.l-listbox tr.l-selected td{ background-color:#DFE8F6;border-bottom:1px dotted #D6D6D6;border-top:1px dotted #D6D6D6;}
+.l-listbox td{ padding:2px; text-align:left;border-top:1px solid #ffffff;border-bottom:1px solid #fff;}
+.l-listbox .l-listbox-grid td{border-top:1px solid #D6D6D6;border-bottom:1px solid #D6D6D6;}
+.l-listbox .l-table-nocheckbox .l-checkboxrow { display:none;width:0px;}
+
+/* -------------
+    * 复选框 *
+* ------------- */
+ 
+/* -------------
+    * 单选框 *
+* ------------- */
+ 
+
+
+/* -----------------------
+   *   日期控件 *
+* ----------------------- */
+.l-box-dateeditor {
+background: white;
+border: 1px solid #6681B0;
+}
+ .l-box-dateeditor-header
+{
+     background:#173167;   
+}
+.l-box-dateeditor-header-text a {
+color:White;
+cursor: pointer;
+text-decoration: none;
+}
+
+
+
+.l-box-dateeditor-header-btn
+{
+     background-image: url(../images/ui/dateeditor-btn.gif); background-repeat:no-repeat;
+}
+.l-box-dateeditor-header-btn-over
+{ 
+    background-image: url(../images/ui/dateeditor-btn-over.gif);
+}
+.l-box-dateeditor-header-btn
+{
+     top:4px;width:15px; height:15px;position:absolute; cursor:pointer;
+}
+.l-box-dateeditor-header-btn span
+{
+     width:100%; height:100%; display:block; position:absolute; top:0px; left:0px;
+}
+.l-box-dateeditor-header-prevmonth{left:24px; background-position:-15px 0px; }
+.l-box-dateeditor-header-prevmonth span{background:none;}
+.l-box-dateeditor-header-nextmonth{background-position:-30px 0px;}
+.l-box-dateeditor-header-nextmonth span{background: none;}
+
+.l-box-dateeditor-header-prevyear{left:4px; background-position:0px 0px;}
+.l-box-dateeditor-header-prevyear span{background:none;}
+.l-box-dateeditor-header-nextyear{ right:4px;background-position:-45px 0px;}
+.l-box-dateeditor-header-nextyear span{background:none;}
+ 
+
+.l-box-dateeditor-body {
+border:none; 
+}
+.l-box-dateeditor-body thead td {
+border-bottom: 1px solid #9AB3D5; background:#C1D4EB url(../images/ui/dateeditor-thead.gif) repeat-x top;
+}
+.l-box-dateeditor-body tbody td.l-box-dateeditor-today
+{background-color: #CCE3FE; }
+.l-box-dateeditor-body tbody td.l-box-dateeditor-over,.l-box-dateeditor-body tbody td.l-box-dateeditor-selected
+ { background-color: #DDECFE; }
+
+.l-box-dateeditor-monthselector li:hover,.l-box-dateeditor-monthselector li.l-selected,.l-box-dateeditor-monthselector li.l-over,.l-box-dateeditor-yearselector li:hover,.l-box-dateeditor-yearselector li.l-selected,.l-box-dateeditor-yearselector li.l-over,.l-box-dateeditor-hourselector li:hover,.l-box-dateeditor-hourselector li.l-selected,.l-box-dateeditor-hourselector li.l-over,.l-box-dateeditor-minuteselector li:hover,.l-box-dateeditor-minuteselector li.l-selected,.l-box-dateeditor-minuteselector li.l-over
+{background-color: #DDECFE;border: solid 1px #8DB2E3;}
+
+
+.l-box-dateeditor-toolbar {
+background:#C1D4EB url(../images/ui/dateeditor-bar.gif) repeat-x top;
+height: 31px; border-top:1px solid #9AB3D5;
+padding-left: 10px;
+position: relative;
+text-align: right;
+width: 100%;
+}
+ 
+/* -----------------------
+   *   验证 *
+* ----------------------- */
+ 

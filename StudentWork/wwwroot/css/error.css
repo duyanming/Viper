@@ -1,0 +1,10 @@
+﻿body {
+}
+.container {
+    width: 100%;
+}
+
+.txtcenter {
+    margin: 0 auto;
+    text-align: center;
+}

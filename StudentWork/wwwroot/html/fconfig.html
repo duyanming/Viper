@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../js/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="../js/lib/ligerUI/skins/Gray2014/css/all.css" rel="stylesheet" />
+    <link href="../js/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/lib/ligerUI/js/ligerui.min.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../js/scripts/fconfig.js"></script>
+    <title>功能配置</title>
+    <style type="text/css">
+        .l-tree .l-tree-icon-none img {
+            width: 16px;
+            height: 16px;
+            margin: 3px;
+        }
+
+        input {
+            width: 196px;
+        }
+
+        .l-form-buttons li {
+            width: 22%;
+            min-width: 70xp;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .l-form-buttons li div {
+                margin: 0 auto;
+            }
+
+    </style>
+    <script type="text/javascript">
+        var Tree;
+        $(function () {
+            getAllfunc();
+            //布局
+            $("#layout1").ligerLayout({
+                height: '100%',
+                heightDiff: -5,
+                space: 4
+            });
+            _initform();
+        });
+    </script>
+</head>
+<body>
+    <div id="layout1" class="l-layout" style="height: 100%;">
+        <div class="l-layout-center" style="width:69.3%; left:1px; top: 1px;">
+            <div position="center" title="" class="l-layout-content">
+
+                <div>
+                    <div style="padding-left: 50px; float: left;">
+                        <div id="funTree" style="margin: 0; padding: 0">
+                        </div>
+                    </div>
+                    <div id="divedit" style="        float: right;
+        width: 600px;
+        height: 450px;
+        background-color: #B2C4CE;
+        display: none;
+">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="l-layout-right" style="width: 30%;min-width:250px; top: 1px;right:1px;">
+            <div position="right" class="l-layout-content">
+                <div id="form">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

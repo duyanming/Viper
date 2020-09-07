@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Anno.EngineData" Version="1.0.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Anno.Redis\Anno.Redis.csproj" />
+    <ProjectReference Include="..\Trace\Anno.Command.Handler\Anno.Command.Handler.csproj" />
+    <ProjectReference Include="..\Trace\Anno.Command\Anno.Command.csproj" />
+    <ProjectReference Include="..\Trace\Anno.Domain\Anno.Domain.csproj" />
+    <ProjectReference Include="..\Trace\Anno.Repository\Anno.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

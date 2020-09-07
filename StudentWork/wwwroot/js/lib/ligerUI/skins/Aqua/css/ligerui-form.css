@@ -1,0 +1,566 @@
+﻿ /* 表单 */
+.l-form { margin:7px;overflow:hidden;}
+.l-form .l-group{ clear:both; margin:0; height:28px; line-height:28px; font-weight:bold; font-size:12px; color:#333; border-bottom:solid 1px #ebebeb; padding-top:5px;margin-bottom:10px; display:block; position:relative; clear:both;}
+.l-group span{
+    float:left;
+    width:90px;
+    text-align: left;
+}
+.l-group-hasicon span { 
+margin-left: 40px;
+}
+.l-form .l-group-hasicon{ }
+.l-form .l-group-hasicon img{ width:16px; height:16px; position:absolute; left:6px; top:6px;}
+.l-form .l-group-hasicon div{ width:16px; height:16px; position:absolute; left:6px; top:6px;}
+.l-form ul, .l-form li{ list-style:none;}
+.l-form ul{ clear:both; margin-top:2px; margin-bottom:2px;}
+.l-form .l-fieldcontainer ul { margin:0;}
+.l-form .l-fieldcontainer { padding:0; }
+.l-form .l-fieldcontainer-first {
+	clear: left;
+}
+.l-form li{ float:left; overflow:hidden; text-align:left;  line-height:23px;padding:0; padding-top:2px; padding-bottom:2px; position:relative;} 
+.l-form li textarea{ height:80px;}
+.l-form .l-form-buttons{ clear:both; margin-top:10px;}
+.l-form .l-form-buttons li {
+	float: left; margin-right:7px;
+}
+.l-hidden{ display:none;}
+.l-form-container {
+	clear: both; 
+	overflow: hidden;
+}
+/* -------------
+   * 多行文本框颜色 *
+* ------------- */ 
+.l-textarea{border:1px solid #A8AAAD; outline:none;}
+ .l-textarea:hover{border-color:#01AAEE;}
+.l-textarea-invalid,.l-textarea:focus{ border-color:#FF8801;}
+.l-textarea-invalid{border-color:#FF7777; background:#FFEEEE url(../images/common/invalid-line.gif) repeat-x bottom;}
+.l-textarea-invalid:hover,.l-textarea-invalid:focus{border-color:#FF7777;}
+/* -------------
+   * 文本框/下拉框/日期框/调整器 *
+* ------------- */
+.l-text-wrapper{ position:relative;}
+/* 文本框、下来框、日期框、调整器都使用到这个 */
+.l-text {
+    position: relative;
+    border: 1px solid #AECAF0;
+    height: 20px;
+    line-height: 20px;
+    width: 130px;
+    background: white;
+    border-radius:7px;
+}
+/* 文本框 验证不通过 */
+.l-text-invalid{ border-color:#FF7777; background:#FFEEEE url(../images/common/invalid-line.gif) repeat-x bottom;}
+
+.l-text-invalid .l-text-field{ background:none;}
+/*只读时边框*/
+.l-text-disabled
+{
+    border-color:#C2C2C2;
+    background:#E0E0E0;
+}
+/*只读时文本框*/
+.l-text-disabled .l-text-field{
+	background:#E0E0E0;
+}
+/* 编辑状态 */
+.l-text-editing
+{
+     
+}
+/* 只读状态*/
+.l-text-readonly {
+	background:none; border:0; margin:2px;
+	border-bottom:1px solid #b1b1b1;
+}
+.l-text-readonly input {
+	background:none; border:0;
+}
+.l-text-readonly .l-trigger,.l-text-readonly .l-trigger-icon {
+	display:none;
+} 
+.l-text-readonly .l-trigger-cancel
+{
+    display:none; cursor:auto;
+}
+/* 表单文本框 input:text */
+.l-text-field {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 110px;
+    border: 0;
+    margin: 0;
+    outline: none;
+    border-radius: 7px;
+}
+
+.l-text-field-number {
+	text-align: right;
+}
+/* 表单文本框 内容为空时 */
+.l-text-field-null
+{ color:#C1C1C1;
+}
+
+/* 下拉框/日期/调整器 右侧那个可点击的区域 分别是普通、经过、按住状态 */
+.l-trigger,.l-trigger-hover,.l-trigger-pressed
+{
+    cursor:pointer;
+    position:absolute;
+    top:1px;right:1px;
+    width:16px; height:16px; 
+    overflow:hidden;
+}
+.l-trigger
+{
+    border:1px solid #AECAF0; 
+    background:#DBEBFF url('../images/controls/bg-trigger.gif') repeat-x left;
+}
+.l-trigger-hover
+{
+    border:1px solid #EABE4E; 
+    background:#fedc75 url('../images/controls/bg-trigger-over.gif') repeat-x left;
+}
+.l-trigger-pressed
+{
+    border:1px solid #EABE4E; 
+    background:#fedc75 url('../images/controls/bg-trigger-pressed.gif') repeat-x left;
+}
+
+/* l-text-popup */
+.l-text-popup .l-trigger,.l-text-popup .l-trigger-hover,.l-text-popup .l-trigger-pressed
+{
+	top:0px;right:0px;
+    width:16px;height:100%;border:none; border-left:1px solid #AECAF0;
+}
+.l-text-popup .l-trigger-cancel
+{
+	right :19px; border:0; background:transparent;height:100%;
+}
+
+.l-text-popup .l-trigger-icon 
+{
+	background: url('../images/icon/icon-select.gif') no-repeat 55% 55% transparent;
+}
+.l-text-popup .l-trigger-cancel .l-trigger-icon 
+{
+	background: url('../images/icon/icon-unselect.gif')  no-repeat 50% 53% transparent;
+}
+
+
+/* 下拉框/日期 取消选择 */
+.l-trigger-cancel {
+	right:20px; background:transparent; border:0px;
+}
+.l-trigger-cancel .l-trigger-icon ,.l-text-date .l-trigger-cancel .l-trigger-icon{ 
+	background:url('../images/icon/icon-unselect.gif') no-repeat 50% 60% transparent;
+}
+.l-text-date .l-trigger,.l-text-date .l-trigger-hover,.l-text-date .l-trigger-pressed {
+	background:none;border:none;
+}
+.l-text-date .l-trigger-icon { 
+	background-image: url('../images/dateeditor/date.gif');
+} 
+/* 下拉框/日期 右侧那个可点击的区域里面的图标 */
+.l-trigger-icon
+{	width:100%;
+	height:100%;
+    background:url('../images/icon/icon-down.gif') no-repeat 50% 50%;
+}
+/* -------------
+  * 调整器 *
+* ------------- */
+.l-spinner-up .l-spinner-icon,.l-spinner-down .l-spinner-icon{overflow: hidden;position: absolute;left: 0px;top: 50%;margin-top: -3px;width: 100%;height: 6px;background: no-repeat center top;}
+.l-spinner-down-over,.l-spinner-up-over{background:#fedc75 url('../images/controls/bg-trigger-over.gif') repeat-x left;}
+.l-spinner-up .l-spinner-icon{background-image: url(../images/icon/icon-up.gif);}
+.l-spinner-down .l-spinner-icon{background-image: url(../images/icon/icon-down.gif);}
+.l-spinner-up,.l-spinner-down {width: 100%;height: 50%;overflow: hidden;display: block;position: absolute;left: 0px;top: 0px;}
+.l-spinner-down{top: 50%;}
+.l-spinner-split{overflow: hidden;width: 13px;height: 1px;position: absolute;left: 1px;top: 50%;z-index: 10;background: #B5B8C8;   }
+
+/* -------------
+   * 验证 *
+* ------------- */
+.l-verify-star { color:Red;}
+.l-star { color:Red;}
+/* -------------
+  * 下拉框 *
+* ------------- */
+.l-box-select
+{
+    display:none;
+    position:absolute; padding:0px;  
+    border:1px solid #AECAF0; background:white;
+    width:130px; height:auto;
+    margin-top:1px;
+    z-index:9300; font-size:12px; line-height:18px;
+}
+.l-box-select-grid{border-bottom:1px solid #A3C0E8;border-right:1px solid #A3C0E8;}
+.l-box-select-grid thead td,.l-box-select-grid tr.l-table-headerow td{ 
+background:#DBEBFF url('../images/controls/bg-panel-title.gif') repeat-x left; 
+}
+.l-box-select-grid td{padding:0;margin:0;height:22px; line-height:22px; border-left:1px solid #A3C0E8;border-top:1px solid #A3C0E8; }
+.l-box-select strong{
+	font-weight: bold;
+}
+.l-box-select-lookup {
+	height:auto;
+}
+.l-box-select-lookup .l-panel {
+	border:0;
+}
+.l-box-select-lookup .l-form {
+	margin:0; padding:2px; background:#EAF2FF;border-bottom: 1px solid #AECAF0;
+}
+.l-box-select-lookup .l-box-select-inner {
+	padding:0;overflow:hidden; height:auto;
+}
+.l-box-select-absolute
+{
+    margin-top:0px;
+}
+.l-box-select-inner{ margin:0; padding:0; width:100%;overflow:auto;  height:120px;color:#333;}
+.l-box-select-inner .l-box-select-table{margin:0; padding:0; width:100%; }
+.l-box-select .l-table-nocheckbox td:hover,.l-box-select .l-table-nocheckbox td.l-over{ background-color:#FFE7A2; cursor:pointer;}
+.l-box-select .l-table-nocheckbox td.l-selected{ background-color:#FFBD69;}
+.l-box-select .l-box-select-table td{ padding:2px; text-align:left;}
+.l-box-select-add {
+    border-top: 1px solid #ddd;
+    background: #f5f5f5;
+    padding-left: 5px;
+}
+.l-box-select-add .link {
+    line-height: 30px; display:block;
+padding-left: 20px;
+position: relative;
+color: #555555;
+cursor: pointer;
+outline: medium none;
+text-decoration: none;
+}
+.l-box-select-add .link .icon {
+    background:url('../images/icon/spr_icons.gif') no-repeat; width:12px; height:12px; line-height:12px; overflow:hidden;left: 1px;position: absolute;top: 8px;
+}
+
+.l-box-select-add  a:hover {
+color: #2A66BB;
+}
+/* listbox */
+.l-listbox {
+	border:1px solid #AECAF0; background:white;
+    width:130px; height:120px;font-size:12px; line-height:18px;
+}
+.l-listbox-grid{border-bottom:1px solid #A3C0E8;border-right:1px solid #A3C0E8;}
+.l-listbox-grid thead td,.l-listbox-grid tr.l-table-headerow td{ 
+background:#DBEBFF url('../images/controls/bg-panel-title.gif') repeat-x left; border-top:none;
+}
+.l-listbox-grid td{padding:0;margin:0;height:22px; line-height:22px; border-left:1px solid #A3C0E8;border-top:1px solid #A3C0E8; }
+.l-listbox-inner{ margin:0; padding:0; width:100%;overflow:auto; height:100%;color:#333;}
+.l-listbox-inner .l-listbox-table{margin:0; padding:0; width:100%; }
+.l-listbox tr:hover td,.l-listbox tr.l-over td{ background-color:#DFE8F6; cursor:pointer; border-bottom:1px dotted #89A8E3;border-top:1px dotted #89A8E3;  }
+.l-listbox tr.l-selected td{ background-color:#C6D7EF;border-bottom:1px dotted #89A8E3;border-top:1px dotted #89A8E3;}
+.l-listbox td{ padding:2px; text-align:left;border-top:1px solid #ffffff;border-bottom:1px solid #fff;}
+.l-listbox .l-listbox-grid td{border-top:1px solid #89A8E3;border-bottom:1px solid #89A8E3;}
+.l-listbox .l-table-nocheckbox .l-checkboxrow { display:none;width:0px;}
+/* radiolist */
+.l-radiolist td {
+	padding: 2px 4px;
+}
+.l-radiolist-disabled td {
+	color:#ccc
+}
+/* checkboxlist */
+.l-checkboxlist td {
+	padding: 2px 4px;
+}
+.l-checkboxlist-disabled td {
+	color:#ccc
+}
+/* 下拉框 右下角调整大小图标 */
+.l-btn-nw-drop
+{
+    position:absolute;
+    right:0px;bottom:0px;
+    width:8px; height:8px;background:url('../images/icon/icon-drop.gif') no-repeat 50% 50%; 
+}
+
+/* -------------
+    * 复选框 *
+* ------------- */
+.l-checkbox-wrapper{
+	display: -moz-inline-stack;display:inline-block; zoom: 1;*display: inline;margin:0 auto;margin-right:2px; padding:0;}
+.l-checkbox-wrapper label{margin-right:5px;}
+a.l-checkbox {
+	background:url('../images/controls/checkbox.gif') no-repeat 0 0;
+	vertical-align: middle;
+	height: 13px;  
+	width: 13px; margin:0 auto;
+	overflow:hidden;
+	display: -moz-inline-stack;display:inline-block; zoom: 1;*display: inline;
+	margin-right:5px;
+}
+div.l-disabled a.l-checkbox
+{
+    background-position:-39px 0;
+}
+div.l-disabled a.l-checkbox-checked
+{
+    background-position:-39px -13px;
+}
+a.l-checkbox-checked
+{
+    background-position:0 -13px;
+}
+.l-over a.l-checkbox
+{
+    background-position:-13px 0px;
+}
+.l-over a.l-checkbox-checked
+{
+    background-position:-13px -13px;
+}
+/* -------------
+    * 单选框 *
+* ------------- */
+.l-radio-wrapper{
+	display: -moz-inline-stack;display:inline-block; zoom: 1;*display: inline; margin-right:2px;
+}
+.l-radio-wrapper label{margin-right:5px;}
+a.l-radio {
+	background:url('../images/controls/radio.gif') no-repeat 0 0;
+	vertical-align: middle;
+	height: 13px;
+	width: 13px;
+	overflow:hidden;
+	display: -moz-inline-stack;display:inline-block; zoom: 1;*display: inline;
+	margin-right:5px;
+}
+a.l-radio-checked
+{
+    background-position:0 -13px;
+}
+div.l-disabled a.l-radio
+{
+    background-position:-26px 0;
+}
+div.l-disabled a.l-radio-checked
+{
+    background-position:-26px -13px;
+}
+.l-over a.l-radio
+{
+    background-position:-13px 0px;
+}
+.l-over a.l-radio-checked
+{
+    background-position:-13px -13px;
+}
+/* -----------------------
+   *   日期控件 *
+* ----------------------- */
+.l-box-dateeditor
+{
+    position:absolute; padding:0px; overflow:hidden;
+    border:1px solid #A3C0E8; background:white;
+    width:200px;
+    margin-top:1px;
+    z-index:9999;
+}
+.l-box-dateeditor-absolute
+{
+    margin-top:0px;
+}
+.l-box-dateeditor-header
+{
+    width:100%; height: 23px; background:url(../images/controls/dateeditor-header-bg.gif) repeat-x -2px center; text-align:center;
+    position:relative; text-align:center;
+}
+.l-box-dateeditor-header-text
+{
+    margin:0 auto;  color:#1542B3; line-height:23px; font-weight:lighter;text-align:center;
+}
+.l-box-dateeditor-header-text a
+{color:#1542B3; text-decoration:none;cursor:pointer;
+}
+.l-box-dateeditor-header-btn
+{
+     top:0;width:23px; height:23px;position:absolute; cursor:pointer;
+}
+.l-box-dateeditor-header-btn-over
+{
+     background: url(../images/icon/bar-button-over.gif) no-repeat center;
+}
+.l-box-dateeditor-header-btn span
+{
+     width:20px; height:20px; display:block; position:absolute; top:2px; left:2px;
+}
+.l-box-dateeditor-header-prevmonth{left:24px; }
+.l-box-dateeditor-header-prevmonth span{background: url(../images/dateeditor/icon-prev.gif) no-repeat center;}
+.l-box-dateeditor-header-nextmonth{right:24px;}
+.l-box-dateeditor-header-nextmonth span{background: url(../images/dateeditor/icon-next.gif) no-repeat center;}
+
+.l-box-dateeditor-header-prevyear{left:4px; }
+.l-box-dateeditor-header-prevyear span{background: url(../images/dateeditor/icon-first.gif) no-repeat center;}
+.l-box-dateeditor-header-nextyear{ right:4px;}
+.l-box-dateeditor-header-nextyear span{background: url(../images/dateeditor/icon-last.gif) no-repeat center;}
+
+.l-box-dateeditor-body{border:1px solid #A3C0E8; border-left:none; border-right:none; text-align:center; position:relative; }
+.l-box-dateeditor-body table{ margin:0 auto;}
+
+.l-box-dateeditor-monthselector,.l-box-dateeditor-yearselector,.l-box-dateeditor-hourselector,.l-box-dateeditor-minuteselector{ background:white; list-style:none; margin:0 auto; padding:0; position:absolute;top:0px;left:0px; width:100%; display:none; height:100%;  overflow:hidden;}
+.l-box-dateeditor-minuteselector{ overflow:auto;}
+.l-box-dateeditor-monthselector li{ float:left; width:50px; line-height:20px; height:20px; margin:5px; margin-top:5px;border:1px solid #d3d3d3; cursor:pointer;}
+.l-box-dateeditor-yearselector li{ float:left; width:50px; line-height:20px; height:20px; margin:5px; margin-top:5px;border:1px solid #d3d3d3; cursor:pointer;}
+.l-box-dateeditor-hourselector li{ float:left; width:36px; line-height:17px; height:17px; margin-left:8px; margin-top:2px;margin-bottom:2px; border:1px solid #d3d3d3; cursor:pointer;}
+.l-box-dateeditor-minuteselector li{ float:left; width:21px; line-height:18px; height:18px; margin-left:6px; margin-bottom:3px;margin-top:3px; border:1px solid #d3d3d3; cursor:pointer;}
+.l-box-dateeditor-monthselector li:hover,.l-box-dateeditor-monthselector li.l-selected,.l-box-dateeditor-monthselector li.l-over,.l-box-dateeditor-yearselector li:hover,.l-box-dateeditor-yearselector li.l-selected,.l-box-dateeditor-yearselector li.l-over,.l-box-dateeditor-hourselector li:hover,.l-box-dateeditor-hourselector li.l-selected,.l-box-dateeditor-hourselector li.l-over,.l-box-dateeditor-minuteselector li:hover,.l-box-dateeditor-minuteselector li.l-selected,.l-box-dateeditor-minuteselector li.l-over
+{background-color: #FFE7A2;border: solid 1px #FFBD69;}
+
+.l-box-dateeditor-body thead td{ border-bottom:1px solid #d3d3d3;}
+.l-box-dateeditor-body td{ width:30px; height:19px; line-height:19px; font-size:12px; }
+.l-box-dateeditor-body tbody td{border:1px solid white;cursor:pointer;}
+.l-box-dateeditor-body tbody td.l-box-dateeditor-today
+{background-color: #FFBD69; }
+.l-box-dateeditor-body tbody td.l-box-dateeditor-over,.l-box-dateeditor-body tbody td.l-box-dateeditor-selected
+ { background-color: #FFE7A2; }
+.l-box-dateeditor-body tbody td.l-box-dateeditor-holiday
+{
+    color:#C00000;
+}
+.l-box-dateeditor-body tbody td.l-box-dateeditor-out
+{
+    color:#888888;
+}
+.l-box-dateeditor-toolbar
+{
+    padding-left:10px;
+    width:100%; height: 28px; background:url(../images/controls/dateeditor-bar-bg.gif) repeat-x 1px center;
+    text-align:right; position:relative;
+}
+.l-box-dateeditor-time{ width:30px; display:none; height:18px; margin-top:4px; float:left;color:#333;}
+.l-box-dateeditor-time a{ text-decoration:none; font-weight:bold; color:#333; font-size:13px; cursor:pointer;}
+.l-box-dateeditor-toolbar .l-button {width:50px ; height:19px; line-height:19px; }
+.l-box-dateeditor-toolbar .l-button-today { float:left;margin-left:20px; margin-top:4px;}
+.l-box-dateeditor-toolbar .l-button-close { float:left; margin-left:15px;margin-top:4px;}
+
+.l-highLight {background:#FFD144;
+}
+/* -----------------------
+   *   验证 *
+* ----------------------- */
+.l-validate-error{color:red;}
+.l-validate-warn{color:orange;}
+.l-verify-tip{ padding:0; margin:0;position:absolute; display:block;}
+.l-verify-tip-corner{ padding:0; margin:0;position:absolute;background:url('../images/form/verify-corner.gif') no-repeat; width:8px; line-height:9px; height:9px; overflow:hidden; top:5px; left:0px; z-index:10001;}
+.l-verify-tip-content{margin:0; position:absolute; left:7px;top:0px;border:1px solid #FFC340; background:#FFFCC7; z-index:10000; padding:4px 8px; width:100px; font-size:12px; } 
+
+.l-exclamation{ width:16px; height:16px; overflow:hidden; display:block; background:url('../images/common/exclamation.gif') no-repeat;}
+
+/* -----------------------
+   *   文件框 *
+* ----------------------- */
+.l-file{}
+.l-file a{padding-right:10px;}
+
+
+.l-form .l-group .togglebtn{ 
+	position:absolute; top:6px; right:15px; 
+	background:url(../images/common/toggle.gif) no-repeat 0px 0px;
+	 height:10px; width:9px; cursor:pointer; 
+	left:auto;top:12px;right:6px; 
+}
+.l-form .l-group .togglebtn-down{ background-position:0px -10px;}
+
+.l-box-select .l-grid-row {
+	cursor: pointer;
+}
+
+/* l-form-tabs */
+.l-form-tabs {
+    position: relative;
+    padding: 4px;
+    zoom: 1;
+    padding: 0;
+    background: none;
+    border-width: 0;
+}
+
+.l-form-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: .2em .2em 0;
+    padding-left: 0;
+    background: transparent;
+    border-width: 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    line-height: 0.8em;
+    font-size: 95%;
+    color: #555;
+}
+
+.l-form-tabs .ui-tabs-nav li {
+    list-style: none;
+    border: 1px solid #aaaaaa;
+    float: left;
+    position: relative;
+    top: 1px;
+    margin: 0 .2em 1px 0;
+    border-bottom: 0 !important;
+    padding: 0;
+    white-space: nowrap;
+    line-height: 24px;
+    cursor:pointer;
+    border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.l-form-tabs .ui-tabs-nav li a {
+    float: left;
+    padding:  0px 10px;
+    text-decoration: none;
+}
+
+.l-form-tabs .ui-tabs-nav li.ui-tabs-selected {
+    margin-bottom: 0;
+    padding-bottom: 1px;
+}
+
+.l-form-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
+    cursor: text;
+}
+
+.l-form-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+    cursor: pointer;
+}
+
+.l-form-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0; 
+    background: none;
+    padding: 6px; padding-bottom:20px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.l-form-tabs .ui-tabs-hide {
+    display: none !important;
+}
+
+.l-form-tabs ul.ui-tabs-nav li {
+    font-weight: bold;
+}
+
+.l-form-tabs .ui-tabs-panel {
+    background: #fefefe;
+    border-width: 1px;
+}
+
+.l-form-tabs .ui-tabs-selected {
+    background: #fefefe;
+}

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+       div .el-progress-bar__outer {
+            background: #4a65a5;
+        }
+    </style>
+</head>
+<body style="background-color:white;">
+    <div style="text-align: center; font-size: 13pt; height: 500px; ">
+        <div style=" float: left;text-align: center; font-size: 13pt; width: 48%;height:450px;">
+            <div id="cpu" style="float: left;text-align: center; font-size: 13pt; height: 100%; width: 100%;height:200px;">
+
+            </div>
+            <div id="memory" style=" float: left;text-align: center; font-size: 13pt;  width: 100%;height:250px;">
+
+            </div>
+        </div>
+        <div style="float: right; text-align: center; font-size: 13pt; height: 100%; width: 50%;height:450px;">
+            <div id="trace" style="float: right; text-align: center; font-size: 13pt; height: 100%;  width: 100%;height:200px;">
+
+            </div>
+            <div id="disk" style="float: right; text-align: center; font-size: 13pt; height: 100%; width: 100%; height: 250px;">
+                <div v-show="isShow" style="display: none;"><b>{{name}}磁盘使用率</b></div>
+                <div v-for="d,index in drives" style="margin-top: 15px; margin-left: 15px; width: 46%; float: left;">
+                    <el-progress 
+                        v-show="d.total>0"
+                        :text-inside="true"
+                                 :stroke-width="26"
+                                 :percentage="(((d.total-d.free)/d.total)*100).toFixed(2)">
+
+                    </el-progress>
+                    <div  v-show="d.total>0" style="font-size: 8px; text-align: left; display: none;">{{d.name}} <b>{{d.free}}</b>GB可用, 共 <b>{{d.total}}</b>GB</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content" style=" text-align: center; font-size: 13pt; height: 100%;">
+        <font color="green">您好，欢迎使用<a target="_blank" href="https://github.com/duyanming/AnnoDemo">Anno</a>，祝您工作愉快！</font>
+    </div>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.2.1/echarts.min.js"></script>
+<script src="../js/signalr/dist/browser/signalr.min.js"></script>
+<script src="../js/scripts/welcome.js"></script>
+<!-- 引入样式 -->
+<link href="../css/element-ui-index.css" rel="stylesheet" />
+<!-- 先引入 Vue -->
+<script src="../js/vue.min.js"></script>
+<!-- 引入组件库 -->
+<script src="../js/element-ui-index.js"></script>
+</html>

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Anno.Common\Anno.Common.csproj" />
+    <ProjectReference Include="..\Anno.Command\Anno.Command.csproj" />
+    <ProjectReference Include="..\Anno.Domain\Anno.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

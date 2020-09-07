@@ -1,0 +1,79 @@
+﻿
+/* --------------
+   *   tree  *
+* ------------ */
+.l-tree
+{
+    margin:0; padding:0; list-style:none; overflow:hidden; position:relative; display:block; background:white;
+} 
+.l-tree-loading
+{
+    position: absolute;z-index: 91000;  top:40%; left:50%; overflow:hidden;
+    background:url('../images/tree/loading.gif') no-repeat 0px 0px;width:24px; height:24px; 
+     display:none;
+}
+.l-tree a,.l-tree span{color: #333;height: 22px;line-height: 22px; text-decoration:none;}
+.l-tree .l-body span
+{
+    display: block;
+    float: left;_display: inherit;_float:none;*display: inherit;*float:none;
+}
+.l-tree ul,.l-tree li{list-style:none; margin:0; padding:0;}
+.l-tree li {clear: both;display: block;cursor: pointer;}
+.l-tree li .l-body{ height:22px;line-height: 22px; overflow:hidden;width: 2000px;}
+.l-tree .l-box
+{
+    width:22px; height:22px; overflow:hidden; float:left; background:url('../images/tree/tree.gif');background-position:-22px -220px;
+}
+.l-tree li .l-body .l-box-loading
+{
+     background:url('../images/tree/nodeloading4.gif') no-repeat 5px 5px; cursor:default;
+}
+.l-tree-noline .l-box
+{
+    background-image:url('../images/tree/tree-noline.gif');
+}
+.l-tree .l-expandable-close{background-position:0px -44px;}
+.l-tree .l-first .l-expandable-close{background-position:0px -22px;}
+.l-tree .l-last .l-expandable-close{ background-position:0px -66px;}
+.l-tree .l-onlychild  .l-expandable-close{background-position:0px 0px;}
+
+.l-tree .l-expandable-open{background-position:0px -132px;}
+.l-tree .l-first .l-expandable-open{background-position:0px -110px;}
+.l-tree .l-last .l-expandable-open{ background-position:0px -154px;}
+.l-tree .l-onlychild  .l-expandable-open{background-position:0px -88px;}
+
+.l-tree .l-over
+{
+    background: none;
+}
+.l-tree .l-over span
+{
+    text-decoration:underline;
+}
+.l-tree .l-selected
+{
+    background: none;
+}
+.l-tree .l-selected span{background: #D9E8FB; border:1px solid #B5CBEC; padding:0px 2px;height: 20px;
+line-height: 20px;}
+
+.l-tree .l-line{background-position:0px -176px;}
+.l-tree .l-note{ background-position:0px -198px;}
+
+.l-tree .l-note{ background-position:0px -198px;}
+.l-tree .l-note-last{ background-position:0px -220px;}
+.l-tree .l-checkbox-unchecked{ background-position:-22px 0px;} 
+.l-tree .l-checkbox-checked{ background-position:-22px -22px;} 
+.l-tree .l-checkbox-incomplete{ background-position:-22px -44px;} 
+
+.l-tree .l-over .l-checkbox-unchecked{ background-position:-44px 0px;} 
+.l-tree .l-over .l-checkbox-checked{ background-position:-44px -22px;} 
+.l-tree .l-over .l-checkbox-incomplete{ background-position:-44px -44px;} 
+
+
+.l-tree .l-tree-icon-folder{ background-position:-22px -88px;}
+.l-tree .l-tree-icon-none{ background:none;}
+.l-tree .l-tree-icon-none img{border: 0;height: 16px;width: 16px; top:2px; margin-top:2px; margin-left:2px;}
+.l-tree .l-tree-icon-folder-open{background-position:-44px -88px;}
+.l-tree .l-tree-icon-leaf{background-position:-22px -110px;}

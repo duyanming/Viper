@@ -1,0 +1,88 @@
+﻿ /* --------------
+   *   dialog  *
+* ------------ */    
+.l-dialog-loading{ background-image:url('../images/ui/loading.gif');}
+.l-dialog{ padding:0; margin:0;font-size:12px; border: 1px solid #AAA;border-radius: 2px;box-shadow: 0 1px 6px rgba(0,0,0,.3);} 
+.l-dialog td,.l-dialog tr,.l-dialog td div{font-size:13px; } 
+.l-dialog-cc{ background:white;}
+.l-dialog-tl,.l-dialog-tr,.l-dialog-bl,.l-dialog-br,.l-dialog-cl,.l-dialog-cr{width:1px;} 
+.l-dialog-tl,.l-dialog-tc,.l-dialog-tr{ height:24px;}
+.l-dialog-bl,.l-dialog-bc,.l-dialog-br{ height:0px; line-height:0px;}
+.l-dialog-btn {
+    width:auto;padding:0 17px;
+}
+.l-dialog-tl{ background:none;border-bottom: 1px solid #f5f5f5;}
+.l-dialog-tc {
+    font-size: 14px;
+    font-weight: bold;
+    height: 29px;
+    line-height: 29px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#fcfcfc), to(#f4f4f4));
+    _background:#fcfcfc;
+    border-bottom: 1px solid #d3d3d3;
+    padding-left: 10px;
+    background: -o-linear-gradient(top, #fcfcfc, #f4f4f4);
+    background: -ms-linear-gradient(top, #fcfcfc 0%,#f4f4f4 100%);
+    background: linear-gradient(top, #fcfcfc, #f4f4f4);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#f4f4f4');background: -moz-linear-gradient(top, #fcfcfc, #f4f4f4);
+}
+.l-dialog-tr{background:none;border-bottom: 1px solid #f5f5f5;}
+.l-dialog-bl{background:none;}
+.l-dialog-bc{background:none;}
+.l-dialog-br{background:none;}
+.l-dialog-cl{background:none;}
+.l-dialog-cr{background:none;}
+.l-dialog-cl{background:none;}
+.l-dialog-cl,.l-dialog-cc,.l-dialog-cr{border-top: 1px solid #d3d3d3;}
+.l-dialog-icon
+{
+    display: none;
+}
+.l-dialog-winbtns{ position:absolute;right:0px; top:4px; height:16px;}
+.l-dialog-winbtn{background:url('../images/win/dialog-winbtns.gif') no-repeat;cursor:pointer;overflow:hidden; width:17px; height:16px; float:right; margin-right:4px;}
+
+.l-dialog-close{background-position:-85px 0px;}
+.l-dialog-close-over{background-position:-85px -16px;}
+.l-dialog-close-disabled{background-position:-85px -32px; cursor:default;}
+.l-dialog-min{ background-position:0px 0px;}
+.l-dialog-min-over{background-position:0px -16px;}
+.l-dialog-min-disabled{background-position:0px -32px;cursor:default;}
+.l-dialog-max{background-position:-17px 0px;}
+.l-dialog-max-over{background-position:-17px -16px;}
+.l-dialog-max-disabled{background-position:-17px -32px;cursor:default;}
+.l-dialog-recover{background-position:-34px 0px;}
+.l-dialog-recover-over{background-position:-34px -16px;}
+.l-dialog-recover-disabled{background-position:-34px -32px;cursor:default;}
+
+.l-dialog-collapse{background-position:-51px 0px;}
+.l-dialog-collapse-over{background-position:-51px -16px;}
+.l-dialog-collapse-disabled{background-position:-51px -32px;cursor:default;}
+.l-dialog-extend{background-position:-68px 0px;}
+.l-dialog-extend-over{background-position:-68px -16px;}
+.l-dialog-extend-disabled{background-position:-68px -32px;cursor:default;}
+
+.l-dialog-tc-inner{ position:relative;height:24px; line-height:24px; width:100%;  }
+.l-dialog-title {  color:#000;font-weight:bold; font-weight:700; text-shadow:none; padding-left:3px; padding-right:20px; text-align:left; padding-top:0px;} 
+
+ 
+.l-dialog-buttons{ height:30px; line-height:30px; background:#F8F8F8;border-top:1px solid #C6C6C6; overflow:hidden; margin-bottom:0px;}
+.l-dialog-buttons-inner{}
+  
+
+
+.l-dialog-inputtext{ width:280px; border:1px solid #0099CC; line-height:23px; height:25px;}
+.l-dialog-textarea{ width:280px; border:1px solid #0099CC;  height:80px;}
+  
+
+.l-selectorwin .l-dialog-content {
+	overflow:hidden; padding:0px;
+}
+.l-selectorwin .l-dialog-content .l-form {
+	margin:0; padding:2px; background:#F8F8F8;border-bottom: 1px solid #C6C6C6;
+}
+.l-selectorwin .l-dialog-buttons {
+	margin-top: 0;
+}
+.l-selectorwin .l-panel {
+	border:0;
+}
