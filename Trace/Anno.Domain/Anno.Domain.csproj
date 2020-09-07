@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.EngineData" Version="1.0.2.3" />
+    <PackageReference Include="Anno.EngineData" Version="1.0.2.4" />
     <PackageReference Include="Anno.EventBus" Version="1.0.1.9" />
   </ItemGroup>
 
