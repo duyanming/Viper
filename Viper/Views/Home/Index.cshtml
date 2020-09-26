@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewData["Title"] = "Viper智能自由（Viper）";
+}
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/base.js"></script>
+
+<!-- 引入样式 -->
+<link href="~/css/element-ui-index.css" rel="stylesheet" />
+<!-- 先引入 Vue -->
+<script src="~/js/vue.min.js"></script>
+<!-- 引入组件库 -->
+<script src="~/js/element-ui-index.js"></script>
+
+<div id="app" style="height:100%;">
+    <el-container>
+        <el-container>
+            <el-aside style="background-color: #545c64;" v-bind:style="{width:menumWidth}">
+                <div style="height: 100%;position: relative;overflow: hidden;">
+                    <el-menu :class="'el-menu'+menumWidth" @@open="handleOpen" @@close="handleClose" :collapse="isCollapse" background-color="#001529" text-color="#fff" active-text-color="#ffd04b">
+                        <el-radio-group v-model="isCollapse" v-bind:style="{width:menumWidth}" style="height: 60px; background-color: #002140; text-align: center;">
+                            <img src="~/img/logo.jpg" v-on:click="changeisCollapse" style="width: 58px; height: 58px; border: 2px; border-radius: 22.5px; -moz-border-radius: 25px; vertical-align: middle;" />
+                        </el-radio-group>
+                        <el-submenu v-for="item,index in menuroot" :index="item.id">
+                            <template slot="title">
+                                <i :class="(item.icon==null||item.icon=='')?'el-icon-folder':item.icon"></i>
+                                <span slot="title">{{item.fname}}</span>
+                            </template>
+                            <el-menu-tree :item="item"></el-menu-tree>
+                        </el-submenu>
+                    </el-menu>
+                </div>
+            </el-aside>
+            <el-main style="width: 100%; height: 100%; top: 0px; left: 0px;">
+                <el-header>
+                    <div v-on:click="changeisCollapse" style="width: 1px; float: left; cursor: pointer;">
+                        <i :class="{'el-icon-s-fold':isCollapse==false,'el-icon-s-unfold':isCollapse}"></i>
+                    </div>
+                    <div uInfo style="height: 60px; float: right;">
+                        <a style="cursor: pointer; text-decoration: underline;" v-on:click="openUserCenter">{{profile.name}}({{profile.account}})</a>
+                        <a style="cursor: pointer; text-decoration: underline; margin-left: 3px;" v-on:click="exitUser">退出</a>
+                    </div>
+                </el-header>
+                <el-container v-loading="loading">
+                    <iframe id="context" frameborder="0" :src="iframeSrc" style="width: 100%; height: calc(100% - 60px);">
+                    </iframe>
+                </el-container>
+            </el-main>
+        </el-container>
+    </el-container>
+
+</div>
+<script>
+    if (bif.input.profile === undefined || localStorage.profile === undefined) {
+        window.location.href = "/Home/Login";
+    }
+    Vue.config.devtools = true;
+    Vue.component('el-menu-tree', {
+        name: "el-menu-tree",
+        template: "<div>"
+            + ' <el-menu-item   v-for="(subitem,iindex) in item.children" :index="subitem.id" @@click="vm.openMenuItem(subitem)">'
+            + '     <i :class="(subitem.icon==null||subitem.icon==\'\')?\'el-icon-notebook-1\':subitem.icon"></i>'
+            + '     <span slot="title">{{subitem.fname}}</span>'
+            + ' </el-menu-item>'
+            + ' <el-submenu v-for="(subitem,iindex) in item.childrenDir" :index="subitem.id">'
+            + '     <template slot="title">'
+            + '         <i :class="(subitem.icon==null||subitem.icon==\'\')?\'el-icon-folder\':subitem.icon"></i>'
+            + '         <span slot="title">{{subitem.fname}}</span>'
+            +'      </template>'
+            + '     <el-menu-tree :item="subitem"></el-menu-tree>'
+            + '</el-submenu>'
+            + '</div>',
+        props: ["item"]
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            isCollapse: false,
+            menumWidth: "200px",
+            profile: JSON.parse(localStorage.profile),
+            menuroot: [],
+            iframeSrc: "html/welcome.html",
+            loading: false
+        }
+        , created: function () {//用于数据初始化
+            var that = this;
+            if (bif.input.profile === undefined || localStorage.profile === undefined) {
+                window.location.href = "/Home/Login";
+            }
+            var input = bif.getInput();
+            input.method = "GetUsrFc";
+            input.router = "Platform";
+            input.channel = "Anno.Plugs.Logic";
+            bif.ajaxpara.async = false;
+            bif.process(input, function (data) {
+                that.menuroot = data.outputData;
+                that.getFunc();
+            }, function (data) {
+                if (!data.status) {
+                    localStorage.clear();
+                    window.location.href = "/Home/Login";
+                }
+            });
+            bif.ajaxpara.async = true;
+        },
+        methods: {
+            changeisCollapse: function () {
+                var that = this;
+                that.isCollapse = (that.isCollapse == false);
+                if (that.isCollapse === true) {
+                    that.menumWidth = "64px";
+                } else {
+                    that.menumWidth = "200px";
+                }
+            },
+            handleOpen: function (key, keyPath) {
+                //console.log(key, keyPath);
+            },
+            handleClose: function (key, keyPath) {
+                //console.log(key, keyPath);
+            }, openMenuItem: function (item) {
+                var that = this;
+                if (that.iframeSrc === item.furl) {
+                    return;
+                }
+                that.loading = true;
+                that.iframeSrc = item.furl;
+                var iframe = document.getElementById("context");
+                if (iframe.attachEvent) { // 兼容IE写法
+                    iframe.attachEvent("onload", function () {
+                        // iframe加载完成后要进行的操作
+                        that.loading = false;
+                    })
+                } else {
+                    iframe.onload = function () {
+                        // iframe加载完成后要进行的操作
+                        that.loading = false;
+                    }
+                }
+            },
+            exitUser: function () {
+                if (confirm("确定退出？")) {
+                    localStorage.clear();
+                    bif.input.profile = undefined;
+                    bif.input.uname = undefined;
+                    window.location.href = "/Home/Login";
+                }
+            },
+            openUserCenter: function () {
+                var that = this;
+                that.iframeSrc = "/html/pcenter.html";
+            },
+            getFunc: function () {
+                var that = this;
+                var input = bif.getInput();
+                input.channel = "Anno.Plugs.Logic";
+                input.router = "Platform";
+                input.method = "GetFunc";
+                bif.ajaxpara.async = false;
+                bif.process(input, function (data) {
+                    that.InitMenuRoot(data.outputData);
+                });
+            },
+            InitMenuRoot: function (sub_menu) {
+                var that = this;
+                for (var mr in this.menuroot) {
+                    this.getChildren(that.menuroot[mr], sub_menu);
+                }
+            },
+            getChildren: function (mr, sub_menu) {
+                var children = [];
+                var childrenDir = [];
+                for (var index in sub_menu) {
+                    let item = sub_menu[index];
+                    if (item.pid == mr.id) {
+                        this.getChildren(item, sub_menu);
+                        if (item.children.length <= 0) {
+                            children.push(item);
+                        } else {
+                            childrenDir.push(item);
+                        }
+                    }
+                }
+                mr.children = children;
+                mr.childrenDir = childrenDir;
+            }
+        }
+    });
+
+</script>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        margin: 0px 0px;
+    }
+
+    div[uInfo] {
+        /*color: #E7E7E7;*/
+        text-decoration: underline;
+        margin-left: 10px;
+    }
+
+    .el-header {
+        padding: 0 0px;
+        background-color: #fff;
+        color: #333;
+        left: 20px;
+        line-height: 60px;
+        border-bottom: 1px solid #e6e6e6;
+        /*box-shadow: 0px 5px 2px rgba(0,21,41,.35);*/
+    }
+
+    .el-aside {
+        background-color: #D3DCE6;
+        color: #333;
+        /*overflow: hidden;*/
+        /*width:200px;*/
+        /*box-shadow: 2px 0 6px rgba(0,21,41,.35);*/
+    }
+
+    .el-submenu__icon-arrow {
+        right: 40px;
+    }
+
+    .el-menu200px {
+        border-right: solid 0px #e6e6e6;
+        /*width: 220px;*/
+        height: 100%;
+        position: absolute;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    .el-menu64px {
+        border-right: solid 0px #e6e6e6;
+        /*width: 220px;*/
+        height: 100%;
+    }
+
+    .el-container {
+        height: 100%;
+    }
+
+    .el-main {
+        color: #333;
+        text-align: center;
+        padding: 0 0;
+        overflow-y:hidden;
+        /*margin-left: 8px;*/
+    }
+</style>
+

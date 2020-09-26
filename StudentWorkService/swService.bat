@@ -1,1 +1,0 @@
-dotnet StudentWorkService.dll
