@@ -14,11 +14,11 @@
 /*/*/*/bin/
 /*/*/obj/*/*/*.cs
 /.vs/Anno/lut
-/StudentWork.sln.DotSettings.user
-/.vs/StudentWork/DesignTimeBuild
-/.vs/StudentWork/v16
+/Viper.sln.DotSettings.user
+/.vs/Viper/DesignTimeBuild
+/.vs/SViper/v16
 /*/*/*/*/obj
 /*/*/*/*/bin
-/.vs/StudentWork/config/applicationhost.config
-/.vs/StudentWork/DesignTimeBuild/.dtbcache
-/StudentWork/.config/dotnet-tools.json
+/.vs/Viper/config/applicationhost.config
+/.vs/Viper/DesignTimeBuild/.dtbcache
+/Viper/.config/dotnet-tools.json
