@@ -41,6 +41,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anno.CommandBus", "Anno.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anno.Redis", "Anno.Redis\Anno.Redis.csproj", "{1D9C2929-B307-4BC6-B81C-9220547F3574}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{9E24E7D3-53A0-43BE-8E60-4C006F8EA84E}"
+	ProjectSection(SolutionItems) = preProject
+		database\Viper20200926184831.sql = database\Viper20200926184831.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

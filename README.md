@@ -12,8 +12,42 @@
 
 ## 1、运行Viper
 
+### MySQL 数据库
+
+```xml
+运行数据库脚本创建数据库
+
+	1、Viper\database\Viper20200926184831.sql
+
+	2、修改viperService 数据库连接字符串
+		Viper\ViperService\bin\Debug\netcoreapp3.1\Anno.config
+```
+
+```xml
+<appSettings>
+    <!-- 数据库连接字符串 Mysql-->
+    <add key="ConnStr" value="server=127.0.0.1;database=viper;uid=bif;pwd=123456;SslMode=None;"/>
+</appSettings>
+```
+
+
 ```
 第一步：启动注册中心
+	Viper\ViperCenter\bin\Debug\netcoreapp3.1\Anno.config
+```
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <!--ViperCenter 端口-->
+  <Port>7010</Port>
+    <!--ViperCenter 超时时间-->
+  <TimeOut>120000</TimeOut>
+  <Servers>
+       <!--dc 注册到注册中心的 服务节点 （下面的内容是ViperService 启动后自动写入的内容）-->
+    <dc name="Anno.Plugs.LogicService,Anno.Plugs.TraceService,Anno.Plugs.ViperService" nickname="ViperService-01" ip="100.100.100.9" port="7011" timeout="20000" weight="1" />
+  </Servers>
+</configuration>
 ```
 
 
@@ -25,6 +59,67 @@
 
 ```
 第二步：启动 ViperService
+	Viper\ViperService\bin\Debug\netcoreapp3.1\Anno.config
+```
+
+``` xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <!--0,0 第一位是 工作站，第二位数据中心
+  （所有的 AnnoService 的 两位数不能重复例如不能存在【1,2】【1,2】）
+  可以存在【1,2】【2,1】
+  -->
+  <IdWorker>0,0</IdWorker>
+  <!--App名称-->
+  <AppName>ViperService-01</AppName>
+  <!--监听端口-->
+  <Port>7011</Port>
+  <!--权重-->
+  <Weight>1</Weight>
+  <!--功能 非Anno.Plugs  加入方式-->
+  <FuncName></FuncName>
+  <!--忽略的功能 Trace,Logic-->
+  <IgnoreFuncName></IgnoreFuncName>
+  <!--超时时间毫秒-->
+  <TimeOut>20000</TimeOut>
+  <!--注册到的目标-->
+  <Ts Ip="127.0.0.1" Port="7010"/>
+  <IocDll>
+    <!-- IOC 仓储--><!--
+    <Assembly>Anno.Repository</Assembly>
+    --><!-- 领域--><!--
+    <Assembly>Anno.Domain</Assembly>
+    --><!-- 查询服务--><!--
+    <Assembly>Anno.QueryServices</Assembly>
+    --><!--事件Handler--><!--
+    <Assembly>Anno.Command.Handler</Assembly>-->
+  </IocDll>
+  <appSettings>
+    <!-- 数据库连接字符串 Mysql-->
+    <add key="ConnStr" value="server=127.0.0.1;database=viper;uid=bif;pwd=123456;SslMode=None;"/>
+    <!--
+    redisConn Redis 连接字符串 127.0.0.1:6379,abortConnect=false,allowAdmin =true,keepAlive=180
+    redisPrefix Key 前缀 Anno:
+    redisExpiryDate Key 有效期  单位（分钟） 20
+    redisSwitch 是否开启数据库 false 不开启 false
+    -->
+    <add key="redisConn" value=""/>
+    <add key="redisPrefix" value="SW:"/>
+    <add key="redisExpiryDate" value="20"/>
+    <add key="redisSwitch" value="false"/>
+  </appSettings>
+</configuration>
+
+```
+
+一般情况下只用修改
+
+```xml
+ <!--注册到的目标-->
+  <Ts Ip="127.0.0.1" Port="7010"/>
+
+ <!-- 数据库连接字符串 Mysql-->
+    <add key="ConnStr" value="server=127.0.0.1;database=viper;uid=bif;pwd=123456;SslMode=None;"/>
 ```
 
 
@@ -38,6 +133,48 @@
 启动 Viper.GetWay
 
     第三步：调用链追踪
+    	Viper\Viper\appsettings.json
+
+```json
+
+{
+  "Target": {
+    "AppName": "ApiGateway",
+    "IpAddress": "127.0.0.1",
+    "Port": 7010,
+    "TraceOnOff": true
+  },
+  "Limit": {
+    "Enable": true,
+    "TagLimits": [
+      {
+        "channel": "*",
+        "router": "*",
+        "timeSpan": "1",
+        "rps": 100,
+        "limitSize": 100
+      }
+    ],
+    "IpLimit": {
+      "timeSpan": 1,
+      "rps": 100,
+      "limitSize": 100
+    },
+    "White": [
+      "0.0.0.1",
+      "192.168.1.2",
+      "192.168.2.18"
+    ],
+    "Black": [
+      "0.0.0.2",
+      "192.168.3.18"
+    ]
+  }
+}
+
+```
+
+
 
 ![第三步](https://s1.ax1x.com/2020/07/30/anlo26.png)
 
