@@ -1,1 +1,1 @@
-dotnet run Viper.GetWay
+dotnet watch run Viper.GetWay

@@ -36,7 +36,7 @@
                     <div v-on:click="changeisCollapse" style="width: 1px; float: left; cursor: pointer;">
                         <i :class="{'el-icon-s-fold':isCollapse==false,'el-icon-s-unfold':isCollapse}"></i>
                     </div>
-                    <a style="cursor: pointer; text-decoration: underline; float:left;margin-left:40px;color:#3e3434;" target="_blank" href="https://duyanming.github.io/">官方文档</a>
+                    <a v-show="(_isMobile&&isCollapse)||(!_isMobile)" style="cursor: pointer; text-decoration: underline; float:left;margin-left:40px;color:#3e3434;" target="_blank" href="https://duyanming.github.io/">官方文档</a>
                     <div uInfo style="height: 60px; float: right;">
                         <a style="cursor: pointer; text-decoration: underline;" v-on:click="openUserCenter">{{profile.name}}({{profile.account}})</a>
                         <a style="cursor: pointer; text-decoration: underline; margin-left: 3px;" v-on:click="exitUser">退出</a>
@@ -54,6 +54,12 @@
 <script>
     if (bif.input.profile === undefined || localStorage.profile === undefined) {
         window.location.href = "/Home/Login";
+    }
+    var _isCollapse = false, _isMobile = false, _menumWidth = "200px";
+    if (isMobile()) {
+        _isCollapse = true;
+        _isMobile = true;
+        _menumWidth = "64px";
     }
     Vue.config.devtools = true;
     Vue.component('el-menu-tree', {
@@ -76,8 +82,9 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            isCollapse: false,
-            menumWidth: "200px",
+            isCollapse: _isCollapse,
+            isMobile: _isMobile,
+            menumWidth: _menumWidth,
             profile: JSON.parse(localStorage.profile),
             menuroot: [],
             iframeSrc: "html/welcome.html",
@@ -187,7 +194,14 @@
             }
         }
     });
-
+    // 判断浏览器函数
+    function isMobile() {
+        if (window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
+            return true;  // 移动端
+        } else {
+            return false;  // PC端
+        }
+    }
 </script>
 <style>
     html, body {
