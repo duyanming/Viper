@@ -47,16 +47,21 @@
     <div class="ld-loading">
         <div class="ld-floa">
             <div class="ld-floa2">
+                <span class="ld-d3-s2">
+                    <b>
+                        <a target="_blank" href="https://duyanming.github.io/">官方文档</a>
+                    </b>
+                </span>
                 <div class="ld-d1">
                     <span class="ld-d1-s1">登录（Viper）</span>
                 </div>
                 <div class="del_clear"></div>
                 <div class="ld-d2 ld-d1-nej">
-                    <input type="text" name="Account" value="@ViewBag.name" placeholder="手机/邮箱" class="ld-d2-s1" />
+                    <input type="text" name="Account" value="@(string.IsNullOrWhiteSpace(ViewBag.name)?"admin":ViewBag.name)" placeholder="手机/邮箱" class="ld-d2-s1" />
                 </div>
                 <div class="sign_tishi"></div>
                 <div class="ld-d2 ld-d2-1">
-                    <input type="password" name="Pwd" value="@ViewBag.pwd" placeholder="密码" class="ld-d2-s1" />
+                    <input type="password" name="Pwd" value="@(string.IsNullOrWhiteSpace(ViewBag.pwd)?"123456":ViewBag.pwd)" placeholder="密码" class="ld-d2-s1" />
                 </div>
                 <div class="sign_tishi">
                     <label id="msg"></label>

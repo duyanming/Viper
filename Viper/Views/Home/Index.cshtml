@@ -36,6 +36,7 @@
                     <div v-on:click="changeisCollapse" style="width: 1px; float: left; cursor: pointer;">
                         <i :class="{'el-icon-s-fold':isCollapse==false,'el-icon-s-unfold':isCollapse}"></i>
                     </div>
+                    <a style="cursor: pointer; text-decoration: underline; float:left;margin-left:40px;color:#3e3434;" target="_blank" href="https://duyanming.github.io/">官方文档</a>
                     <div uInfo style="height: 60px; float: right;">
                         <a style="cursor: pointer; text-decoration: underline;" v-on:click="openUserCenter">{{profile.name}}({{profile.account}})</a>
                         <a style="cursor: pointer; text-decoration: underline; margin-left: 3px;" v-on:click="exitUser">退出</a>
