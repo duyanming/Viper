@@ -17,7 +17,7 @@
         <el-container>
             <el-aside style="background-color: #545c64;" v-bind:style="{width:menumWidth}">
                 <div style="height: 100%;position: relative;overflow: hidden;">
-                    <el-menu :class="'el-menu'+menumWidth" @@open="handleOpen" @@close="handleClose" :collapse="isCollapse" background-color="#001529" text-color="#fff" active-text-color="#ffd04b">
+                    <el-menu :class="'el-menu'+menumWidth" :collapse="isCollapse" background-color="#001529" text-color="#fff" active-text-color="#ffd04b">
                         <el-radio-group v-model="isCollapse" v-bind:style="{width:menumWidth}" style="height: 60px; background-color: #002140; text-align: center;">
                             <img src="~/img/logo.jpg" v-on:click="changeisCollapse" style="width: 58px; height: 58px; border: 2px; border-radius: 22.5px; -moz-border-radius: 25px; vertical-align: middle;" />
                         </el-radio-group>
@@ -42,9 +42,19 @@
                         <a style="cursor: pointer; text-decoration: underline; margin-left: 3px;" v-on:click="exitUser">退出</a>
                     </div>
                 </el-header>
-                <el-container v-loading="loading">
-                    <iframe id="context" frameborder="0" :src="iframeSrc" style="width: 100%; height: calc(100% - 60px);">
-                    </iframe>
+                <el-container>
+                    <el-tabs v-model="activeName"  @@tab-remove="removeTab"  style="width:100%">
+                        <el-tab-pane v-for="(item, index) in tabs"
+                                     :key="item.name"
+                                     :label="item.name"
+                                     :name="item.name"
+                                     :closable="item.closable">
+                            <el-container v-loading="item.loading">
+                                <iframe :id="item.id" @@load="tabOnLoad" frameborder="0" :src="item.src" style="width: 100%; height: calc(100% - 100px);">
+                                </iframe>
+                            </el-container>
+                        </el-tab-pane>                        
+                    </el-tabs>
                 </el-container>
             </el-main>
         </el-container>
@@ -82,13 +92,15 @@
     var vm = new Vue({
         el: '#app',
         data: {
+            activeName:"Dashboard",
             isCollapse: _isCollapse,
             isMobile: _isMobile,
             menumWidth: _menumWidth,
             profile: JSON.parse(localStorage.profile),
             menuroot: [],
-            iframeSrc: "html/welcome.html",
-            loading: false
+            tabs: [
+                { id: "dashboard", name: "Dashboard", closable:false, src: "html/welcome.html", loading:false}
+            ]
         }
         , created: function () {//用于数据初始化
             var that = this;
@@ -112,6 +124,30 @@
             bif.ajaxpara.async = true;
         },
         methods: {
+            removeTab(targetName) {
+                var that = this;
+                let tabs = that.tabs;
+                let activeName = that.activeName;
+                if (activeName === targetName) {
+                    tabs.forEach((tab, index) => {
+                        if (tab.name === targetName) {
+                            let nextTab = tabs[index + 1] || tabs[index - 1];
+                            if (nextTab) {
+                                activeName = nextTab.name;
+                            }
+                        }
+                    });
+                }
+                that.activeName = activeName;
+                that.tabs = tabs.filter(tab => tab.name !== targetName);
+                if (that.tabs.length === 1) {
+                    that.tabs[0].closable = false;
+                } else {
+                    for (var i = 0; i < that.tabs.length; i++) {
+                        that.tabs[i].closable = true;
+                    }
+                }
+            },
             changeisCollapse: function () {
                 var that = this;
                 that.isCollapse = (that.isCollapse == false);
@@ -121,28 +157,39 @@
                     that.menumWidth = "200px";
                 }
             },
-            handleOpen: function (key, keyPath) {
-                //console.log(key, keyPath);
+            tabOnLoad: function (ev) {
+                var id = ev.srcElement.id;
+                var that = this;  
+                for (var i = 0; i < that.tabs.length; i++) {
+                    if (that.tabs[i].id === id) {
+                        that.tabs[i].loading = false;
+                    }
+                }
             },
-            handleClose: function (key, keyPath) {
-                //console.log(key, keyPath);
-            }, openMenuItem: function (item) {
-                var that = this;
-                if (that.iframeSrc === item.furl) {
+            openMenuItem: function (item) {
+                var that = this;  
+                var alreadyOpen = false;
+                for (var i = 0; i < that.tabs.length; i++) {
+                    if (that.tabs[i].id === item.id) {
+                        alreadyOpen = true;
+                    }
+                }
+                if (alreadyOpen == true) {
+                    that.activeName = item.fname;
                     return;
                 }
-                that.loading = true;
-                that.iframeSrc = item.furl;
-                var iframe = document.getElementById("context");
-                if (iframe.attachEvent) { // 兼容IE写法
-                    iframe.attachEvent("onload", function () {
-                        // iframe加载完成后要进行的操作
-                        that.loading = false;
-                    })
+                var tab = { id: "dashboard", name: "Dashboard", closable: true, src: "html/welcome.html", loading: true };
+                tab.id = item.id;
+                tab.name = item.fname;
+                tab.src = item.furl;            
+                that.tabs.push(tab);
+                that.activeName = item.fname;  
+                
+                if (that.tabs.length === 1) {
+                    that.tabs[0].closable = false;
                 } else {
-                    iframe.onload = function () {
-                        // iframe加载完成后要进行的操作
-                        that.loading = false;
+                    for (var i = 0; i < that.tabs.length; i++) {
+                        that.tabs[i].closable = true;
                     }
                 }
             },
@@ -204,6 +251,15 @@
     }
 </script>
 <style>
+    .el-tabs__header {
+        padding-left: 20px;
+    }
+    .el-tabs__content {
+        height: calc(100% - 13px);
+    }
+    .el-tab-pane {
+        height:100%;
+    }
     html, body {
         height: 100%;
         margin: 0px;
