@@ -13,7 +13,8 @@ $(function () {
         var option = {
             color: ['#3398DB'],
             title: {
-                text: '最近7日追踪'
+                text: '最近7日追踪',
+                subtext: '点击Service对应的柱状图可切换监控'
             },
             tooltip: {
                 trigger: 'axis',
@@ -81,6 +82,7 @@ function CpuInt() {
             data: ['App', 'System']
         },
         toolbox: {
+            show: false,
             feature: {
                 saveAsImage: {}
             }
@@ -175,6 +177,7 @@ function MemoryInt() {
             data: ['App', 'System']
         },
         toolbox: {
+            show :false,
             feature: {
                 saveAsImage: {}
             }
@@ -318,6 +321,11 @@ function StartMonitoring() {
                 }]
         });
         vm.drives = _data.drives;
+        if (vm.drives == null || vm.drives.length == 0) {
+            vm.isShow = false;
+        } else {
+            vm.isShow = true;
+        }
     });
     connection.on("OnConnected", function (_data) {
         SetWatch(connection, defaultService);
@@ -348,10 +356,15 @@ function SetWatch(connection, name) {
         console.error(err.toString());
     });
     cpuChart.setOption({
-        title: { left: 'center', text: name + '-CPU使用率' }
+        title: {
+            left: 'center',
+            text: name+'-CPU使用率'
+        }
     });
     memoryChart.setOption({
-        title: { left: 'center', text: name + '-Memory使用率' }
+        title: {
+            left: 'center',
+            text: name +'-内存使用率'}
     });
     if (vm === null) {
         Disk([]);

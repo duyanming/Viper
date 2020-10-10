@@ -8,6 +8,14 @@
        div .el-progress-bar__outer {
             background: #4a65a5;
         }
+        .driver {
+            margin-top: 5px;
+            margin-left: 5px;
+            width: -webkit-calc(46% - 5px);
+            width: -moz-calc(46% - 5px);
+            width: calc(46% - 5px);
+            float: left;
+        }
     </style>
 </head>
 <body style="background-color:white;">
@@ -26,7 +34,7 @@
             </div>
             <div id="disk" style="float: right; text-align: center; font-size: 13pt; height: 100%; width: 100%; height: 250px;">
                 <div v-show="isShow" style="display: none;"><b>{{name}}磁盘使用率</b></div>
-                <div v-for="d,index in drives" style="margin-top: 5px; margin-left: 5px; width: 46%; float: left;">
+                <div v-for="d,index in drives" class="driver">
                     <el-progress 
                         v-show="d.total>0"
                         :text-inside="true"
@@ -47,7 +55,7 @@
 <script src="../js/base.js"></script>
 <script src="https://cdn.bootcss.com/echarts/4.2.1/echarts.min.js"></script>
 <script src="../js/signalr/dist/browser/signalr.min.js"></script>
-<script src="../js/scripts/welcome.js?v=101001"></script>
+<script src="../js/scripts/welcome.js?v=101002"></script>
 <!-- 引入样式 -->
 <link href="../css/element-ui-index.css" rel="stylesheet" />
 <!-- 先引入 Vue -->
