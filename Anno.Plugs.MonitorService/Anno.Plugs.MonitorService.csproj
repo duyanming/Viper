@@ -1,7 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>$(StandardTfms);net461</TargetFrameworks>
+    <Version>$(Version)</Version>
+    <PackageProjectUrl>https://github.com/duyanming/Viper</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

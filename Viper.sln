@@ -46,7 +46,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{9E
 		database\Viper20200926184831.sql = database\Viper20200926184831.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anno.Plugs.MonitorService", "Anno.Plugs.MonitorService\Anno.Plugs.MonitorService.csproj", "{4F63FFB3-C4C5-4520-AF76-2595F29F0B43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anno.Plugs.MonitorService", "Anno.Plugs.MonitorService\Anno.Plugs.MonitorService.csproj", "{4F63FFB3-C4C5-4520-AF76-2595F29F0B43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Builder", "Builder", "{A61F46AC-68F4-4AB7-9CC8-D84F079883F1}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
