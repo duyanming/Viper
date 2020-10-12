@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Anno.Plugs.LogicService\Anno.Plugs.LogicService.csproj" />
+    <ProjectReference Include="..\Anno.Plugs.MonitorService\Anno.Plugs.MonitorService.csproj" />
     <ProjectReference Include="..\Anno.Plugs.ViperService\Anno.Plugs.ViperService.csproj" />
     <ProjectReference Include="..\Anno.Plugs.TraceService\Anno.Plugs.TraceService.csproj" />
   </ItemGroup>
