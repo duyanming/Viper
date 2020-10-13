@@ -2,6 +2,10 @@
 /// <reference path="../../js/base.js" />
 var rlt = {};
 $(function () {
+    var args = bif.GetUrlParms();
+    if (args.appName !== undefined) {
+        window.$("#appName").val(args.appName);
+    }
     LoadData();
     window.$("#search").click(function () {
         LoadData();

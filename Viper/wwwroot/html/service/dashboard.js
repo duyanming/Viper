@@ -24,9 +24,14 @@ function BuildGrid(data) {
             item.ParameterCount = item.Tags.length;
         });
     grid = window.$('#grid').ligerGrid({
-        columns: [            
-            { display: '服务名称', width: 350, name: 'Nickname', type: "text" },
-            { display: '服务地址', width: 260, name: 'Host', type: "text" },
+        columns: [   
+            {
+                display: '服务API', name: '详细', width: 60, render: function (rowdata, rowindex, value) {
+                    return '<a href="javascript:openDetail(' + rowindex + ')">详细</a>';
+                }
+            },
+            { display: '服务名称', width: 320, name: 'Nickname', type: "text" },
+            { display: '服务地址', width: 230, name: 'Host', type: "text" },
             { display: '服务端口', width: 160, name: 'Port', type: "number" },
             { display: '超时时间(毫秒)', width: 160, name: 'Timeout', type: "number" },
             { display: '服务权重', width: 160, name: 'Weight', type: "number" }
@@ -78,18 +83,5 @@ function showParameters(row, detailPanel, callback) {
 
 function openDetail(index) {
     var data = rlt.Rows[index];
-    $.ligerDialog.open({
-        height: 500,
-        width: 800,
-        title: '路由详情：'+data.Desc,
-        url: 'routerdetail.html',
-        showMax: false,
-        showToggle: true,
-        showMin: false,
-        isResize: true,
-        slide: false,
-        data:data
-        //自定义参数
-        //,myDataName: $("#txtValue").val()
-    });
+    window.location.href = "../trace/router.html?appName=" + data.Nickname;   
 } 
