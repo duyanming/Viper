@@ -26,13 +26,18 @@ function BuildGrid(data) {
     grid = window.$('#grid').ligerGrid({
         columns: [   
             {
-                display: '服务API', name: '详细', width: 60, render: function (rowdata, rowindex, value) {
-                    return '<a href="javascript:openDetail(' + rowindex + ')">详细</a>';
+                display: '服务API', name: 'API详细', width: 60, render: function (rowdata, rowindex, value) {
+                    return '<a href="javascript:openDetail(' + rowindex + ')">API详细</a>';
                 }
             },
-            { display: '服务名称', width: 320, name: 'Nickname', type: "text" },
-            { display: '服务地址', width: 230, name: 'Host', type: "text" },
-            { display: '服务端口', width: 160, name: 'Port', type: "number" },
+            {
+                display: '服务资源', name: '资源详细', width: 60, render: function (rowdata, rowindex, value) {
+                    return '<a href="javascript:resourceDetail(' + rowindex + ')">资源详细</a>';
+                }
+            },
+            { display: '服务名称', width: 300, name: 'Nickname', type: "text" },
+            { display: '服务地址', width: 200, name: 'Host', type: "text" },
+            { display: '服务端口', width: 150, name: 'Port', type: "number" },
             { display: '超时时间(毫秒)', width: 160, name: 'Timeout', type: "number" },
             { display: '服务权重', width: 160, name: 'Weight', type: "number" }
         ],
@@ -85,3 +90,7 @@ function openDetail(index) {
     var data = rlt.Rows[index];
     window.location.href = "../trace/router.html?appName=" + data.Nickname;   
 } 
+function resourceDetail(index) {
+    var data = rlt.Rows[index];
+    window.location.href = "../welcome.html?appName=" + data.Nickname;
+}

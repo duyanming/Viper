@@ -1,6 +1,10 @@
 ﻿/// <reference path="../vue.min.js" />
 
 $(function () {
+    var args = bif.GetUrlParms();
+    if (args.appName !== undefined) {
+        defaultService = args.appName;
+    }
     var input = bif.getInput();
     input.channel = "Anno.Plugs.Logic";
     input.router = "Report";
@@ -51,7 +55,9 @@ $(function () {
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
-        defaultService = data.outputData.xAxis[0];
+        if (args.appName === undefined) {
+            defaultService = data.outputData.xAxis[0];
+        }
         myChart.on('click', function (params) {
             if (params.name !== defaultService) {
                 SetWatch(connection, params.name);
