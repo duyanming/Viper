@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>集群面板</title>
+</head>
+<body>
+    <div>
+        <div style="padding-top: 0px;">
+            <div id="cluster_dashboard">
+                <el-card v-for="s,index in services" class="box-card" style="display:none">
+                    <div slot="header" class="clearfix">
+                        <span><b>{{s.Nickname}}</b></span>
+                        <el-button v-on:click="resourceDetail(s.Nickname)" style="float: right;margin-left:5px; padding: 3px 0" type="text">资源监控</el-button>
+                        <el-button v-on:click="openDetail(s.Nickname)" style="float: right; margin-left:5px; padding: 3px 0" type="text">API详情</el-button>
+                    </div>
+                    <div class="text item">
+                        服务Name：<b>{{s.Nickname }}</b>
+                    </div>
+                    <div class="text item">
+                        服务Host：<b>{{s.Host }}</b>
+                    </div>
+                    <div class="text item">
+                        服务Port：<b>{{s.Port }}</b>
+                    </div>
+                    <div class="text item">
+                        服务Timeout：<b>{{s.Timeout }}(毫秒)</b>
+                    </div>
+                    <div class="text item">
+                        服务Weight：<b>{{s.Weight }}</b>
+                    </div>
+                    <div class="text item">
+                        服务Tag：
+                        <el-tag style="margin-left:2px;" hit="true" size="mini" :type="getRoundType()" v-for="t,index in s.Tags">{{t}}</el-tag>
+                    </div>
+                </el-card>              
+            </div>
+        </div>
+    </div>
+</body>
+<link href="../../css/element-ui-index.css" rel="stylesheet" />
+<!-- 先引入 Vue -->
+<script src="../../js/vue.min.js"></script>
+<!-- 引入组件库 -->
+<script src="../../js/element-ui-index.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="cluster_dashboard.js"></script>
+<style>
+    .text {
+        font-size: 14px;
+    }
+
+    .item {
+        margin-bottom: 18px;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both
+    }
+
+    .box-card {
+        margin: 10px 10px;
+        width: -webkit-calc(32% - 10px);
+        width: -moz-calc(32% - 10px);
+        width: calc(32% - 10px);
+        float: left;
+    }
+</style>
+</html>
