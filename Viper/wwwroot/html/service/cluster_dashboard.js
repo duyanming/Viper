@@ -1,7 +1,8 @@
 ﻿/// <reference path="../../js/jquery.js" />
 /// <reference path="../../js/base.js" />
-varvm = null;
+var vm = null, _isMobile = false;
 $(function () {
+    _isMobile = isMobile();
     Init();
     LoadData();
 });
@@ -10,6 +11,7 @@ function Init() {
     vm = new Vue({
         el: '#cluster_dashboard',
         data: {
+            isMobile: _isMobile,
             services: []
         }, methods: {
             openDetail: function (nickname) {
@@ -27,7 +29,7 @@ function Init() {
                 return (start + differ * random).toFixed(fixed)
             }
         }, created: function () {
-            $(".box-card").show();
+            $("#cluster_dashboard").show();
         }
     });
 }
@@ -40,4 +42,13 @@ function LoadData() {
     bif.process(input, function (data) {
         vm.services = data.outputData;
     });
+}
+
+// 判断浏览器函数
+function isMobile() {
+    if (window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
+        return true;  // 移动端
+    } else {
+        return false;  // PC端
+    }
 }

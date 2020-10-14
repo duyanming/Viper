@@ -8,8 +8,8 @@
 <body>
     <div>
         <div style="padding-top: 0px;">
-            <div id="cluster_dashboard">
-                <el-card v-for="s,index in services" class="box-card" style="display:none">
+            <div id="cluster_dashboard"  style="display:none">
+                <el-card v-for="s,index in services"  :class="{box_card:!isMobile,mobile_box_card:isMobile}">
                     <div slot="header" class="clearfix">
                         <span><b>{{s.Nickname}}</b></span>
                         <div style="margin-bottom:10px;">
@@ -68,11 +68,18 @@
         clear: left
     }
 
-    .box-card {
+    .box_card {
         margin: 10px 10px;
         width: -webkit-calc(32% - 22px);
         width: -moz-calc(32% - 22px);
         width: calc(32% - 22px);
+        float: left;
+    }
+    .mobile_box_card {
+        margin: 10px 10px;
+        width: -webkit-calc(47% - 22px);
+        width: -moz-calc(47% - 22px);
+        width: calc(47% - 22px);
         float: left;
     }
 </style>
