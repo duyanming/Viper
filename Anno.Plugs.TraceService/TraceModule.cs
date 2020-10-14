@@ -75,15 +75,6 @@ namespace Anno.Plugs.TraceService
             var output = new Dictionary<string, object> { { "#Total", ts.Count }, { "#Rows", ts } };
             return new ActionResult(true, null, output);
         }
-        /// <summary>
-        /// 服务资源信息
-        /// </summary>
-        /// <returns></returns>
-        [AnnoInfo(Desc = "服务资源信息CPU、Memory")]
-        public ActionResult GetServerStatus()
-        {
-            return new ActionResult(true, Usi.GetServerStatus());
-        }
         #region  Module 初始化
         public override bool Init(Dictionary<string, string> input)
         {

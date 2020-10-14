@@ -2,8 +2,7 @@
   <PropertyGroup>
     <DeveloperBuildCoreTfms>netcoreapp3.1</DeveloperBuildCoreTfms>
     <StandardTfms>netstandard2.0</StandardTfms>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.0</Version>
     <ServerName>ViperService</ServerName>
-    <PackageIcon>http://140.143.207.244/img/logo.jpg</PackageIcon>
   </PropertyGroup>
 </Project>

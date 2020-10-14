@@ -232,8 +232,8 @@ namespace Viper.GetWay.Hubs
         public static async Task<UseSysInfoWatch.ServerStatus> GetServerStatus(string nickName)
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
-            input.Add("channel", "Anno.Plugs.Trace");
-            input.Add("router", "Trace");
+            input.Add("channel", "Anno.Plugs.Monitor");
+            input.Add("router", "Resource");
             input.Add("method", "GetServerStatus");
             var actionResult = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<UseSysInfoWatch.ServerStatus>>(await Connector.BrokerDnsAsync(input, nickName));
             return actionResult.OutputData;
