@@ -12,8 +12,10 @@
                 <el-card v-for="s,index in services" class="box-card" style="display:none">
                     <div slot="header" class="clearfix">
                         <span><b>{{s.Nickname}}</b></span>
-                        <el-button v-on:click="resourceDetail(s.Nickname)" style="float: right;margin-left:5px; padding: 3px 0" type="text">资源监控</el-button>
-                        <el-button v-on:click="openDetail(s.Nickname)" style="float: right; margin-left:5px; padding: 3px 0" type="text">API详情</el-button>
+                        <div style="margin-bottom:10px;">
+                            <el-button v-on:click="resourceDetail(s.Nickname)" style="float: right;margin-left:5px; padding: 3px 0" type="text">资源监控</el-button>
+                            <el-button v-on:click="openDetail(s.Nickname)" style="float: right; margin-left:5px; padding: 3px 0" type="text">API详情</el-button>
+                        </div>
                     </div>
                     <div class="text item">
                         服务Name：<b>{{s.Nickname }}</b>
@@ -63,7 +65,7 @@
     }
 
     .clearfix:after {
-        clear: both
+        clear: left
     }
 
     .box-card {
