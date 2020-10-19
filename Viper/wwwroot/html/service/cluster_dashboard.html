@@ -8,8 +8,8 @@
 <body>
     <div>
         <div style="padding-top: 0px;">
-            <div id="cluster_dashboard"  style="display:none">
-                <el-card v-for="s,index in services"  :class="{box_card:!isMobile,mobile_box_card:isMobile}">
+            <div id="cluster_dashboard" style="display:none">
+                <el-card v-for="s,index in services" :class="{box_card:!isMobile,mobile_box_card:isMobile}">
                     <div slot="header" class="clearfix">
                         <span><b>{{s.Nickname}}</b></span>
                         <div style="margin-bottom:10px;">
@@ -36,16 +36,24 @@
                         服务Tag：
                         <el-tag style="margin-left:2px;" hit="true" size="mini" :type="getRoundType()" v-for="t,index in s.Tags">{{t}}</el-tag>
                     </div>
-                </el-card>              
+                </el-card>
             </div>
         </div>
     </div>
 </body>
-<link href="../../css/element-ui-index.css" rel="stylesheet" />
+
 <!-- 先引入 Vue -->
-<script src="../../js/vue.min.js"></script>
+<!--<script src="../../js/vue.min.js"></script>-->
+<!--<link href="../../css/element-ui-index.css" rel="stylesheet" />-->
 <!-- 引入组件库 -->
-<script src="../../js/element-ui-index.js"></script>
+<!--<script src="../../js/element-ui-index.js"></script>-->
+
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="../../js/jquery.min.js"></script>
 <script src="../../js/base.js"></script>
 <script src="cluster_dashboard.js"></script>
@@ -75,6 +83,7 @@
         width: calc(32% - 22px);
         float: left;
     }
+
     .mobile_box_card {
         margin: 10px 10px;
         width: -webkit-calc(47% - 22px);

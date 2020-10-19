@@ -2,16 +2,24 @@
 @{
     ViewData["Title"] = "Viper智能自由（Viper）";
 }
-<script src="~/js/jquery.min.js"></script>
+
+@*<script src="~/js/jquery.min.js"></script>*@
+<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
 <script src="~/js/base.js"></script>
 
-<!-- 引入样式 -->
-<link href="~/css/element-ui-index.css" rel="stylesheet" />
-<!-- 先引入 Vue -->
-<script src="~/js/vue.min.js"></script>
-<!-- 引入组件库 -->
-<script src="~/js/element-ui-index.js"></script>
 
+<!-- 先引入 Vue -->
+@*<script src="~/js/vue.min.js"></script>*@
+<!-- 引入组件库 -->
+<!--<script src="~/js/element-ui-index.js"></script>-->
+<!-- 引入样式 -->
+<!--<link href="~/css/element-ui-index.css" rel="stylesheet" />-->
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <div id="app" style="height:100%;">
     <el-container>
         <el-container>
@@ -44,7 +52,7 @@
                     </div>
                 </el-header>
                 <el-container>
-                    <el-tabs v-model="activeName"  @@tab-remove="removeTab"  style="width:100%">
+                    <el-tabs v-model="activeName" @@tab-remove="removeTab" style="width:100%">
                         <el-tab-pane v-for="(item, index) in tabs"
                                      :key="item.name"
                                      :label="item.name"
@@ -54,7 +62,7 @@
                                 <iframe :id="item.id" @@load="tabOnLoad" frameborder="0" :src="item.src" style="width: 100%; height: calc(100% - 100px);">
                                 </iframe>
                             </el-container>
-                        </el-tab-pane>                        
+                        </el-tab-pane>
                     </el-tabs>
                 </el-container>
             </el-main>
@@ -160,7 +168,7 @@
             },
             tabOnLoad: function (ev) {
                 var id = ev.srcElement.id;
-                var that = this;  
+                var that = this;
                 for (var i = 0; i < that.tabs.length; i++) {
                     if (that.tabs[i].id === id) {
                         that.tabs[i].loading = false;
@@ -168,7 +176,7 @@
                 }
             },
             openMenuItem: function (item) {
-                var that = this;  
+                var that = this;
                 var alreadyOpen = false;
                 for (var i = 0; i < that.tabs.length; i++) {
                     if (that.tabs[i].id === item.id) {
@@ -182,10 +190,10 @@
                 var tab = { id: "dashboard", name: "Dashboard", closable: true, src: "html/welcome.html", loading: true };
                 tab.id = item.id;
                 tab.name = item.fname;
-                tab.src = item.furl;            
+                tab.src = item.furl;
                 that.tabs.push(tab);
-                that.activeName = item.fname;  
-                
+                that.activeName = item.fname;
+
                 if (that.tabs.length === 1) {
                     that.tabs[0].closable = false;
                 } else {
@@ -203,7 +211,7 @@
                 }
             },
             openUserCenter: function () {
-                this.openMenuItem({ id: "pcenter", fname: "个人中心", furl: "html/pcenter.html"});                
+                this.openMenuItem({ id: "pcenter", fname: "个人中心", furl: "html/pcenter.html"});
             },
             getFunc: function () {
                 var that = this;
@@ -256,19 +264,24 @@
         position: relative;
         overflow: hidden;
     }
+
     .mobile_menum {
         height: 100%;
         position: relative;
     }
+
     .el-tabs__header {
         padding-left: 20px;
     }
+
     .el-tabs__content {
         height: calc(100% - 13px);
     }
+
     .el-tab-pane {
-        height:100%;
+        height: 100%;
     }
+
     html, body {
         height: 100%;
         margin: 0px;
@@ -312,6 +325,7 @@
         overflow-x: hidden;
         overflow-y: scroll;
     }
+
     .el-menu64px {
         border-right: solid 0px #e6e6e6;
         /*width: 220px;*/
@@ -326,7 +340,7 @@
         color: #333;
         text-align: center;
         padding: 0 0;
-        overflow-y:hidden;
+        overflow-y: hidden;
         /*margin-left: 8px;*/
     }
 </style>
