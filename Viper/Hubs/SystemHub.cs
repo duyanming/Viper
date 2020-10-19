@@ -182,7 +182,7 @@ namespace Viper.GetWay.Hubs
                     if (CronDaemon.Status == DaemonStatus.Stop)
                     {
                         _monitorContext = monitorHub;
-                        CronDaemon.AddJob("*/1 * * * * ? *", SendMonitorData);
+                        CronDaemon.AddJob("*/2 * * * * ? *", SendMonitorData);
                         CronDaemon.Start();
                     }
                 }
@@ -195,7 +195,7 @@ namespace Viper.GetWay.Hubs
             try
             {
                 //被监控的APP
-                var watchUsers = MonitorHub.WatchData.Select(wu => wu.WatchServiceName).ToList();
+                var watchUsers = MonitorHub.WatchData.Select(wu => wu.WatchServiceName).ToList().Distinct();
 
                 foreach (var watchUser in watchUsers)
                 {
@@ -220,7 +220,7 @@ namespace Viper.GetWay.Hubs
                                 info.Tag = watchUser;
                                 _monitorContext.Clients.Clients(connectionIds.ToArray()).SendAsync("SendMonitorData", info);
                             }
-                        });
+                        }).Wait();
                     }
                 }
             }
