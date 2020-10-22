@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Anno.Plugs.DLockService\Anno.Plugs.DLockService.csproj" />
     <ProjectReference Include="..\Anno.Plugs.LogicService\Anno.Plugs.LogicService.csproj" />
     <ProjectReference Include="..\Anno.Plugs.MonitorService\Anno.Plugs.MonitorService.csproj" />
     <ProjectReference Include="..\Anno.Plugs.ViperService\Anno.Plugs.ViperService.csproj" />
