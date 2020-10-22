@@ -133,22 +133,30 @@
             bif.ajaxpara.async = true;
         },
         methods: {
-            removeTab(targetName) {
+            removeTab: function (targetName) {
                 var that = this;
                 let tabs = that.tabs;
                 let activeName = that.activeName;
                 if (activeName === targetName) {
-                    tabs.forEach((tab, index) => {
+                    for (var i = 0; i < tabs.length; i++) {
+                        var tab = tabs[i];
+                        var index = i;
                         if (tab.name === targetName) {
                             let nextTab = tabs[index + 1] || tabs[index - 1];
                             if (nextTab) {
                                 activeName = nextTab.name;
                             }
                         }
-                    });
+                    }
                 }
                 that.activeName = activeName;
-                that.tabs = tabs.filter(tab => tab.name !== targetName);
+                var _tabs = [];
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i].name !== targetName) {
+                        _tabs.push(tabs[i]);
+                    }
+                }
+                that.tabs = _tabs;
                 if (that.tabs.length === 1) {
                     that.tabs[0].closable = false;
                 } else {

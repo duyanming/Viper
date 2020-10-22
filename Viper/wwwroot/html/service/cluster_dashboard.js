@@ -22,11 +22,11 @@ function Init() {
             },
             getRoundType: function () {
                 var types = ["", "success", "info", "danger", "warning"];
-                return types[this.getRandom(0,4)];
-            }, getRandom: function (start, end, fixed = 0) {
-                let differ = end - start
-                let random = Math.random()
-                return (start + differ * random).toFixed(fixed)
+                return types[this.getRandom(0,4,0)];
+            }, getRandom: function (start, end, fixed) {
+                let differ = end - start;
+                let random = Math.random();
+                return (start + differ * random).toFixed(fixed);
             }
         }, created: function () {
             $("#cluster_dashboard").show();
