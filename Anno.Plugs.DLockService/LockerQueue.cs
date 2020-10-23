@@ -37,9 +37,9 @@ namespace Anno.Plugs.DLockService
             {
                 if (MLoker.Type != ProcessType.Free)
                 {
-                    MLoker.ResetEvent.Set();
                     MLoker.EnterTime = DateTime.Now;
                     MLoker.Type = ProcessType.Free;
+                    MLoker.ResetEvent.Set();
                 }
             }
 
@@ -52,9 +52,9 @@ namespace Anno.Plugs.DLockService
             {
                 if (MLoker.IsTimeOut && MLoker.Type != ProcessType.Free)
                 {
-                    MLoker.ResetEvent.Set();
                     MLoker.EnterTime = DateTime.Now;
                     MLoker.Type = ProcessType.Free;
+                    MLoker.ResetEvent.Set();
                 }
             }
         }

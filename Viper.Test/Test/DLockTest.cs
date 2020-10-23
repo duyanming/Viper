@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Anno.Log;
 
 namespace Viper.Test
 {
@@ -42,15 +43,15 @@ namespace Viper.Test
         {
             try
             {
-                //Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss:ffff}  {System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1拉取锁({lk})");
+                Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss:ffff}  {System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1开始拉取锁({lk})");
                 using (DLock dLock = new DLock(lk, 1000))
                 {
-                    counter =counter+1;
-                //Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss:ffff}  {System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1进入锁({lk})");
-                System.Threading.Thread.Sleep(5);
+                    counter = counter + 1;
+                    Log.ConsoleWriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1进入锁({lk})");
+                    System.Threading.Thread.Sleep(50);
+                    Log.ConsoleWriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1离开锁进行中({lk})");
                 }
-
-                //Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss:ffff}  {System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1离开锁({lk})");
+                Log.ConsoleWriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1离开锁({lk})");
             }
             catch (Exception e)
             {
@@ -61,8 +62,8 @@ namespace Viper.Test
         {
             IocLoader.GetAutoFacContainerBuilder().RegisterType(typeof(RpcConnectorImpl)).As(typeof(IRpcConnector)).SingleInstance();
             IocLoader.Build();
-            IocLoader.Resolve<IRpcConnector>().SetDefaultConnectionPool(100, Environment.ProcessorCount * 2, 50);
-            IocLoader.Resolve<IRpcConnector>().SetDefaultConfiguration("DLockTest", "127.0.0.1", 7010, false);
+            DefaultConfigManager.SetDefaultConnectionPool(100, Environment.ProcessorCount * 2, 50);
+            DefaultConfigManager.SetDefaultConfiguration("DLockTest", "127.0.0.1", 7010, false);
         }
     }
 }
