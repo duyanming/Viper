@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.EngineData" Version="1.0.2.4" />
+    <PackageReference Include="Anno.EngineData" Version="1.0.2.6" />
   </ItemGroup>
 </Project>

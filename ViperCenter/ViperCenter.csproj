@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.Rpc.Center" Version="1.0.2.2" />
+    <PackageReference Include="Anno.Rpc.Center" Version="1.0.2.6" />
   </ItemGroup>
 
   <ItemGroup>
