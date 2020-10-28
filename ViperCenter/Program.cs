@@ -5,6 +5,10 @@ namespace ViperCenter
 {
     class Program
     {
+        /// <summary>
+        /// 注册中心只用增加一个 Anno.config配置文件，然后直接 Bootstrap.StartUp(args);启动即可
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Console.Title = "ViperCenter";
