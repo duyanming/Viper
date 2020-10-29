@@ -3,43 +3,73 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome AnnoDemo</h1>
-    <p>Learn about <a href="https://github.com/duyanming/dymDemo">Anno  with ASP.NET Core</a>.</p>
-    <p>Anno 是一个微服务快速开发框架，底层通讯可以随意切换 grpc、thrift。自带服务发现、调用链追踪、Cron 调度、限流、事件总线、CQRS 、DDD、类似MVC的开发体验，插件化开发。.  Anno is a microservices rapid development framework, the underlying communication can be arbitrary switch GRPC, thrift.Built-in service discovery, call chain tracking, Cron scheduling, current limiting, event bus, CQRS, DDD, similar MVC development experience, plug-in development.</p>
+    <h1 class="display-4">Welcome Viper&Anno</h1>
+    <p>Learn about <a href="https://github.com/duyanming/Viper">Viper&Anno</a>.</p>
+    <p>Anno 是一个微服务快速开发框架，底层通讯可以随意切换 grpc、thrift。自带服务发现、调用链追踪、Cron 调度、限流、事件总线、CQRS 、DDD、类似MVC的开发体验，插件化开发。 Anno is a microservices rapid development framework, the underlying communication can be arbitrary switch GRPC, thrift.Built-in service discovery, call chain tracking, Cron scheduling, current limiting, event bus, CQRS, DDD, similar MVC development experience, plug-in development.</p>
 </div>
-<div style="width:100%">
-    <textarea style="width:44%; height:280px;" id="input">
-{
-    "channel": "anno.component",
-    "router": "UserInfo",
-    "method": "HelloWorld",
-    "name":".net love java"
-}
+<div style="width:100%;text-align:center;">
 
-</textarea>
-    <input type="button" value="发送请求" send />
-    <textarea style="width:44%;height:280px;" id="output">
-
-    </textarea>
+    <div style="width:44%; height:250px; float:left" id="input"></div>
+    <div id="btn" style="width:8%; height:250px; line-height:250px; float:left; vertical-align:middle;"> <input type="button" value="发送请求" send /></div>
+    <div style="width:44%; height:250px;  float:left" id="output"></div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/jsoneditor@9.1.1/dist/jsoneditor.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsoneditor@9.1.1/dist/jsoneditor.min.css" />
 <script src="~/js/jquery.min.js"></script>
 <script src="~/js/base.js"></script>
 <script type="text/javascript">
     $(function () {
+        if (isMobile() === true) {
+            $("#input").css("width", "100%").css("float", "none");
+            $("#btn").css("width", "100%").css("height", "50px").css("line-height", "50px").css("float", "none");
+            $("#output").css("width", "100%").css("float", "none");
+        }
+        const options = {
+            mode: 'code'
+        };
+        const inputEditor = new JSONEditor(document.getElementById("input"), options)
+        const inputJson = {
+            "channel": "anno.component",
+            "router": "UserInfo",
+            "method": "HelloWorld",
+            "name": ".net love java"
+        };
+        inputEditor.set(inputJson)
+
+        const outEditor = new JSONEditor(document.getElementById("output"), options)
+
+        $(".jsoneditor-poweredBy").remove();
+        $(".jsoneditor-repair").remove();
+        $(".jsoneditor-transform").remove();
+        $(".jsoneditor-sort").remove();
+        $(".jsoneditor-menu").css("background-color", "#909399");
+        $(".border-bottom").css("border-bottom", "1px solid #909399");
+        $(".jsoneditor-mode-code").css("border", "thin solid #909399");
+
         $("input[send]").click(function () {
             $("#output").val();
 
             var inputJson = {};
             try {
-                inputJson = JSON.parse($("#input").val());
+                inputJson = inputEditor.get();
             } catch (ex) {
                 $("#output").val(ex);
             }
             bif.process(inputJson, function (data, status) {
-                $("#output").val(JSON.stringify(data));
+                outEditor.set(data)
+                //$("#output").val(JSON.stringify(data));
             }, function (data, status) {
-                $("#output").val(JSON.stringify(data));
+                    outEditor.set(data);
+                //$("#output").val(JSON.stringify(data));
             });
         });
     });
+    // 判断浏览器函数
+    function isMobile() {
+        if (window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
+            return true;  // 移动端
+        } else {
+            return false;  // PC端
+        }
+    }
 </script>
