@@ -254,6 +254,19 @@
                 }
                 mr.children = children;
                 mr.childrenDir = childrenDir;
+            },
+            notify: function (msg) {
+                var notifyMsg = '给我点点小星星吧，谢谢你的支持!<br/><iframe frameborder="0" src="http://ghbtns.com/github-btn.html?user=duyanming&repo=viper&type=watch&count=true" width="105" height="20"></iframe>' +
+                    '<iframe frameborder="0" src="http://ghbtns.com/github-btn.html?user=duyanming&repo=viper&type=fork&count=true" width="105" height="20" ></iframe>';
+                if (msg != undefined && msg != null && msg != "") {
+                    notifyMsg = msg;
+                }
+                this.$notify.info({
+                    title: 'Hello, my friend',
+                    dangerouslyUseHTMLString: true,
+                    message: notifyMsg,
+                    position: 'bottom-right'
+                });
             }
         }
     });
@@ -264,6 +277,21 @@
         } else {
             return false;  // PC端
         }
+    }
+    var inter;
+    var count = 4;
+    $(function () {
+        setTimeout("notifysetInterval()", 1000);
+        inter = self.setInterval("notifysetInterval()", 15000);
+    });
+    function notifysetInterval() {
+        try {
+            vm.notify();
+            count--;
+            if (count <= 0) {
+                inter = window.clearInterval(inter);
+            }
+        } catch{ }
     }
 </script>
 <style>
