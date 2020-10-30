@@ -23,7 +23,7 @@ namespace Anno.Plugs.SoEasyService
             var msg = string.Empty;
             if (vage < 12)
             {
-                msg = "小朋友年纪轻轻就就开始玩变成了啊！加油Baby！";
+                msg = "小朋友年纪轻轻就就开始玩编程了啊！加油Baby！";
             }else if (vage < 23)
             {
                 msg = "小兄弟，找女朋友了吗？没有的话赶紧找一个吧。别把心思都放在写代码上！";

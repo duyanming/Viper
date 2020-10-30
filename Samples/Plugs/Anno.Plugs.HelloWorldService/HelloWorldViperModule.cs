@@ -19,8 +19,8 @@ namespace Anno.Plugs.HelloWorldService
         [AnnoInfo(Desc = "世界你好啊SayHi")]
         public dynamic SayHello([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age) {
             Dictionary<string, string> input = new Dictionary<string, string>();
-            input.Add("vName",name);
-            input.Add("vAge", age.ToString());
+            input.Add("vname",name);
+            input.Add("vage", age.ToString());
             var soEasyMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<string>>(this.InvokeProcessor("Anno.Plugs.SoEasy", "AnnoSoEasy", "SayHi", input)).OutputData;
             return new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了", SoEasyMsg= soEasyMsg };
         }
