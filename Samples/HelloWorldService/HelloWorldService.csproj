@@ -7,12 +7,24 @@
 
   <ItemGroup>
     <PackageReference Include="Anno.EngineData" Version="1.0.2.6" />
+    <PackageReference Include="Anno.Plugs.MonitorService" Version="1.0.0" />
     <PackageReference Include="Anno.Rpc.Server" Version="1.0.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plugs\Anno.Plugs.HelloWorldService\Anno.Plugs.HelloWorldService.csproj" />
+    <ProjectReference Include="..\Plugs\Anno.Plugs.SoEasyService\Anno.Plugs.SoEasyService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Anno.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="helloworldService.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="helloworldService.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
