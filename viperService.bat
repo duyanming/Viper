@@ -1,3 +1,3 @@
 cd %cd%
-cd ./ViperService/bin/Debug/netcoreapp3.1
+cd ./ViperService/bin/Debug/net5
 dotnet ViperService.dll
