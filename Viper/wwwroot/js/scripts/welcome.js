@@ -301,6 +301,7 @@ function StartMonitoring() {
             date.shift();
         }
         cpuChart.setOption({
+            title: { subtext: "运行时长：" +_data.runTime },
             xAxis: {
                 data: date
             },
