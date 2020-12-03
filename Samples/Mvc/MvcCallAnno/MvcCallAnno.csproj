@@ -44,40 +44,65 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Anno.Const, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Const.1.0.2.6\lib\net461\Anno.Const.dll</HintPath>
+      <HintPath>..\..\..\packages\Anno.Const.1.0.2.7\lib\net461\Anno.Const.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.CronNET, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.CronNET.1.0.2.6\lib\net461\Anno.CronNET.dll</HintPath>
+    <Reference Include="Anno.CronNET, Version=1.0.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.CronNET.1.0.2.7\lib\net461\Anno.CronNET.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.EngineData, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.EngineData.1.0.2.6\lib\net461\Anno.EngineData.dll</HintPath>
+    <Reference Include="Anno.EngineData, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.EngineData.1.0.2.8\lib\net461\Anno.EngineData.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Loader, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Loader.1.0.2.6\lib\net461\Anno.Loader.dll</HintPath>
+    <Reference Include="Anno.Loader, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Loader.1.0.2.8\lib\net461\Anno.Loader.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Log, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Log.1.0.2.6\lib\net461\Anno.Log.dll</HintPath>
+    <Reference Include="Anno.Log, Version=1.0.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Log.1.0.2.7\lib\net461\Anno.Log.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Rpc.Client, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Rpc.Client.1.0.2.6\lib\net461\Anno.Rpc.Client.dll</HintPath>
+    <Reference Include="Anno.Rpc.Client, Version=1.0.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Rpc.Client.1.0.2.7\lib\net461\Anno.Rpc.Client.dll</HintPath>
     </Reference>
     <Reference Include="Anno.Rpc.Client.DynamicProxy, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Anno.Rpc.Client.DynamicProxy.1.0.2.8\lib\net461\Anno.Rpc.Client.DynamicProxy.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Autofac.6.0.0\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.WebApi, Version=4.3.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Autofac.WebApi2.4.3.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    <Reference Include="Autofac.Integration.WebApi, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Autofac.WebApi2.6.0.0\lib\net472\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\System.ComponentModel.Annotations.4.6.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+      <HintPath>..\..\..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -96,9 +121,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Formatting">
       <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>

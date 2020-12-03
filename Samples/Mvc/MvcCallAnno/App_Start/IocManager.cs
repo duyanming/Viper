@@ -30,11 +30,25 @@ namespace MvcCallAnno
                             var interfaces = t.GetInterfaces();
                             if (interfaces.Length <= 0)
                             {
-                                Builder.RegisterType(t);
+                                if (t.IsGenericType)
+                                {
+                                    Builder.RegisterGeneric(t);
+                                }
+                                else
+                                {
+                                    Builder.RegisterType(t);
+                                }
                             }
                             else
                             {
-                                Builder.RegisterType(t).As(t.GetInterfaces());
+                                if (t.IsGenericType)
+                                {
+                                    Builder.RegisterGeneric(t).As(t.GetInterfaces());
+                                }
+                                else
+                                {
+                                    Builder.RegisterType(t).As(t.GetInterfaces());
+                                }
                             }
                         });
                 });
