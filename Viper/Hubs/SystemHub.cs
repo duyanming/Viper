@@ -171,10 +171,10 @@ namespace Viper.GetWay.Hubs
         private static readonly UseSysInfoWatch Usi = new UseSysInfoWatch();
         private static readonly object LockCron = new object();
         private static IHubContext<MonitorHub> _monitorContext;
-        private static TraceConfig traceConfig = new TraceConfig();
-        public TaskManager(IHubContext<MonitorHub> monitorHub, TraceConfig _traceConfig)
+        private static VierConfig viperConfig = new VierConfig();
+        public TaskManager(IHubContext<MonitorHub> monitorHub, VierConfig _viperConfig)
         {
-            traceConfig = _traceConfig;
+            viperConfig = _viperConfig;
             if (CronDaemon.Status == DaemonStatus.Stop)
             {
                 lock (LockCron)
@@ -204,7 +204,7 @@ namespace Viper.GetWay.Hubs
                     {
                         continue;
                     }
-                    if (watchUser == traceConfig.Target.AppName)
+                    if (watchUser == viperConfig.Target.AppName)
                     {
                         var info = Usi.GetServerStatus();
                         info.Tag = watchUser;

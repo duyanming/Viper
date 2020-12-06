@@ -6,7 +6,7 @@ using NetTools;
 
 namespace Viper.GetWay
 {
-    public class TraceConfig
+    public class VierConfig
     {
         public Target Target { get; set; } = new Target();
         public Limit Limit { get; set; } = new Limit();
