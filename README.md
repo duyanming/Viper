@@ -157,11 +157,25 @@
         "limitSize": 100
       }
     ],
-    "IpLimit": {
+    "DefaultIpLimit": {
       "timeSpan": 1,
-      "rps": 100,
-      "limitSize": 100
+      "rps": 200,
+      "limitSize": 200
     },
+    "IpLimits": [
+      {
+        "ipMatch": "0.0.0.1",
+        "timeSpan": 1,
+        "rps": 100,
+        "limitSize": 100
+      },
+      {
+        "ipMatch": "192.168.0.10 - 192.168.10.20",
+        "timeSpan": 1,
+        "rps": 100,
+        "limitSize": 100
+      }
+    ],
     "White": [
       "0.0.0.1",
       "192.168.1.2",
@@ -173,6 +187,7 @@
     ]
   }
 }
+
 
 ```
 
@@ -409,14 +424,33 @@ dotnet publish "E:\gitProject\Anno\DCS\AppCenter\AppCenter.csproj" -c Release -r
         "limitSize": 2--漏桶容量大小 做缓冲用
       }
     ],
-    "IpLimit": {--IP限流
+    "DefaultIpLimit": {--默认IP限流策略
       "timeSpan": 1,
       "rps": 20,
       "limitSize": 200
     },
-    "WhiteList": [--白名单
-      "192.168.1.1",
+	"IpLimits": [--IP限流策略（ipMatch参考IPAddressRange）
+      {
+        "ipMatch": "0.0.0.1",
+        "timeSpan": 1,
+        "rps": 100,
+        "limitSize": 100
+      },
+      {
+        "ipMatch": "192.168.0.10 - 192.168.10.20",
+        "timeSpan": 1,
+        "rps": 100,
+        "limitSize": 100
+      }
+    ],
+    "White": [--白名单
+      "0.0.0.1",
+      "192.168.1.2",
       "192.168.2.18"
+    ],
+    "Black": [--黑名单
+      "0.0.0.2",
+      "192.168.3.18"
     ]
   }
 }
