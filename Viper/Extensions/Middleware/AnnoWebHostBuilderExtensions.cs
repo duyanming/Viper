@@ -43,9 +43,9 @@ namespace Microsoft.AspNetCore
             hostBuilder.ConfigureServices(services =>
             {
                 var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-                VierConfig viperConfig = new VierConfig();
+                ViperConfig viperConfig = new ViperConfig();
                 configuration.Bind(viperConfig);
-                services.AddSingleton<VierConfig>(viperConfig);
+                services.AddSingleton<ViperConfig>(viperConfig);
                 services.AddSingleton<IStartupFilter>(new AnnoSetupFilter(viperConfig));
             });
 
@@ -57,8 +57,8 @@ namespace Microsoft.AspNetCore
     {
         private static volatile ConcurrentDictionary<string, LimitInfo> _rateLimitPool = new ConcurrentDictionary<string, LimitInfo>();
         private static readonly CronDaemon CronDaemon = new CronDaemon();
-        private readonly VierConfig vierConfig = new VierConfig();
-        public AnnoSetupFilter(VierConfig _viperConfig)
+        private readonly ViperConfig vierConfig = new ViperConfig();
+        public AnnoSetupFilter(ViperConfig _viperConfig)
         {
             CronDaemon.AddJob("1 */10 * * * ? *", ClearLimit);
             CronDaemon.Start();
@@ -202,12 +202,13 @@ namespace Microsoft.AspNetCore
         private bool RateLimit(HttpContext httpContext)
         {
             bool limit = false;
-            if (vierConfig.Limit.Enable)
+            if (vierConfig.Limit?.Enable == true)
             {
                 var ip = httpContext.Connection.RemoteIpAddress.MapToIPv4();
 
                 #region IpLimit
-                if (vierConfig.Limit.IpLimit != null)
+
+                if (vierConfig.Limit != null)
                 {
                     if (IsBlackRateLimit(ip))//黑名单
                     {
@@ -220,11 +221,12 @@ namespace Microsoft.AspNetCore
                     _rateLimitPool.TryGetValue(ip.ToString(), out LimitInfo limitInfo);
                     if (limitInfo == null)
                     {
-                        Iplimit iplimit = vierConfig.Limit.IpLimit;
-                        var limitingService = LimitingFactory.Build(TimeSpan.FromSeconds(vierConfig.Limit.IpLimit.timeSpan)
+                        //IP限流策略
+                        Iplimit iplimit = MatchIpLimit(ip);
+                        var limitingService = LimitingFactory.Build(TimeSpan.FromSeconds(iplimit.timeSpan)
                               , LimitingType.LeakageBucket
-                              , (int)vierConfig.Limit.IpLimit.rps
-                              , (int)vierConfig.Limit.IpLimit.limitSize);
+                              , (int)iplimit.rps
+                              , (int)iplimit.limitSize);
                         limitInfo = new LimitInfo()
                         {
                             Time = DateTime.Now,
@@ -247,13 +249,12 @@ namespace Microsoft.AspNetCore
                 #region TagLimit
                 if (vierConfig.Limit.TagLimits != null)
                 {
-                    var taglimit = GetTag(httpContext);
+                    var taglimit = MatchTag(httpContext);
                     if (taglimit != null)
                     {
                         _rateLimitPool.TryGetValue($"{ taglimit.channel}.{ taglimit.router}", out LimitInfo limitInfo);
                         if (limitInfo == null)
                         {
-                            Iplimit iplimit = vierConfig.Limit.IpLimit;
                             var limitingService = LimitingFactory.Build(TimeSpan.FromSeconds(taglimit.timeSpan)
                                 , LimitingType.LeakageBucket
                                 , (int)taglimit.rps
@@ -289,6 +290,10 @@ namespace Microsoft.AspNetCore
         /// <returns></returns>
         private bool IsBlackRateLimit(System.Net.IPAddress ip)
         {
+            if (vierConfig.Limit?.PolicyBlack == null)
+            {
+                return false;
+            }
             foreach (var range in vierConfig.Limit.PolicyBlack)
             {
                 if (range.Contains(ip))
@@ -305,6 +310,10 @@ namespace Microsoft.AspNetCore
         /// <returns></returns>
         private bool IsWhiteRateLimit(System.Net.IPAddress ip)
         {
+            if (vierConfig.Limit?.PolicyWhite == null)
+            {
+                return false;
+            }
             foreach (var range in vierConfig.Limit.PolicyWhite)
             {
                 if (range.Contains(ip))
@@ -314,7 +323,29 @@ namespace Microsoft.AspNetCore
             }
             return false;
         }
-        private Taglimit GetTag(HttpContext httpContext)
+        /// <summary>
+        /// 匹配IP限流
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        private Iplimit MatchIpLimit(System.Net.IPAddress ip)
+        {
+            Iplimit ipLimit = vierConfig.Limit?.DefaultIpLimit;
+            foreach (var iplimit in vierConfig.Limit.IpLimits)
+            {
+                if (iplimit.IpRange.Contains(ip))
+                {
+                    return iplimit;
+                }
+            }
+            return ipLimit;
+        }
+        /// <summary>
+        /// 匹配标签限流
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        private Taglimit MatchTag(HttpContext httpContext)
         {
             string channel = string.Empty, router = string.Empty;
             #region Get channel、router
@@ -406,7 +437,7 @@ namespace Microsoft.AspNetCore
     class AnnoMiddleware
     {
         private readonly RequestDelegate _next;
-        private VierConfig viperConfig = new VierConfig();
+        private ViperConfig viperConfig = new ViperConfig();
         public AnnoMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;

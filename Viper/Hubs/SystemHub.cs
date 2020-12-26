@@ -171,8 +171,8 @@ namespace Viper.GetWay.Hubs
         private static readonly UseSysInfoWatch Usi = new UseSysInfoWatch();
         private static readonly object LockCron = new object();
         private static IHubContext<MonitorHub> _monitorContext;
-        private static VierConfig viperConfig = new VierConfig();
-        public TaskManager(IHubContext<MonitorHub> monitorHub, VierConfig _viperConfig)
+        private static ViperConfig viperConfig = new ViperConfig();
+        public TaskManager(IHubContext<MonitorHub> monitorHub, ViperConfig _viperConfig)
         {
             viperConfig = _viperConfig;
             if (CronDaemon.Status == DaemonStatus.Stop)

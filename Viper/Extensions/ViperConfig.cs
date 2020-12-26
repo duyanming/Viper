@@ -6,7 +6,7 @@ using NetTools;
 
 namespace Viper.GetWay
 {
-    public class VierConfig
+    public class ViperConfig
     {
         public Target Target { get; set; } = new Target();
         public Limit Limit { get; set; } = new Limit();
@@ -19,12 +19,30 @@ namespace Viper.GetWay
         public int Port { get; set; }
         public bool TraceOnOff { get; set; }
     }
-
+    /// <summary>
+    /// 线路配置
+    /// </summary>
     public class Limit
     {
+        /// <summary>
+        /// 是否启用限流
+        /// </summary>
         public bool Enable { get; set; }
+        /// <summary>
+        /// 标记Tag限流
+        /// </summary>
         public Taglimit[] TagLimits { get; set; }
-        public Iplimit IpLimit { get; set; }
+        /// <summary>
+        /// 默认IP限流
+        /// </summary>
+        public Iplimit DefaultIpLimit { get; set; }
+        /// <summary>
+        /// IP限流
+        /// </summary>
+        public IplimitRange[] IpLimits { get; set; }
+        /// <summary>
+        /// 白名单
+        /// </summary>
         public string[] White { get; set; }
         private List<IPAddressRange> policyWhite { get; set; }
 
@@ -32,9 +50,9 @@ namespace Viper.GetWay
         {
             get
             {
-                if (White != null && White.Length > 0&&(policyWhite==null|| policyWhite.Count<=0))
+                if (White != null && White.Length > 0 && (policyWhite == null || policyWhite.Count <= 0))
                 {
-                    policyWhite=new List<IPAddressRange>();
+                    policyWhite = new List<IPAddressRange>();
                     foreach (var w in White)
                     {
                         policyWhite.Add(IPAddressRange.Parse(w));
@@ -43,6 +61,9 @@ namespace Viper.GetWay
                 return policyWhite;
             }
         }
+        /// <summary>
+        /// 黑名单
+        /// </summary>
         public string[] Black { get; set; }
         private List<IPAddressRange> policyBlack { get; set; }
 
@@ -62,7 +83,9 @@ namespace Viper.GetWay
             }
         }
     }
-
+    /// <summary>
+    /// Tag标签限流
+    /// </summary>
     public class Taglimit : Iplimit
     {
         private string _channel = "*";
@@ -98,7 +121,28 @@ namespace Viper.GetWay
             }
         }
     }
-
+    /// <summary>
+    /// 针对特定IP限流
+    /// </summary>
+    public class IplimitRange : Iplimit
+    {
+        public string ipMatch { get; set; }
+        private IPAddressRange ipRange;
+        public IPAddressRange IpRange
+        {
+            get
+            {
+                if (ipRange == null && !string.IsNullOrWhiteSpace(ipMatch))
+                {
+                    IPAddressRange.TryParse(ipMatch, out ipRange);
+                }
+                return ipRange;
+            }
+        }
+    }
+    /// <summary>
+    /// Ip限流
+    /// </summary>
     public class Iplimit
     {
         /// <summary>
