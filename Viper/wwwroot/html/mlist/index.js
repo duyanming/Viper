@@ -17,39 +17,87 @@ function Init() {
             pagesize: 20,
             pagesizes: [10, 20, 30, 40]
         }, methods: {
-            handleSizeChange(val) {
+            handleSizeChange: function(val) {
                 this.pagesize = val;
                 LoadData(vm.currentPage,val);
                 //console.log(`每页 ${val} 条`);
             },
-            handleCurrentChange(val) {
+            handleCurrentChange: function(val) {
                 //console.log(`当前页: ${val}`);
                 this.currentPage = val;
                 LoadData(val, vm.pagesize);
             },
             handleClick: function (row) {
-                window.location.href = "./detail?id=row.ID";
-            }, tableRowClassName({ row, rowIndex }) {
-                if (row.state === "0") {
-                    return 'warning-row';
-                }
-                return '';
-            },indexMethod(index) {
+                window.location.href = '../pcenter.html?_id=' + row.ID+'&Tname=pcenter_m';
+            }, indexMethod: function(index) {
                 return index +1;
             },
             //启用 停用
-            EditState: function (uid, state) {
-                this.$alert('公司列表未实现', '提示', {
-                    confirmButtonText: '确定',
-                    callback: function (action) {
-                        this.$message({
-                            type: 'info',
-                            message: 'action:' + action
+            EditState: function (row, state) {
+                var that = this;
+                var input = bif.getInput();
+                input.channel = "Anno.Plugs.Logic";
+                input.router = "Platform";
+                input.method = "EditState";
+                input.ID = row.ID;
+                input.state = state;
+                bif.process(input, function (data) {
+                    if (data.status) {
+                        row.state = state;
+                        if (state===0) {
+                            that.$message({
+                                type: 'success',
+                                duration: 1500,
+                                message: '已停用!'
+                            });
+                        } else {
+                            that.$message({
+                                type: 'success',
+                                duration: 1500,
+                                message: '已启用!'
+                            });
+                        }                       
+                    } else {
+                        that.$message({
+                            type: 'error',
+                            duration: 1500,
+                            message: data.msg
                         });
                     }
                 });
-                return false;//公司列表未实现
-
+            }
+            , reSet: function (row) {
+                var that = this;
+                that.$confirm('确定密码，重置后不能恢复？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                    callback: function (action,instance) {
+                        if (action === "confirm") {
+                            var input = bif.getInput();
+                            input.channel = "Anno.Plugs.Logic";
+                            input.router = "Platform";
+                            input.method = "ReSetpwd";
+                            input.ID = row.ID;
+                            delete input.state;
+                            bif.process(input, function (data) {
+                                if (data.status) {
+                                    that.$message({
+                                        type: 'success',
+                                        duration: 1500,
+                                        message: '重置成功!'
+                                    });
+                                } else {
+                                    that.$message({
+                                        type: 'error',
+                                        duration: 1500,
+                                        message: data.msg
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
             }
             , onQuery: function () {
                 vm.currentPage = 1;

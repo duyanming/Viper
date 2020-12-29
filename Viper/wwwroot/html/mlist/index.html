@@ -19,8 +19,8 @@
                 </el-form>
                 <el-table :data="mData"
                           border
+                          stripe
                           max-height="400"
-                          :row-class-name="tableRowClassName"
                           style="width: 100%">
                     <el-table-column type="index"
                                      fixed
@@ -72,8 +72,8 @@
                         <template slot-scope="scope">
                             <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
                             <el-button @click="reSet(scope.row)" type="text" size="small">重置密码</el-button>
-                            <el-button v-if="scope.row.state==1" @click="EditState(scope.row.id,1)" type="text" size="small">禁用</el-button>
-                            <el-button v-if="scope.row.state!=1" @click="EditState(scope.row.id,0)" type="text" size="small">启用</el-button>
+                            <el-button v-if="scope.row.state==1" @click="EditState(scope.row,0)" type="text" size="small">禁用</el-button>
+                            <el-button v-if="scope.row.state!=1" @click="EditState(scope.row,1)" type="text" size="small">启用</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -111,11 +111,11 @@
     .el-input {
         width: 25%;
     }
-    .el-table .warning-row {
+    .warning-row {
         background: oldlace;
     }
 
-    .el-table .success-row {
+    .success-row {
         background: #f0f9eb;
     }
 </style>
