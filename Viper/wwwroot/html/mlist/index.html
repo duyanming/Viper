@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>会员列表</title>
+</head>
+<body>
+    <div>
+        <div style="padding-top: 0px;">
+            <div id="member" style="display:none">
+                <el-form ref="form" :model="form" >
+                    <el-form-item>
+                        用户名/登录账户：
+                        <el-input placeholder="请输入用户名/登录账户"
+                                  v-model="form.account"></el-input>
+                        <el-button type="primary" @click="onQuery">查询</el-button>
+                    </el-form-item>
+                </el-form>
+                <el-table :data="mData"
+                          border
+                          max-height="400"
+                          :row-class-name="tableRowClassName"
+                          style="width: 100%">
+                    <el-table-column type="index"
+                                     fixed
+                                     :index="indexMethod">
+                    </el-table-column>
+                    <el-table-column prop="account"
+                                     label="登录账户"
+                                     width="120">
+                    </el-table-column>
+                    <el-table-column prop="name"
+                                     label="用户名"
+                                     width="120">
+                    </el-table-column>
+                    <el-table-column fixed
+                                     prop="state"
+                                     label="状态"
+                                     width="100">
+                        <template slot-scope="scope">
+                            <span>
+                                {{scope.row.state==1?"启用":"禁用"}}
+                            </span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column fixed
+                                     prop="co"
+                                     label="公司编码"
+                                     width="120">
+                    </el-table-column>
+                    <el-table-column fixed
+                                     prop="co_n"
+                                     label="公司名称"
+                                     width="120">
+                    </el-table-column>
+                    <el-table-column prop="position"
+                                     label="职位"
+                                     width="120">
+                    </el-table-column>
+                    <el-table-column prop="timespan"
+                                     label="最近登录"
+                                     width="120">
+                    </el-table-column>
+                    <el-table-column prop="rdt"
+                                     label="注册时间"
+                                     width="180">
+                    </el-table-column>
+                    <el-table-column fixed="right"
+                                     align="center"
+                                     label="操作">
+                        <template slot-scope="scope">
+                            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                            <el-button @click="reSet(scope.row)" type="text" size="small">重置密码</el-button>
+                            <el-button v-if="scope.row.state==1" @click="EditState(scope.row.id,1)" type="text" size="small">禁用</el-button>
+                            <el-button v-if="scope.row.state!=1" @click="EditState(scope.row.id,0)" type="text" size="small">启用</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div class="block" style="text-align:center">
+                    <el-pagination @size-change="handleSizeChange"
+                                   @current-change="handleCurrentChange"
+                                   :current-page="currentPage"
+                                   :page-sizes="pagesizes"
+                                   :page-size="pagesize"
+                                   layout="total, sizes, prev, pager, next, jumper"
+                                   :total="total">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- 先引入 Vue -->
+<!--<script src="../../js/vue.min.js"></script>-->
+<!--<link href="../../css/element-ui-index.css" rel="stylesheet" />-->
+<!-- 引入组件库 -->
+<!--<script src="../../js/element-ui-index.js"></script>-->
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+<script src="../../js/base.js"></script>
+<script src="index.js"></script>
+<style>
+    .el-input {
+        width: 25%;
+    }
+    .el-table .warning-row {
+        background: oldlace;
+    }
+
+    .el-table .success-row {
+        background: #f0f9eb;
+    }
+</style>
+</html>
