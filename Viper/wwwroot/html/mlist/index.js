@@ -102,6 +102,8 @@ function Init() {
             , onQuery: function () {
                 vm.currentPage = 1;
                 LoadData(vm.currentPage, vm.pagesize);
+            }, AddUser: function () {
+                window.location.href = '../pcenter.html?Tname=pcenter_add';
             }
         }, created: function () {
             $("#member").show();

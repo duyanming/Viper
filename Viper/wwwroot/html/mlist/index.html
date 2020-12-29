@@ -11,6 +11,7 @@
             <div id="member" style="display:none">
                 <el-form ref="form" :model="form" >
                     <el-form-item>
+                        <el-button  icon="el-icon-plus" type="success" @click="AddUser">增加用户</el-button>
                         用户名/登录账户：
                         <el-input placeholder="请输入用户名/登录账户"
                                   v-model="form.account"></el-input>
@@ -26,15 +27,15 @@
                                      fixed
                                      :index="indexMethod">
                     </el-table-column>
-                    <el-table-column prop="account"
+                    <el-table-column fixed prop="account"
                                      label="登录账户"
                                      width="120">
                     </el-table-column>
-                    <el-table-column prop="name"
+                    <el-table-column fixed prop="name"
                                      label="用户名"
                                      width="120">
                     </el-table-column>
-                    <el-table-column fixed
+                    <el-table-column 
                                      prop="state"
                                      label="状态"
                                      width="100">
@@ -44,12 +45,12 @@
                             </span>
                         </template>
                     </el-table-column>
-                    <el-table-column fixed
+                    <el-table-column 
                                      prop="co"
                                      label="公司编码"
                                      width="120">
                     </el-table-column>
-                    <el-table-column fixed
+                    <el-table-column 
                                      prop="co_n"
                                      label="公司名称"
                                      width="120">
@@ -68,6 +69,7 @@
                     </el-table-column>
                     <el-table-column fixed="right"
                                      align="center"
+                                     width="220"
                                      label="操作">
                         <template slot-scope="scope">
                             <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
