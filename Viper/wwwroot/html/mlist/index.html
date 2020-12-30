@@ -8,8 +8,8 @@
 <body>
     <div>
         <div style="padding-top: 0px;">
-            <div id="member" style="display:none">
-                <el-form ref="form" :model="form" >
+            <div id="member" style="display:none" >
+                <el-form ref="form" :model="form" style="font-size: 10px" >
                     <el-form-item>
                         <el-button  icon="el-icon-plus" type="success" @click="AddUser">增加用户</el-button>
                         用户名/登录账户：
@@ -22,7 +22,7 @@
                           border
                           stripe
                           max-height="400"
-                          style="width: 100%">
+                          style="width: 100%;font-size: 10px">
                     <el-table-column type="index"
                                      fixed
                                      :index="indexMethod">
@@ -40,9 +40,7 @@
                                      label="状态"
                                      width="100">
                         <template slot-scope="scope">
-                            <span>
-                                {{scope.row.state==1?"启用":"禁用"}}
-                            </span>
+                            <el-tag :type="scope.row.state==1?'success':'danger'">{{scope.row.state==1?"启用":"禁用"}}</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column 
@@ -61,7 +59,7 @@
                     </el-table-column>
                     <el-table-column prop="timespan"
                                      label="最近登录"
-                                     width="120">
+                                     width="180">
                     </el-table-column>
                     <el-table-column prop="rdt"
                                      label="注册时间"
@@ -113,12 +111,22 @@
     .el-input {
         width: 25%;
     }
+    .el-button {
+        font-size: 10px;
+    }
     .warning-row {
         background: oldlace;
     }
 
     .success-row {
         background: #f0f9eb;
+    }
+    body {
+        height: 100%;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
     }
 </style>
 </html>

@@ -8,8 +8,10 @@
     <link href="../js/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
     <script src="../js/jquery.min.js"></script>
     <script src="../js/lib/ligerUI/js/ligerui.min.js"></script>
+    <script src="../js/lib/ligerUI/js/plugins/ligerTree.js"></script>
     <script src="../js/base.js"></script>
     <script src="../js/scripts/fconfig.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
     <title>功能配置</title>
     <style type="text/css">
         .l-tree .l-tree-icon-none img {
@@ -28,10 +30,24 @@
             display: -webkit-flex;
             display: flex;
         }
-        .l-form-buttons li div {
+
+            .l-form-buttons li div {
                 margin: 0 auto;
             }
 
+        .l-tree a, .l-tree span {
+            color: #606266;
+            font-size: 14px;
+        }
+
+        body {
+            height: 100%;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+            color: #606266;
+        }
     </style>
     <script type="text/javascript">
         var Tree;

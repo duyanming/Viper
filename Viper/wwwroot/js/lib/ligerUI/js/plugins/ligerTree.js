@@ -997,13 +997,13 @@
                         //node icon
                         treehtmlarr.push('<div class="l-box l-tree-icon ');
                         treehtmlarr.push(g._getParentNodeClassName(isExpandCurrent ? true : false) + " ");
-                        if (p.iconFieldName && o[p.iconFieldName])
-                            treehtmlarr.push('l-tree-icon-none');
-                        else if (p.iconClsFieldName && o[p.iconClsFieldName])
-                            treehtmlarr.push('l-tree-icon-' + o[p.iconClsFieldName] + " ");
+                        treehtmlarr.push('l-tree-icon-none');
                         treehtmlarr.push('">');
-                        if (p.iconFieldName && o[p.iconFieldName])
-                            treehtmlarr.push('<img src="' + o[p.iconFieldName] + '" />');
+                        if (p.iconFieldName && o[p.iconFieldName]) {
+                            treehtmlarr.push('<i class="' + o[p.iconFieldName] + '"></i>');
+                        } else {
+                            treehtmlarr.push('<i class="el-icon-notebook-1"></i>');
+                        }
                         treehtmlarr.push('</div>');
                     }
                 }
@@ -1023,14 +1023,13 @@
                         //node icon 
                         treehtmlarr.push('<div class="l-box l-tree-icon ');
                         treehtmlarr.push(g._getChildNodeClassName() + " ");
-                        if (p.iconFieldName && o[p.iconFieldName])
-                            treehtmlarr.push('l-tree-icon-none');
-                        else if (p.iconClsFieldName && o[p.iconClsFieldName])
-                            treehtmlarr.push('l-tree-icon-' + o[p.iconClsFieldName] + " ");
-
+                        treehtmlarr.push('l-tree-icon-none');
                         treehtmlarr.push('">');
-                        if (p.iconFieldName && o[p.iconFieldName])
-                            treehtmlarr.push('<img src="' + o[p.iconFieldName] + '" />');
+                        if (p.iconFieldName && o[p.iconFieldName]) {
+                            treehtmlarr.push('<i class="' + o[p.iconFieldName] + '"></i>');
+                        } else {
+                            treehtmlarr.push('<i class="el-icon-notebook-1"></i>');
+                        }
                         treehtmlarr.push('</div>');
                     }
                 }
