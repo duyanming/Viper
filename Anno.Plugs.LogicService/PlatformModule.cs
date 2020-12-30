@@ -74,6 +74,7 @@ namespace Anno.Plugs.LogicService
         /// </summary>
         /// <returns></returns>
         [AnnoInfo(Desc = "重置用户密码")]
+        [Authorization]
         public ActionResult ReSetpwd()
         {
             if (Profile != null)
@@ -93,6 +94,7 @@ namespace Anno.Plugs.LogicService
         /// </summary>
         /// <returns></returns>
         [AnnoInfo(Desc = "用户启用禁用")]
+        [Authorization]
         public ActionResult EditState()
         {
             if (Profile != null)
@@ -109,6 +111,7 @@ namespace Anno.Plugs.LogicService
             }
         }
         [AnnoInfo(Desc = "保存用户角色")]
+        [Authorization]
         public ActionResult SaveCurRoles()
         {
             if (Profile != null)
@@ -122,6 +125,7 @@ namespace Anno.Plugs.LogicService
             return new ActionResult(false, null, null, "无权操作，你的IP我们已经记录！");
         }
         [AnnoInfo(Desc = "添加系统角色")]
+        [Authorization]
         public ActionResult AddRole()
         {
             if (Profile != null)
@@ -134,6 +138,7 @@ namespace Anno.Plugs.LogicService
             return new ActionResult(false, null, null, "无权操作，你的IP我们已经记录！");
         }
         [AnnoInfo(Desc = "删除系统角色")]
+        [Authorization]
         public ActionResult DelRole()
         {
             if (Profile != null)
@@ -146,6 +151,7 @@ namespace Anno.Plugs.LogicService
             return new ActionResult(false, null, null, "无权操作，你的IP我们已经记录！");
         }
         [AnnoInfo(Desc = "修改功能角色关系")]
+        [Authorization]
         public ActionResult ModifyRoleLink()
         {
             if (Profile != null)
@@ -196,6 +202,7 @@ namespace Anno.Plugs.LogicService
         /// </summary>
         /// <returns></returns>
         [AnnoInfo(Desc = "修改系统功能")]
+        [Authorization]
         public ActionResult EditFunc()
         {
             var func = Request<sys_func>("inputData");
@@ -208,6 +215,7 @@ namespace Anno.Plugs.LogicService
             return new ActionResult(command.Result.Status, null, null, command.Result.Msg);
         }
         [AnnoInfo(Desc = "添加系统用户")]
+        [Authorization]
         public ActionResult AddUser()
         {
             AddUserCommand command = new AddUserCommand(IdWorker.NextId(), 1);
