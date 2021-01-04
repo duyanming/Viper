@@ -9,11 +9,14 @@
     <div>
         <div style="padding-top: 0px;">
             <div id="member" style="display:none" >
-                <el-form ref="form" :model="form" style="font-size: 10px" >
+                <el-form ref="form"
+                           size="mini"
+                         :model="form" >
                     <el-form-item>
                         <el-button  icon="el-icon-plus" type="success" @click="AddUser">增加用户</el-button>
                         用户名/登录账户：
-                        <el-input placeholder="请输入用户名/登录账户"
+                        <el-input prefix-icon="el-icon-search"
+                                  placeholder="请输入用户名/登录账户"
                                   v-model="form.account"></el-input>
                         <el-button type="primary" @click="onQuery">查询</el-button>
                     </el-form-item>
@@ -21,8 +24,9 @@
                 <el-table :data="mData"
                           border
                           stripe
+                          size="mini"
                           max-height="400"
-                          style="width: 100%;font-size: 10px">
+                          style="width: 100%;">
                     <el-table-column type="index"
                                      fixed
                                      :index="indexMethod">

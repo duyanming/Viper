@@ -9,7 +9,10 @@
     <div>
         <div style="padding-top: 0px;">
             <div id="company" style="display:none">
-                <el-form ref="form" :model="form" label-width="80px" style="font-size: 10px">
+                <el-form ref="form"
+                           size="mini"
+                         :model="form" 
+                         label-width="80px">
                     <el-form-item label="公司名称">
                         <el-input prefix-icon="el-icon-search"
                                   placeholder="请输入公司名称"
@@ -19,7 +22,8 @@
                 </el-form>
                 <el-table :data="companysData"
                           border
-                          style="width: 100%;font-size: 10px">
+                          size="mini"
+                          style="width: 100%;">
                     <el-table-column fixed
                                      prop="code"
                                      label="编码"
