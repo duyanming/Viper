@@ -29,6 +29,7 @@ namespace Anno.Plugs.TraceService
         public ActionResult GetRoutingInfo([AnnoInfo(Desc = "服务名称")] string appName)
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
+            input.Add(StorageCommand.COMMAND, StorageCommand.APIDOCCOMMAND);
             input.Add(CONST.Opt, CONST.FindByApp);
             input.Add(CONST.App, appName);
             string rlt = StorageEngine.Invoke(input);

@@ -12,7 +12,14 @@ namespace ViperCenter
         static void Main(string[] args)
         {
             Console.Title = "ViperCenter";
-            Bootstrap.StartUp(args);
+            Bootstrap.StartUp(args
+                , (service, noticeType) =>//上线下线
+                {
+
+                }, (newService, oldService) =>//服务配置更改
+                {
+
+                });
         }
     }
 }
