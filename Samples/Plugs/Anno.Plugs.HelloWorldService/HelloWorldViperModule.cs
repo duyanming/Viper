@@ -14,15 +14,16 @@ namespace Anno.Plugs.HelloWorldService
     using Anno.EngineData;
     using HelloWorldDto;
 
-    public class HelloWorldViperModule: BaseModule
+    public class HelloWorldViperModule : LogBaseModule
     {
         [AnnoInfo(Desc = "世界你好啊SayHi")]
-        public dynamic SayHello([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age) {
+        public dynamic SayHello([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
+        {
             Dictionary<string, string> input = new Dictionary<string, string>();
-            input.Add("vname",name);
+            input.Add("vname", name);
             input.Add("vage", age.ToString());
             var soEasyMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<string>>(this.InvokeProcessor("Anno.Plugs.SoEasy", "AnnoSoEasy", "SayHi", input)).OutputData;
-            return new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了", SoEasyMsg= soEasyMsg };
+            return new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了", SoEasyMsg = soEasyMsg };
         }
 
         [AnnoInfo(Desc = "两个整数相减等于几？我来帮你算（x-y=?）")]
@@ -40,6 +41,15 @@ namespace Anno.Plugs.HelloWorldService
             var product = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<ProductDto>>(this.InvokeProcessor("Anno.Plugs.SoEasy", "AnnoSoEasy", "BuyProduct", input)).OutputData;
             product.CountryOfOrigin = $"中国北京中转--{ product.CountryOfOrigin}";
             return product;
+        }
+
+        [AnnoInfo(Desc = "两个整数相减等于几？我来帮你算（x-y=?）----链路追踪上附加日志")]
+        public dynamic LogSamples([AnnoInfo(Desc = "整数X")] int x, [AnnoInfo(Desc = "整数Y")] int y)
+        {
+            this.Info(new { x, y }, "你传入的x,y值，计算前Log");
+            var rlt = x - y;
+            this.Info(rlt, "你传入的x,y值，计算后Log");
+            return rlt;
         }
     }
 }

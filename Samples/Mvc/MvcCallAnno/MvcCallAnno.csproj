@@ -49,11 +49,11 @@
     <Reference Include="Anno.CronNET, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Anno.CronNET.1.0.3\lib\net461\Anno.CronNET.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.EngineData, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.EngineData.1.0.3\lib\net461\Anno.EngineData.dll</HintPath>
+    <Reference Include="Anno.EngineData, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.EngineData.1.0.3.1\lib\net461\Anno.EngineData.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Loader, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Loader.1.0.3\lib\net461\Anno.Loader.dll</HintPath>
+    <Reference Include="Anno.Loader, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Loader.1.0.3.1\lib\net461\Anno.Loader.dll</HintPath>
     </Reference>
     <Reference Include="Anno.Log, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Anno.Log.1.0.3\lib\net461\Anno.Log.dll</HintPath>

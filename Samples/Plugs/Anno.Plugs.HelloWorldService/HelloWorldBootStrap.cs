@@ -8,7 +8,7 @@ namespace Anno.Plugs.HelloWorldService
     /// DependsOn 依赖的类型程序集自动注入DI容器
     /// </summary>
     [DependsOn(
-        //typeof(Domain.Bootstrap)
+        typeof(ViperLog.ViperLogBootstrap)
         //, typeof(QueryServices.Bootstrap)
         //, typeof(Repository.Bootstrap)
         //, typeof(Command.Handler.Bootstrap

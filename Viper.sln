@@ -73,6 +73,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvc", "Mvc", "{FDD81873-482
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCallAnno", "Samples\Mvc\MvcCallAnno\MvcCallAnno.csproj", "{A786E195-0192-4D6E-BFA3-877F8305BE82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anno.ViperLog", "Anno.ViperLog\Anno.ViperLog.csproj", "{8D49F2F8-E4EB-477D-B280-DC00F503081B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,10 @@ Global
 		{A786E195-0192-4D6E-BFA3-877F8305BE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A786E195-0192-4D6E-BFA3-877F8305BE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A786E195-0192-4D6E-BFA3-877F8305BE82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D49F2F8-E4EB-477D-B280-DC00F503081B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D49F2F8-E4EB-477D-B280-DC00F503081B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D49F2F8-E4EB-477D-B280-DC00F503081B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D49F2F8-E4EB-477D-B280-DC00F503081B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,6 +209,7 @@ Global
 		{7AA60D65-1BDA-414F-AFF0-7160F8EF8F7A} = {54B55094-44C3-4BA5-979D-95190C5BCE25}
 		{FDD81873-4827-4695-B96C-4CCEEC0663EB} = {0E415556-04F0-4723-AB5D-3A25789AF878}
 		{A786E195-0192-4D6E-BFA3-877F8305BE82} = {FDD81873-4827-4695-B96C-4CCEEC0663EB}
+		{8D49F2F8-E4EB-477D-B280-DC00F503081B} = {9FAB8D1B-01FA-498B-9758-6DE987675DCB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8290208B-A631-4AED-A942-BD49A1AAC5F5}

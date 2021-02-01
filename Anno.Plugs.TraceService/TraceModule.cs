@@ -8,14 +8,17 @@ namespace Anno.Plugs.TraceService
 {
     using Anno.Model;
     using System.Collections.Generic;
-
+    /// <summary>
+    /// 调用链或者日志用户都可以根据自己的需求重写
+    /// 比如写入 ElasticSearch
+    /// </summary>
     public class TraceModule : BaseModule
     {
         private static readonly EngineData.SysInfo.UseSysInfoWatch Usi = new EngineData.SysInfo.UseSysInfoWatch();
         private readonly SqlSugar.SqlSugarClient _db;
         public TraceModule()
         {
-            _db =Infrastructure.DbInstance.Db;
+            _db = Infrastructure.DbInstance.Db;
         }
         /// <summary>
         /// 批量接收追踪信息
@@ -40,7 +43,7 @@ namespace Anno.Plugs.TraceService
             {
                 Page = RequestInt32("page") ?? 1,
                 Pagesize = RequestInt32("pagesize") ?? 20,
-                SortName = RequestString("sortname")?? "Timespan",
+                SortName = RequestString("sortname") ?? "Timespan",
                 SortOrder = RequestString("sortorder") ?? "desc",
                 Where = Filter()
             };
@@ -55,7 +58,7 @@ namespace Anno.Plugs.TraceService
             {
                 pageParameter.SortOrder = "desc";
             }
-            var dt = _db.Queryable<sys_trace>().Where(t=>t.PreTraceId==null||t.PreTraceId=="")
+            var dt = _db.Queryable<sys_trace>().Where(t => t.PreTraceId == null || t.PreTraceId == "")
                 .Where(pageParameter.Where)
                 .OrderBy($"{pageParameter.SortName} {pageParameter.SortOrder}")
                 .ToPageList(pageParameter.Page, pageParameter.Pagesize, ref totalNumber);
@@ -75,10 +78,24 @@ namespace Anno.Plugs.TraceService
             var output = new Dictionary<string, object> { { "#Total", ts.Count }, { "#Rows", ts } };
             return new ActionResult(true, null, output);
         }
+
+        #region 用户日志
+        /// <summary>
+        /// 批量写入日志
+        /// </summary>
+        /// <param name="logs"></param>
+        /// <returns></returns>
+        public ActionResult LogBatch(List<sys_log> logs)
+        {
+            logs.ForEach(t => { t.ID = IdWorker.NextId(); });
+            _db.Insertable<sys_log>(logs).With(SqlWith.NoLock).ExecuteCommand();
+            return new ActionResult();
+        }
+        #endregion
         #region  Module 初始化
         public override bool Init(Dictionary<string, string> input)
         {
-            base.Init(input);            
+            base.Init(input);
             return true;
         }
         #endregion
