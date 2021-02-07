@@ -13,7 +13,7 @@ function BuildGrid() {
         columns: [
             {
                 display: '查看', name: '详细', width: 60, render: function (rowdata, rowindex, value) {
-                    var url = "detail.html?TraceId=";
+                    var url = "detail.html?GlobalTraceId=";
                     return '<a href="' + url + rowdata.GlobalTraceId + '">详细</a>';
                 }, frozen: true
             },

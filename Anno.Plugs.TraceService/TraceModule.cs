@@ -72,9 +72,19 @@ namespace Anno.Plugs.TraceService
         [AnnoInfo(Desc = "根据GlobalTraceId 查看单个调用链明细")]
         public ActionResult GetTraceByGlobalTraceId()
         {
-            string traceId = RequestString("GId");
-            var ts = _db.Ado.SqlQuery<sys_trace>($"select * from sys_trace where GlobalTraceId='{traceId}';").ToList();
-            //ts?.ForEach(t => { t.AppName = $"{t.AppName}({t.Ip})-{t.Askchannel}Service.{t.Askrouter}Module.{t.Askmethod}"; });
+            string tid = RequestString("TraceId");
+            List<sys_trace> ts;
+            if (string.IsNullOrWhiteSpace(tid))
+            {
+                string gId = RequestString("GId");
+                ts = _db.Ado.SqlQuery<sys_trace>($"select * from sys_trace where GlobalTraceId=@gId;",new { gId}).ToList();
+            }
+            else
+            {
+                string sql = @"SELECT  * FROM  sys_trace 
+WHERE  GlobalTraceId=(SELECT  c.GlobalTraceId FROM sys_trace as c WHERE c.TraceId=@tid LIMIT 1)";
+                ts = _db.Ado.SqlQuery<sys_trace>(sql,new { tid }).ToList();
+            }
             var output = new Dictionary<string, object> { { "#Total", ts.Count }, { "#Rows", ts } };
             return new ActionResult(true, null, output);
         }
@@ -90,6 +100,45 @@ namespace Anno.Plugs.TraceService
             logs.ForEach(t => { t.ID = IdWorker.NextId(); });
             _db.Insertable<sys_log>(logs).With(SqlWith.NoLock).ExecuteCommand();
             return new ActionResult();
+        }
+
+        /// <summary>
+        /// 获取用户日志
+        /// </summary>
+        /// <param name="logs"></param>
+        /// <returns></returns>
+        [AnnoInfo(Desc = "获取用户日志")]
+        public ActionResult SysLog()
+        {
+            PageParameter pageParameter = new PageParameter
+            {
+                Page = RequestInt32("page") ?? 1,
+                Pagesize = RequestInt32("pagesize") ?? 20,
+                SortName = RequestString("sortname") ?? "Timespan",
+                SortOrder = RequestString("sortorder") ?? "desc",
+                Where = Filter()
+            };
+            pageParameter.SortName?.Replace(Table, ".");
+            pageParameter.SortOrder?.Replace(Table, ".");
+            var totalNumber = 0;
+            if (string.IsNullOrWhiteSpace(pageParameter.SortName))
+            {
+                pageParameter.SortName = "Timespan";
+            }
+            if (string.IsNullOrWhiteSpace(pageParameter.SortOrder))
+            {
+                pageParameter.SortOrder = "desc";
+            }
+            var title = this.RequestString("title");
+            var logType = this.RequestInt32("logType");
+            var dt = _db.Queryable<sys_log>()
+                .Where(pageParameter.Where)
+                .WhereIF(!string.IsNullOrWhiteSpace(title), it => it.Title.Contains(title) || it.Content.Contains(title) || it.TraceId.Contains(title))
+                .WhereIF(logType != null && logType > -1, it => it.LogType.Equals(logType))
+                .OrderBy($"{pageParameter.SortName} {pageParameter.SortOrder}")
+                .ToPageList(pageParameter.Page, pageParameter.Pagesize, ref totalNumber);
+            var output = new Dictionary<string, object> { { "#Total", totalNumber }, { "#Rows", dt } };
+            return new ActionResult(true, dt, output);
         }
         #endregion
         #region  Module 初始化
