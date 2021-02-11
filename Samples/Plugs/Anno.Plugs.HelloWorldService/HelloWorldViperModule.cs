@@ -46,9 +46,23 @@ namespace Anno.Plugs.HelloWorldService
         [AnnoInfo(Desc = "两个整数相减等于几？我来帮你算（x-y=?）----链路追踪上附加日志")]
         public dynamic LogSamples([AnnoInfo(Desc = "整数X")] int x, [AnnoInfo(Desc = "整数Y")] int y)
         {
-            this.Info(new { x, y }, "你传入的x,y值，计算前Log");
+            this.Info($"{x}-{y}=?", $"{x}-{y}=? 前");
             var rlt = x - y;
-            this.Info(rlt, "你传入的x,y值，计算后Log");
+            this.Info(rlt, $"{x}-{y}=? 后");
+
+            if (rlt < 0)
+            {
+                Error($"计算结果为负数{rlt}","计算结果不能为负数");
+            }
+            if (rlt >10)
+            {
+                Fatal($"计算结果为{rlt} 大于10", "计算结果大于10");
+            }
+
+            if (rlt > 100)
+            {
+                Warn($"计算结果为{rlt} 大于100", "计算结果大于100");
+            }
             return rlt;
         }
     }
