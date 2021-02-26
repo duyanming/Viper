@@ -20,6 +20,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
 <!-- 引入组件库 -->
 <script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>
+
+<script src="~/js/httpVue/axios.min.js"></script>
+<script src="~/js/httpVue/bluebird.min.js"></script>
+<script src="~/js/httpVue/httpVueLoader.min.js"></script>
+
 <div id="app" style="height:100%;">
     <el-container>
         <el-container>
@@ -80,24 +85,11 @@
         _isMobile = true;
         _menumWidth = "64px";
     }
-    Vue.config.devtools = true;
-    Vue.component('el-menu-tree', {
-        name: "el-menu-tree",
-        template: "<div>"
-            + ' <el-menu-item   v-for="(subitem,iindex) in item.children" :index="subitem.id" @@click="vm.openMenuItem(subitem)">'
-            + '     <i :class="(subitem.icon==null||subitem.icon==\'\')?\'el-icon-notebook-1\':subitem.icon"></i>'
-            + '     <span slot="title">{{subitem.fname}}</span>'
-            + ' </el-menu-item>'
-            + ' <el-submenu v-for="(subitem,iindex) in item.childrenDir" :index="subitem.id">'
-            + '     <template slot="title">'
-            + '         <i :class="(subitem.icon==null||subitem.icon==\'\')?\'el-icon-folder\':subitem.icon"></i>'
-            + '         <span slot="title">{{subitem.fname}}</span>'
-            +'      </template>'
-            + '     <el-menu-tree :item="subitem"></el-menu-tree>'
-            + '</el-submenu>'
-            + '</div>',
-        props: ["item"]
-    });
+    Vue.config.productionTip = false;
+    Vue.config.devtools = false;
+
+    Vue.use(httpVueLoader);
+
     var vm = new Vue({
         el: '#app',
         data: {
@@ -268,8 +260,12 @@
                     position: 'bottom-right'
                 });
             }
+        },
+        components: {
+            'el-menu-tree': httpVueLoader('/component/el-menu-tree.vue')
         }
     });
+
     // 判断浏览器函数
     function isMobile() {
         if (window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {

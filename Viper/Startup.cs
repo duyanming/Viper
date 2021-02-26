@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -41,7 +42,14 @@ namespace Viper.GetWay
             }
             app.UseResponseCompression();
 
-            app.UseStaticFiles();//使用静态文件默认的文件夹为wwwroot
+            //添加MIME
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".vue"] = "text/plain";
+            //使用静态文件默认的文件夹为wwwroot
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ContentTypeProvider = provider
+            });
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {

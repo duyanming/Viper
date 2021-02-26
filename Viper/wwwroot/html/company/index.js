@@ -17,11 +17,11 @@ function Init() {
             pagesize: 20,
             pagesizes: [10, 20, 30, 40]
         }, methods: {
-            handleSizeChange(val) {
+            handleSizeChange: function(val) {
                 this.pagesize = val;
                 LoadData(vm.currentPage, val);               
             },
-            handleCurrentChange(val) {
+            handleCurrentChange: function(val) {
                 this.currentPage = val;
                 LoadData(val, vm.pagesize);
             },
