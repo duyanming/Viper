@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\httpVue\axios.min.js" />
+    <Content Remove="wwwroot\js\httpVue\axios.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Anno.EngineData" Version="1.0.3.1" />
     <PackageReference Include="Anno.RateLimit" Version="1.0.1.6" />
     <PackageReference Include="Anno.Rpc.Client" Version="1.0.3" />
