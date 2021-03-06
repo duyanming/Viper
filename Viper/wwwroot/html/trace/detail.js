@@ -78,7 +78,7 @@ function BuildTreeTable(dataTree) {
                 display: '系统日志', name: 'TraceId', id: 'TraceIdLog', width: 60
                 , render: function (rowdata, rowindex, value) {
                     var url = "../syslog/index.html?TraceId=";
-                    return '<a href="' + url + rowdata.TraceId + '">查看</a>';
+                    return '<a style="color: #409EFF;" href="' + url + rowdata.TraceId + '">查看</a>';
                 }
             },
             { display: '目标服务', name: 'Target', id: 'TraceId2', width: 130, align: 'left' },
@@ -89,7 +89,9 @@ function BuildTreeTable(dataTree) {
                 { display: '访问者IP', width: 200, name: 'Ip', type: "text" },
                 { display: '调用时间', width: 200, name: 'Timespan', type: "date" }
         ], width: '100%',
-            height: '99%',
+        height: '99%',
+        headerRowHeight: 36,
+        rowHeight:45,
             usePager:false,
             data: dataTree, alternatingRow: false, tree: {
                 columnId: 'TraceId',

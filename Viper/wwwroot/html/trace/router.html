@@ -12,17 +12,36 @@
     <script src="../../js/base.js"></script>
     <script src="router.js"></script>
     <title>集群路由</title>
+    <style>
+        .l-grid-hd-row {
+            color: #909399;
+            font-weight: 500;
+            height: 36px;
+            line-height: 36px;
+            background-color: snow;
+        }
+
+        .l-grid-row {
+            color: #606266;
+        }
+
+        .l-grid-row-cell-inner {
+            line-height: 45px;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <div style="padding-top: 0px;">
-        <div>
-           <span>服务名称：</span> <input name="appName" value="App001" id="appName"/>
-            <input type="button" name="查询" value="查询" id="search"/>
-        </div>
-        <div id="grid">
+    <div>
+        <div style="padding-top: 0px;">
+            <form class="el-form">
+                <div>
+                    <span style="font-size:14px;padding-left:2px;">服务名称：</span> <input name="appName" value="App001" id="appName" />
+                    <input type="button" name="查询" value="查询" id="search" />
+                </div>
+            </form>
+            <div id="grid">
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>
