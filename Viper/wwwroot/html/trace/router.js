@@ -1,23 +1,17 @@
 ﻿/// <reference path="../../js/jquery.js" />
 /// <reference path="../../js/base.js" />
 var rlt = {};
-$(function () {
-    var args = bif.GetUrlParms();
-    if (args.appName !== undefined) {
-        window.$("#appName").val(args.appName);
-    }
-    LoadData();
-    window.$("#search").click(function () {
-        LoadData();
-    });
-});
 
-function LoadData() {
+function LoadData(appName) {
     var input = bif.getInput();
     input.channel = "Anno.Plugs.Trace";
     input.router = "Router";
     input.method = "GetRoutingInfo";
-    input.appName = window.$("#appName").val();
+    if (appName !== undefined && appName !== null) {
+        input.appName = "appName";
+    } else {
+        input.appName = vm.appName;
+    }
 
     bif.process(input, function (data) {
         rlt.Rows = data.outputData;

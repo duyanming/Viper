@@ -12,17 +12,67 @@
     <script src="../../js/base.js"></script>
     <script src="router.js"></script>
     <title>集群路由</title>
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>
+
+    <script src="../../js/httpVue/bluebird.min.js"></script>
+    <script src="../../js/httpVue/httpVueLoader.min.js"></script>
 </head>
 <body>
-<div>
-    <div style="padding-top: 0px;">
-        <div>
-           <span>服务名称：</span> <input name="appName" value="App001" id="appName"/>
-            <input type="button" name="查询" value="查询" id="search"/>
-        </div>
-        <div id="grid">
+    <div>
+        <div style="padding-top: 0px;">
+            <div id="app">
+                <anno-router-header v-model="appName"></anno-router-header>
+            </div>
+            <div id="grid">
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>
+<script>
+    Vue.config.productionTip = true;
+    Vue.config.devtools = true;
+
+    Vue.use(httpVueLoader);
+
+    var vm = new Vue({
+        el: '#app',
+        data: { appName: "App001" },
+        components: {
+            'anno-router-header': httpVueLoader('/component/anno-router-header.vue')
+        },
+        methods: {
+
+        },
+        created: function () {//用于数据初始化
+            vm = this;
+            var args = bif.GetUrlParms();
+            if (args.appName !== undefined) {
+                this.appName = args.appName;
+            }
+            LoadData();
+        }
+    });
+</script>
+<style>
+    .l-grid-hd-row {
+        color: #909399;
+        font-weight: 500;
+        height: 36px;
+        line-height: 36px;
+        background-color: snow;
+    }
+
+    .l-grid-row {
+        color: #606266;
+    }
+
+    .l-grid-row-cell-inner {
+        line-height: 45px;
+    }
+</style>
