@@ -48,7 +48,7 @@ function BuildGrid(data) {
         detail: { onShowDetail: showParameters,height:'auto'},
         alternatingRow: true,
         usePager: false,
-        rownumbers: true,
+        rownumbers: false,
         enabledEdit: false,
         height: '100%',
         width: '99.7%',
