@@ -9,6 +9,7 @@
                 <el-input style="width:40%;"
                           prefix-icon="el-icon-search"
                           placeholder="服务名称"
+                          value="value"
                           v-model="form.title"></el-input>
                 <el-button type="primary" v-on:keyup.enter="onQuery" @click="onQuery">查询</el-button>
             </el-form-item>
@@ -28,17 +29,22 @@
         },
         data:function() {
             return {
-                form: { title: "App001" }
+                form: { title: this.value }
             };
-        }
-        , created: function () {//用于数据初始化
+        },
+        watch: {
+            value: function (val, oval) {
+                this.form.title = val;
+            }
+        },
+        created: function () {//用于数据初始化
             at = this;
            
             this.keyupAnno();
         },
         methods: {
             onQuery: function () {
-                LoadData();
+                this.$parent.onQuery(this.form.title);
             },
             keyupAnno: function () {
                 document.onkeydown = function (e) {

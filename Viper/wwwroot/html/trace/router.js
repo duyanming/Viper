@@ -8,7 +8,7 @@ function LoadData(appName) {
     input.router = "Router";
     input.method = "GetRoutingInfo";
     if (appName !== undefined && appName !== null) {
-        input.appName = "appName";
+        input.appName = appName;
     } else {
         input.appName = vm.appName;
     }
@@ -29,16 +29,18 @@ function BuildGrid(data) {
         columns: [
             {
                 display: '查看', name: '详细', width: 60, render: function (rowdata, rowindex, value) {
-                    return '<a href="javascript:openDetail(' + rowindex + ')">详细</a>';
+                    return '<a  style="color: #409EFF;" href="javascript:openDetail(' + rowindex + ')">详细</a>';
                 }
             },
             { display: '服务名称', width: 120, name: 'App', type: "text" },
             { display: '管道', width: 200, name: 'Channel', type: "text" },
             { display: '请路由', width: 200, name: 'Router', type: "text" },
             { display: '方法', width: 150, name: 'Method', type: "text" },
-            { display: '参数个数', width: 110, name: 'ParameterCount', type: "number" },
+            { display: '参数个数', width: 94, name: 'ParameterCount', type: "number" },
             { display: '描述', name: 'Desc', width: 250 }
         ],
+        headerRowHeight: 36,
+        rowHeight: 45,
         isScroll: false,
         frozen: false,
         showTitle: false,
@@ -73,6 +75,8 @@ function showParameters(row, detailPanel, callback) {
                 { display: '参数类型', name: 'ParameterType', width: 200 },
                 { display: '描述', name: 'Desc', width: 300 }
             ],
+        headerRowHeight: 36,
+        rowHeight: 45,
         isScroll: false,
         showToggleColBtn: false,
         height: '400px',
