@@ -105,6 +105,15 @@ namespace Microsoft.AspNetCore
                         {
                             input.Add(k, Request.Form[k]);
                         }
+                        foreach (IFormFile file in Request.Form.Files)
+                        {
+                            var fileName = file.Name;
+                            if (string.IsNullOrWhiteSpace(fileName))
+                            {
+                                fileName = file.FileName;
+                            }
+                            input.TryAdd(fileName, file.ToBase64());
+                        }
                     }
                 }
                 finally

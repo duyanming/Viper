@@ -4,9 +4,11 @@ Mail:dym880@163.com
 Create Date:2020/9/7 11:00:05 
 Functional description： ExamModule
 ******************************************************/
+using Anno.Const.Attribute;
 using Anno.EngineData;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Anno.Plugs.ViperService
@@ -33,6 +35,20 @@ namespace Anno.Plugs.ViperService
         public dynamic Dyn()
         {
             return new ActionResult(true, new { Name = "Dyn", Age = 18 });
+        }
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <returns></returns>
+        [AnnoInfo(Desc = "上传文件")]
+        public dynamic UpLoadFile() {
+            var file = Request<AnnoFile>("annoFile");
+            var filePath = AppDomain.CurrentDomain.BaseDirectory;
+            using (var stream = System.IO.File.Create(Path.Combine(filePath,file.FileName)))
+            {
+                stream.Write(file.Content,0,file.Length);
+            }
+            return new ActionResult(true, new { Msg = "上传成功", SourceId = 18 });
         }
     }
 }
