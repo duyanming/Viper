@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.Loader" Version="1.0.3.1" />
+    <PackageReference Include="Anno.Loader" Version="1.0.3.3" />
   </ItemGroup>
 </Project>

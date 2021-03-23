@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.EngineData" Version="1.0.3.1" />
-    <PackageReference Include="Anno.Rpc.Client" Version="1.0.3" />
+    <PackageReference Include="Anno.EngineData" Version="1.0.3.3" />
+    <PackageReference Include="Anno.Rpc.Client" Version="1.0.3.3" />
   </ItemGroup>
 
   <ItemGroup>

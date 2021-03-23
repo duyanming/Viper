@@ -8,17 +8,19 @@
     <Company>Du Yanming</Company>
     <PackageIcon>logo.jpg</PackageIcon>
   </PropertyGroup>
-
+  
+  <PropertyGroup>
+    <PackageIcon>logo.jpg</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)key.pfx</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <PackageReference Include="Anno.EngineData" Version="1.0.3.1" />
-    <PackageReference Include="Anno.Rpc.Client" Version="1.0.3" />
+    <Content Include="$(SolutionDir)Viper\wwwroot\img\logo.jpg" Link="logo.jpg" PackagePath="\" />
+    <Content Include="$(SolutionDir)LICENSE" Link="LICENSE" PackagePath="\" />
+    <PackageReference Include="Anno.EngineData" Version="1.0.3.3" />
+    <PackageReference Include="Anno.Rpc.Client" Version="1.0.3.3" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\Viper\wwwroot\img\logo.jpg">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
 </Project>
