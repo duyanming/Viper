@@ -51,7 +51,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Builder", "Builder", "{A61F46AC-68F4-4AB7-9CC8-D84F079883F1}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
-		key.pfx = key.pfx
+		key.snk = key.snk
 		LICENSE = LICENSE
 		README.md = README.md
 		viperCenter.bat = viperCenter.bat

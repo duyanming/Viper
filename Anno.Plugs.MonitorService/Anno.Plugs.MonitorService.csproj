@@ -13,7 +13,7 @@
     <PackageIcon>logo.jpg</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
