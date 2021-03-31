@@ -151,7 +151,7 @@ function CpuInt() {
             symbol: 'none',
             sampling: 'average',
             itemStyle: {
-                color: '#80FFA5'
+                color: '#32d2b5'
             },
             areaStyle: {},
             data: dataSystem,
@@ -245,7 +245,7 @@ function MemoryInt() {
             symbol: 'none',
             sampling: 'average',
             itemStyle: {
-                color: '#80FFA5'
+                color: '#32d2b5'
             },
             areaStyle: {},
             data: memorydataSystem,
