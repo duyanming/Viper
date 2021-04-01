@@ -1,7 +1,8 @@
 # 🎄Viper
     Viper 是一个基于Anno微服务引擎开发的项目
 
-![Dashboard](https://s1.ax1x.com/2020/09/26/0iRcIU.png)
+![Dashboard](https://z3.ax1x.com/2021/04/01/cE4QPS.png)
+![Dashboard](https://z3.ax1x.com/2021/04/01/cE58JO.png)
 
 ##  🎩[Java 实现 ](https://github.com/duyanming/anno.thrift-parent) : https://github.com/duyanming/anno.thrift-parent
 
@@ -57,7 +58,7 @@
     进入项目文件夹 Viper\ViperCenter\bin\Debug\netcoreapp3.1 
     运行命令 dotnet ViperCenter.dll
     看到下图 说明运行成功
-![第一步](https://s1.ax1x.com/2020/09/26/0iRxsI.png)
+![第一步](https://z3.ax1x.com/2021/04/01/cE4a5T.png)
 
 ```
 第二步：启动 ViperService
@@ -130,7 +131,7 @@
     进入项目文件夹 Viper\ViperService\bin\Debug\netcoreapp3.1 
     运行命令 dotnet ViperService.dll
     看到下图 说明 ViperService 成功运行 并且已经注册到 注册中心（ViperCenter）运行成功
-![第二步](https://s1.ax1x.com/2020/09/26/0iWuwV.png)
+![第二步](https://z3.ax1x.com/2021/04/01/cE5PZq.png)
 
 启动 Viper.GetWay
 
@@ -193,19 +194,19 @@
 
 
 
-![第三步](https://s1.ax1x.com/2020/07/30/anlo26.png)
+![第三步](https://z3.ax1x.com/2021/04/01/cE5gyj.png)
 
 ```
 调用链详情
 ```
 
-![第三步](https://s1.ax1x.com/2020/07/30/anlI8x.png)
+![第三步](https://z3.ax1x.com/2021/04/01/cE5fwq.png)
 
  第四步：集群路由信息
 
-![第三步](https://s1.ax1x.com/2020/07/30/anGPsK.png)
+![第三步](https://z3.ax1x.com/2021/04/01/cE5Hl4.png)
 
-   ![第三步](https://s1.ax1x.com/2020/07/30/anGNzq.png)
+   ![第三步](https://z3.ax1x.com/2021/04/01/cEIiXd.png)
 
 ```
 调试邮件接口成功
