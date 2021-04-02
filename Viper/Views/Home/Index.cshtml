@@ -99,7 +99,7 @@
             profile: JSON.parse(localStorage.profile),
             menuroot: [],
             tabs: [
-                { id: "dashboard", name: "Dashboard", closable:false, src: "html/welcome.html", loading:false}
+                { id: "dashboard", name: "Dashboard", closable:false, src: "html/welcome.html?appName=@(Anno.Const.SettingService.AppName)", loading:false}
             ]
         }
         , created: function () {//用于数据初始化
@@ -186,7 +186,7 @@
                     that.activeName = item.fname;
                     return;
                 }
-                var tab = { id: "dashboard", name: "Dashboard", closable: true, src: "html/welcome.html", loading: true };
+                var tab = { id: "dashboard", name: "Dashboard", closable: true, src: "html/welcome.html?appName=@(Anno.Const.SettingService.AppName)", loading: true };
                 tab.id = item.id;
                 tab.name = item.fname;
                 tab.src = item.furl;
