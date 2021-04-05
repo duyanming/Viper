@@ -33,19 +33,33 @@
               >
             </li>
           </ul>
-          <div class="stats-bar" style="margin-right: 30px">服务访问分析</div>
+          <div class="stats-bar" style="margin-right: 30px">
+            服务访问详情分析
+          </div>
         </div>
       </el-col>
     </el-row>
     <el-row type="flex">
       <el-col :span="11" :offset="1">
         <el-card class="box-card">
-          <div class="echarts_service" id="all_service"></div>
+          <div class="echarts_service" id="ServiceModuleAnalyse"></div>
         </el-card>
       </el-col>
       <el-col :span="11" style="margin-left: 15px">
         <el-card class="box-card">
-          <div class="echarts_service" id="error_service"></div>
+          <div class="echarts_service" id="ServiceRouterAnalyse"></div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row type="flex">
+      <el-col :span="11" :offset="1">
+        <el-card class="box-card">
+          <div class="echarts_service" id="ServiceMethodAnalyse"></div>
+        </el-card>
+      </el-col>
+      <el-col :span="11" style="margin-left: 15px">
+        <el-card class="box-card">
+          <div class="echarts_service" id="ServiceMethodErrorAnalyse"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -63,7 +77,9 @@ module.exports = {
     },
   },
   data: function () {
-    return { activeIndex: 1 };
+    return {
+      activeIndex: 1,
+    };
   },
   watch: {},
   created: function () {
@@ -73,6 +89,9 @@ module.exports = {
     this.toggleTag(1);
   },
   methods: {
+    search: function () {
+      debugger;
+    },
     toggleTag: function (tag) {
       this.activeIndex = tag;
       var startDate = this.fun_date(0);
@@ -87,49 +106,87 @@ module.exports = {
           deltaDay = day - 1;
         }
         //周一
-        var monday =new Date(now.getTime()-deltaDay*24*60*60*1000);
+        var monday = new Date(now.getTime() - deltaDay * 24 * 60 * 60 * 1000);
         startDate = monday.toLocaleDateString();
         //下周一
-        monday.setDate(monday.getDate()+7);
-        endDate =monday.toLocaleDateString();
+        monday.setDate(monday.getDate() + 7);
+        endDate = monday.toLocaleDateString();
       } else if (tag === 3) {
-        startDate =now.getFullYear() + "-"+(now.getMonth()+1)+"-01";
-        var day01=new Date(startDate);
+        startDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-01";
+        var day01 = new Date(startDate);
         //下月1号
-        day01.setMonth(day01.getMonth()+1);
-        endDate =day01.toLocaleDateString();
+        day01.setMonth(day01.getMonth() + 1);
+        endDate = day01.toLocaleDateString();
       } else if (tag === 4) {
         startDate = now.getFullYear() + "-01-01";
         endDate = now.getFullYear() + 1 + "-01-01";
       }
-      this.all_service(startDate, endDate);
-      this.error_service(startDate, endDate);
+      this.serviceModuleAnalyse(startDate, endDate);
+      this.serviceRouterAnalyse(startDate, endDate);
+      this.serviceMethodAnalyse(startDate, endDate);
+      this.serviceMethodErrorAnalyse(startDate, endDate);
     },
-    all_service: function (startDate, endDate) {
+    serviceModuleAnalyse: function (startDate, endDate) {
       var that = this;
       var input = bif.getInput();
       input.channel = "Anno.Plugs.Analyse";
       input.router = "Trace";
-      input.method = "ServiceAnalyse";
+      input.method = "ServiceModuleAnalyse";
       input.startDate = startDate;
       input.endDate = endDate;
       bif.process(input, function (data) {
-        that.init_all_echarts(data.outputData);
+        that.init_echarts(data.outputData, "ServiceModuleAnalyse", "管道 Top 10");
       });
     },
-    init_all_echarts: function (datas) {
-      var chart_all_service = document.getElementById("all_service");
-      var all_serviceChart = echarts.init(chart_all_service);
+    serviceRouterAnalyse: function (startDate, endDate) {
+      var that = this;
+      var input = bif.getInput();
+      input.channel = "Anno.Plugs.Analyse";
+      input.router = "Trace";
+      input.method = "ServiceRouterAnalyse";
+      input.startDate = startDate;
+      input.endDate = endDate;
+      bif.process(input, function (data) {
+        that.init_echarts(data.outputData, "ServiceRouterAnalyse", "路由 Top 10");
+      });
+    },
+    serviceMethodAnalyse: function (startDate, endDate) {
+      var that = this;
+      var input = bif.getInput();
+      input.channel = "Anno.Plugs.Analyse";
+      input.router = "Trace";
+      input.method = "ServiceMethodAnalyse";
+      input.startDate = startDate;
+      input.endDate = endDate;
+      bif.process(input, function (data) {
+        that.init_echarts(data.outputData, "ServiceMethodAnalyse", "方法 Top 10");
+      });
+    },
+    serviceMethodErrorAnalyse: function (startDate, endDate) {
+      var that = this;
+      var input = bif.getInput();
+      input.channel = "Anno.Plugs.Analyse";
+      input.router = "Trace";
+      input.method = "ServiceMethodErrorAnalyse";
+      input.startDate = startDate;
+      input.endDate = endDate;
+      bif.process(input, function (data) {
+        that.init_echarts(data.outputData, "ServiceMethodErrorAnalyse", "Error方法 Top 10");
+      });
+    },
+    init_echarts: function (datas, id, title) {
+      var chart_service = document.getElementById(id);
+      var serviceChart = echarts.init(chart_service);
       var option = {
         tooltip: {
           trigger: "item",
         },
-         title: {
-                text: '调用统计 Top 10'
-            },
+        title: {
+          text: title,
+        },
         series: [
           {
-            name: "调用统计",
+            name: title,
             type: "pie",
             radius: ["40%", "70%"],
             avoidLabelOverlap: true,
@@ -149,53 +206,7 @@ module.exports = {
           },
         ],
       };
-      all_serviceChart.setOption(option);
-    },
-    error_service: function (startDate, endDate) {
-      var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "ServiceErrorAnalyse";
-      input.startDate = startDate;
-      input.endDate = endDate;
-      bif.process(input, function (data) {
-        that.init_error_echarts(data.outputData);
-      });
-    },
-    init_error_echarts: function (datas) {
-      var chart_error_service = document.getElementById("error_service");
-      var error_serviceChart = echarts.init(chart_error_service);
-      var option = {
-        tooltip: {
-          trigger: "item",
-        },
-         title: {
-                text: '调用错误 Top 10'
-            },
-        series: [
-          {
-            name: "调用错误",
-            type: "pie",
-            radius: ["40%", "70%"],
-            avoidLabelOverlap: true,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: "#fff",
-              borderWidth: 2,
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: "16",
-                fontWeight: "bold",
-              },
-            },
-            data: datas,
-          },
-        ],
-      };
-      error_serviceChart.setOption(option);
+      serviceChart.setOption(option);
     },
     fun_date: function (aa) {
       var now = new Date();
@@ -259,7 +270,9 @@ module.exports = {
   border-radius: 4px;
   transition: background-color 1s;
 }
-
+.el-row{
+  margin-bottom: 10px;
+}
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
