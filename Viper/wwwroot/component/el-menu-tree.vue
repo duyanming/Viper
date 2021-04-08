@@ -1,10 +1,10 @@
 ﻿<template>
     <div>
-        <el-menu-item v-for="(subitem,iindex) in item.children" :index="subitem.id" @click="$root.openMenuItem(subitem)">
+        <el-menu-item v-for="(subitem,iindex) in item.children" :key="iindex" :index="subitem.id" @click="$root.openMenuItem(subitem)">
             <i :class="(subitem.icon==null||subitem.icon=='')?'el-icon-notebook-1':subitem.icon"></i>
             <span slot="title">{{subitem.fname}}</span>
         </el-menu-item>
-        <el-submenu v-for="(subitem,iindex) in item.childrenDir" :index="subitem.id">
+        <el-submenu v-for="(subitem,iindex) in item.childrenDir" :key="iindex" :index="subitem.id">
             <template slot="title">
                 <i :class="(subitem.icon==null||subitem.icon=='')?'el-icon-folder':subitem.icon"></i>
                 <span slot="title">{{subitem.fname}}</span>

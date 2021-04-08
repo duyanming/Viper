@@ -31,12 +31,14 @@ function BuildGrid() {
                 { display: '', name: 'ID', hide: 1, width: 1 },
                 { display: '角色名称', width: 225, name: 'name', type: "text", editor: { type: 'text' } }
         ],
+        headerRowHeight: 36,
+        rowHeight: 45,
         data: griddata,
         usePager: false,
         rownumbers: false,
         enabledEdit: true,
         height: '100%',
-        width: '228',
+        width: '245',
         heightDiff: 25,
         toolbar: { items: [{ text: '添加', click: AddRoles, icon: 'add' }, { text: '删除', click: DelRoles, icon: 'delete' }, { text: '配置功能', click: Save, icon: 'save' }] },
         onSelectRow: function (rowdata, rowindex, rowDomEle) {
@@ -46,6 +48,8 @@ function BuildGrid() {
         }, onAfterEdit: function (e) {
             if (e.value != "") {
                 var input = bif.getInput();
+                input.channel = "Anno.Plugs.Logic";
+                input.router = "Platform";
                 input.method = "AddRole";
                 input.Name = e.record.name;
                 bif.process(input, function (data) {
@@ -95,6 +99,8 @@ function DelRoles() {
     $.ligerDialog.confirm('确定删除？', function (confirm) {
         if (confirm) {
             var input = bif.getInput();
+            input.channel = "Anno.Plugs.Logic";
+            input.router = "Platform";
             input.method = "DelRole";
             input.ID = row.ID;
             bif.process(input, function (data) {
