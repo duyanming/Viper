@@ -1,6 +1,19 @@
 ﻿/// <reference path="../vue.min.js" />
 
+var vm = null;
+var defaultService = "WebApi";
+var data = [];
+var memorydata = [];
+var dataSystem = [];
+var memorydataSystem = [];
+var date = [];
+var cpuChart = null;
+var memoryChart = null;
+var connection = null;
 $(function () {
+    Disk([]);
+});
+function PageInit() {
     var args = bif.GetUrlParms();
     if (args.appName !== undefined) {
         defaultService = args.appName;
@@ -67,17 +80,8 @@ $(function () {
     window.CpuInt();
     window.MemoryInt();
     window.StartMonitoring();
-});
-var vm = null;
-var defaultService = "WebApi";
-var data = [];
-var memorydata = [];
-var dataSystem = [];
-var memorydataSystem = [];
-var date = [];
-var cpuChart = null;
-var memoryChart = null;
-var connection = null;
+}
+
 function CpuInt() {
     cpuChart = echarts.init(document.getElementById('cpu'));
     //CPU动态图
@@ -136,8 +140,8 @@ function CpuInt() {
             areaStyle: {},
             data: data,
             markPoint: {
-                label:{                    
-                    color: "#fff" ,
+                label: {
+                    color: "#fff",
                 },
                 data: [
                     { type: 'max', name: '最大值' },
@@ -156,8 +160,8 @@ function CpuInt() {
             areaStyle: {},
             data: dataSystem,
             markPoint: {
-                label:{                    
-                    color: "#fff" ,
+                label: {
+                    color: "#fff",
                 },
                 data: [
                     { type: 'max', name: '最大值' },
@@ -179,7 +183,7 @@ function MemoryInt() {
             data: ['App', 'System']
         },
         toolbox: {
-            show :false,
+            show: false,
             feature: {
                 saveAsImage: {}
             }
@@ -229,8 +233,8 @@ function MemoryInt() {
             areaStyle: {},
             data: memorydata,
             markPoint: {
-                label:{                    
-                    color: "#fff" ,
+                label: {
+                    color: "#fff",
                 },
                 data: [
                     { type: 'max', name: '最大值' },
@@ -250,8 +254,8 @@ function MemoryInt() {
             areaStyle: {},
             data: memorydataSystem,
             markPoint: {
-                label:{                    
-                    color: "#fff" ,
+                label: {
+                    color: "#fff",
                 },
                 data: [
                     { type: 'max', name: '最大值' },
@@ -294,7 +298,7 @@ function StartMonitoring() {
             date.shift();
         }
         cpuChart.setOption({
-            title: { subtext: "运行时长：" +_data.runTime },
+            title: { subtext: "运行时长：" + _data.runTime },
             xAxis: {
                 data: date
             },
@@ -358,30 +362,34 @@ function SetWatch(connection, name) {
     cpuChart.setOption({
         title: {
             left: 'center',
-            text: name+'-CPU使用率'
+            text: name + '-CPU使用率'
         }
     });
     memoryChart.setOption({
         title: {
             left: 'center',
-            text: name +'-内存使用率'}
+            text: name + '-内存使用率'
+        }
     });
-    if (vm === null) {
-        Disk([]);
-    }
     vm.name = defaultService;
 }
 
 
 function Disk(drives) {
     vm = new Vue({
-        el: '#disk',
+        el: '#app',
         data: {
             isShow: true,
             name: defaultService,
             drives: drives
-        },methods: {
-          
+        },
+        created: function () {
+            //用于数据初始化
+        },
+        mounted: function () {
+            PageInit();
+        }, methods: {
+
         }
     });
 }

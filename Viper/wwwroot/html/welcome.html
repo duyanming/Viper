@@ -4,6 +4,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <meta charset="utf-8" />
+    <!--<script src="../js/jquery.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+
+    <script src="../js/base.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
+    <script src="../js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="../js/scripts/welcome.js?v=101302"></script>
+
+    <!-- 先引入 Vue -->
+    <!--<script src="../js/vue.min.js"></script>-->
+    <!-- 引入组件库 -->
+    <!--<script src="../js/element-ui-index.js"></script>-->
+    <!-- 引入样式 -->
+    <!--<link href="../css/element-ui-index.css" rel="stylesheet" />-->
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>
     <style>
         div .el-progress-bar__outer {
             background: #91cc75;
@@ -17,58 +37,72 @@
             width: calc(46% - 5px);
             float: left;
         }
+        .box-card-height {
+           height:200px;
+        }
+        .el-row {
+            margin-bottom: 10px;
+        }
+        .el-card__body {
+            padding: 10px;
+        }
     </style>
 </head>
 <body style="background-color:white;">
-    <div style="text-align: center; font-size: 13pt;height:100%;">
-        <div style=" float: left;text-align: center; font-size: 13pt; width: 50%;height:450px;">
-            <div id="cpu" style="float: left;text-align: center; font-size: 13pt; height: 100%; width: 100%;height:200px;">
+    <div>
+        <div style="padding-top: 0px;">
+            <div id="app">
+                <el-row type="flex">
+                    <el-col :span="12" >
+                        <el-card class="box-card">
+                            <div id="trace" class="box-card-height">
 
-            </div>
-            <div id="memory" style=" float: left;text-align: center; font-size: 13pt;  width: 100%;height:250px;">
+                            </div>
+                          
+                        </el-card>
+                    </el-col>
+                    <el-col :span="12" style="margin-left: 10px">
+                        <el-card class="box-card">
+                            <div id="cpu" class="box-card-height">
+                            </div>
+                           
+                        </el-card>
+                    </el-col>
+                </el-row>
 
-            </div>
-        </div>
-        <div style="float: right; text-align: center; font-size: 13pt; height: 100%; width: 50%;height:450px;">
-            <div id="trace" style="float: right; text-align: center; font-size: 13pt; height: 100%;  width: 100%;height:200px;">
+                <el-row type="flex">
+                    <el-col :span="12">
+                        <el-card class="box-card">
+                            <div id="memory" class="box-card-height">
 
-            </div>
-            <div id="disk" style="float: right; text-align: center; font-size: 13pt; height: 100%; width: 100%; height: 250px;">
-                <div v-show="isShow" style="display: none;"><b>{{name}}磁盘使用率</b></div>
-                <div v-for="d,index in drives" class="driver">
-                    <el-progress v-show="d.total>0"
-                                 :text-inside="true"
-                                 :stroke-width="26"
-                                 :percentage="(((d.total-d.free)/d.total)*100).toFixed(2)">
+                            </div>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="12" style="margin-left: 10px">
+                        <el-card class="box-card">
+                            <div id="disk" class="box-card-height">
+                                <div v-show="isShow" style="display: none;"><b>{{name}}磁盘使用率</b></div>
+                                <div v-for="d,index in drives" class="driver">
+                                    <el-progress v-show="d.total>0"
+                                                 :text-inside="true"
+                                                 :stroke-width="26"
+                                                 :percentage="(((d.total-d.free)/d.total)*100).toFixed(2)">
 
-                    </el-progress>
-                    <div v-show="d.total>0" style="font-size: 8px; text-align: left; display: none;">{{d.name}} <b>{{d.free}}</b>GB可用, 共 <b>{{d.total}}</b>GB</div>
-                </div>
+                                    </el-progress>
+                                    <div v-show="d.total>0" style="font-size: 8px; text-align: left; display: none;">{{d.name}} <b>{{d.free}}</b>GB可用, 共 <b>{{d.total}}</b>GB</div>
+                                </div>
+                            </div>
+                        </el-card>
+                    </el-col>
+                </el-row>
             </div>
         </div>
     </div>
+
+
     <div class="content" style="text-align: center; font-size: 13pt; height: 100%; clear:both;">
         <font color="green">您好，欢迎使用<a target="_blank" href="https://github.com/duyanming/viper">Viper</a>，祝您工作愉快！</font>
     </div>
 </body>
-<!--<script src="../js/jquery.min.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
 
-<script src="../js/base.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
-<script src="../js/signalr/dist/browser/signalr.min.js"></script>
-<script src="../js/scripts/welcome.js?v=101302"></script>
-
-<!-- 先引入 Vue -->
-<!--<script src="../js/vue.min.js"></script>-->
-<!-- 引入组件库 -->
-<!--<script src="../js/element-ui-index.js"></script>-->
-<!-- 引入样式 -->
-<!--<link href="../css/element-ui-index.css" rel="stylesheet" />-->
-<!-- 生产环境版本，优化了尺寸和速度 -->
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<!-- 引入样式 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
-<!-- 引入组件库 -->
-<script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>
 </html>
