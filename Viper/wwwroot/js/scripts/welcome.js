@@ -268,7 +268,7 @@ function StartMonitoring() {
     connection = new signalR.HubConnectionBuilder()
         .withAutomaticReconnect()
         .withUrl("/MonitorHub")
-        .configureLogging(signalR.LogLevel.Information)
+        .configureLogging(signalR.LogLevel.Error)
         .build();
     connection.onreconnected(function (connectionId) {
         SetWatch(connection, defaultService);
@@ -337,12 +337,11 @@ function StartMonitoring() {
 }
 
 function connect(conn) {
-    conn.start().catch(function (err) {
+    conn.start().then(function () {
+        SetWatch(conn, defaultService);
+    }).catch(function (err) {
         console.error(err.toString());
     });
-    setTimeout(function () {
-        SetWatch(conn, defaultService);
-    }, 500);
 }
 
 function SetWatch(connection, name) {
@@ -354,6 +353,7 @@ function SetWatch(connection, name) {
     defaultService = name;
     connection.invoke("SetWatch", name).catch(function (err) {
         console.error(err.toString());
+        connect(connection);
     });
     cpuChart.setOption({
         title: {
