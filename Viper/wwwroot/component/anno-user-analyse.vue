@@ -9,7 +9,7 @@
       </el-col>
       <el-col :span="9" style="margin-left: 15px">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">最近6个月用户分布</div>
+          <div slot="header" class="clearfix">排名前7用户分布</div>
           <div>
             <el-table :data="userData"
                stripe
