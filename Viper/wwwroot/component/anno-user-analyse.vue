@@ -3,14 +3,23 @@
     <el-row type="flex">
       <el-col :span="14">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">全国用户分布</div>
+          <div slot="header" class="clearfix">最近6个月用户分布</div>
           <div id="anno_user_map"></div>
         </el-card>
       </el-col>
-      <el-col :span="10" style="margin-left: 15px">
+      <el-col :span="9" style="margin-left: 15px">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">全国用户分布</div>
-          <div></div>
+          <div slot="header" class="clearfix">最近6个月用户分布</div>
+          <div>
+            <el-table :data="userData"
+               stripe
+             style="width: 100%">
+              <el-table-column type="index" label="排名" width="50"> </el-table-column>
+              <el-table-column prop="name" label="地区">
+              </el-table-column>
+              <el-table-column prop="value" label="数量" width="100"> </el-table-column>
+            </el-table>
+          </div>
         </el-card>
       </el-col>
     </el-row>
@@ -28,7 +37,9 @@ module.exports = {
     },
   },
   data: function () {
-    return {};
+    return {
+      userData: []
+    };
   },
   watch: {},
   created: function () {
@@ -42,40 +53,17 @@ module.exports = {
   },
   methods: {
     anno_user: function () {
-      var datas = [
-        { name: "西藏", value: 60 },
-        { name: "青海", value: 167 },
-        { name: "宁夏", value: 210 },
-        { name: "海南", value: 252 },
-        { name: "甘肃", value: 502 },
-        { name: "贵州", value: 570 },
-        { name: "新疆", value: 661 },
-        { name: "云南", value: 8890 },
-        { name: "重庆", value: 10010 },
-        { name: "吉林", value: 5056 },
-        { name: "山西", value: 2123 },
-        { name: "天津", value: 9130 },
-        { name: "江西", value: 10170 },
-        { name: "广西", value: 6172 },
-        { name: "陕西", value: 9251 },
-        { name: "黑龙江", value: 5125 },
-        { name: "内蒙古", value: 1435 },
-        { name: "安徽", value: 9530 },
-        { name: "北京", value: 51919 },
-        { name: "福建", value: 3756 },
-        { name: "上海", value: 59190 },
-        { name: "湖北", value: 37109 },
-        { name: "湖南", value: 8966 },
-        { name: "四川", value: 31020 },
-        { name: "辽宁", value: 7222 },
-        { name: "河北", value: 3451 },
-        { name: "河南", value: 9693 },
-        { name: "浙江", value: 62310 },
-        { name: "山东", value: 39231 },
-        { name: "江苏", value: 35911 },
-        { name: "广东", value: 55891 },
-      ];
-      this.init_anno_user(datas);
+      var that = this;
+      var input = bif.getInput();
+      input.channel = "Anno.Plugs.Analyse";
+      input.router = "Trace";
+      input.method = "UserAnalyse";
+      bif.process(input, function (data) {
+        for(var i=0;i<7;i++){
+          that.userData.push(data.outputData[i]);
+        }
+        that.init_anno_user(data.outputData);
+      });
     },
     init_anno_user: function (datas) {
       var anno_user_map = document.getElementById("anno_user_map");
@@ -86,7 +74,7 @@ module.exports = {
         },
         dataRange: {
           min: 0,
-          max: 6e4,
+          max: 2000,
           text: ["高", "低"],
           color: ["#2395FF", "#f2f2f2"],
           itemHeight: 60,
