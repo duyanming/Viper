@@ -13,7 +13,7 @@
           <span>基础信息</span>
         </div>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="span">
             <el-form-item label="用户：" prop="name">
               <el-input
                 v-model="formData.name"
@@ -25,7 +25,7 @@
               </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="span">
             <el-form-item label="登录名：" prop="account">
               <el-input
                 v-model="formData.account"
@@ -37,7 +37,7 @@
               </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="span">
             <el-form-item label="职位：" prop="position">
               <el-input
                 v-model="formData.position"
@@ -51,10 +51,11 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="span">
             <el-form-item label="状态：" prop="state">
               <el-select  
-                 v-model="formData.state"
+                 v-model="formData.state"                 
+                  :style="{ width: '100%' }"
                  :disabled="true"
                  clearable
                   filterable placeholder="请选择">
@@ -63,13 +64,12 @@
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                  :style="{ width: '100%' }"
                 >
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="span">
             <el-form-item label="最近登录：" prop="timespan">
               <el-input
                 v-model="formData.timespan"
@@ -87,23 +87,24 @@
           <span>修改密码</span>
         </div>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="span">
             <el-form-item label="旧密码：" prop="opwd">
               <el-input
               show-password
                 v-model="pwdData.opwd"
-                placeholder="请输入状态"
+                placeholder="请输入旧密码："
                 clearable
                 :style="{ width: '100%' }"
               >
               </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="span">
             <el-form-item label="新密码：" prop="pwd">
               <el-input
               show-password
                 v-model="pwdData.pwd"
+                 placeholder="请输入新密码："
                 clearable
                 :style="{ width: '100%' }"
               >
@@ -139,6 +140,7 @@ module.exports = {
   },
   data: function () {
     return {
+      span:8,
       roleData: [
       ],
       formData: {
@@ -171,6 +173,9 @@ module.exports = {
   watch: {},
   mounted: function () {},
   created: function () {
+    if(this.isMobile()){
+      this.span=23;
+    }
     //用于数据初始化
     document.title = "用户中心";
     this.getUserData();
@@ -205,7 +210,7 @@ module.exports = {
     submitForm: function () {
       this.$refs["elForm"].validate((valid) => {
         if (!valid) return;
-        this.EditPwd();
+        this.editPwd();
       });
     },
     resetForm: function () {
@@ -221,7 +226,7 @@ module.exports = {
         }
       };
     },
-    EditPwd:function() {
+    editPwd:function() {
       var that=this;
       var input = bif.getInput();
       input.channel = "Anno.Plugs.Logic";
@@ -245,7 +250,14 @@ module.exports = {
               that.$message.error(data.msg);
           }
       });
-  }
+    },
+    isMobile:function(){
+      if (window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
+          return true;  // 移动端
+      } else {
+          return false;  // PC端
+      }
+    }
   },
 };
 </script>
