@@ -17,6 +17,7 @@
             <el-form-item label="用户：" prop="name">
               <el-input
                 v-model="formData.name"
+                :disabled="true"
                 placeholder="请输入用户"
                 clearable
                 :style="{ width: '100%' }"
@@ -28,6 +29,7 @@
             <el-form-item label="登录名：" prop="account">
               <el-input
                 v-model="formData.account"
+                :disabled="true"
                 placeholder="请输入登录名"
                 clearable
                 :style="{ width: '100%' }"
@@ -39,6 +41,7 @@
             <el-form-item label="职位：" prop="position">
               <el-input
                 v-model="formData.position"
+                :disabled="true"
                 placeholder="请输入职位"
                 clearable
                 :style="{ width: '100%' }"
@@ -52,6 +55,7 @@
             <el-form-item label="状态：" prop="state">
               <el-select
                 v-model="formData.state"
+                :disabled="true"
                 :style="{ width: '100%' }"
                 placeholder="请选择"
               >
@@ -66,11 +70,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="span">
-            <el-form-item label="密码：" prop="pwd">
+           <el-form-item label="最近登录：" prop="timespan">
               <el-input
-                show-password
-                v-model="formData.pwd"
-                placeholder="请输入密码："
+                v-model="formData.timespan"
+                :disabled="true"
                 clearable
                 :style="{ width: '100%' }"
               >
@@ -110,6 +113,7 @@ module.exports = {
   },
   data: function () {
     return {
+      userId:-1,
       span: 8,
       roleData: [],
       formData: {
@@ -163,27 +167,48 @@ module.exports = {
     };
   },
   watch: {},
-  mounted: function () {},
+  mounted: function () {
+  },
   created: function () {
     if (this.isMobile()) {
       this.span = 23;
     }
     //用于数据初始化
-    document.title = "新增用户";
-    this.getRoleData();
+    document.title = "编辑用户";
+     var args = bif.GetUrlParms();
+      if (args._id != undefined) {
+        this.userId = args._id;
+      }
+    this.getUserData();
     this.keyupAnno();
   },
   methods: {
-    getRoleData: function () {
+    getUserData: function () {
       var that = this;
       var input = bif.getInput();
       input.channel = "Anno.Plugs.Logic";
       input.router = "Platform";
+      input.method = "PCenter";
+      input.type = "m";
+      input.id = this.userId;
+      bif.process(input, function (data) {
+        if (data.status) {
+          that.formData = data.outputData;
+        } else {
+          that.$message.error(data.msg);
+        }
+      });
+      input.channel = "Anno.Plugs.Logic";
+      input.router = "Platform";
       input.method = "GetcurRoles";
-      input.uid = -1;
+      delete input.id;
+      input.uid = this.userId;
       bif.process(input, function (data) {
         if (data.status) {
           that.roleData = data.outputData.lr;
+           that.$nextTick(()=> {
+              that.toggleSelection(data.outputData.cur);
+            });
         } else {
           that.$message.error("获取角色：" + data.msg);
         }
@@ -196,12 +221,29 @@ module.exports = {
            this.$message.error("至少选择一个角色");
           return;
         }
-        this.addUser();
+        this.saveUser();
       });
     },
     resetForm: function () {
-      this.$refs["elForm"].resetFields();
+       this.$refs.roleDataTable.clearSelection();
     },
+    toggleSelection:function(rows) {
+        if (rows) {
+          for(var i=0;i<rows.length;i++){
+            this.$refs.roleDataTable.toggleRowSelection(this.getRoleDataByID(rows[i].ID));
+          }
+        } else {
+          this.$refs.roleDataTable.clearSelection();
+        }
+      },
+      getRoleDataByID:function(id){
+        for(var i=0;i<this.roleData.length;i++){
+            if(id===this.roleData[i].ID){
+              return this.roleData[i];
+            }
+        }
+        return null;
+      },
     keyupAnno: function () {
       document.onkeydown = function (e) {
         var _key = window.event.keyCode;
@@ -210,14 +252,14 @@ module.exports = {
         }
       };
     },
-    addUser: function () {
+    saveUser: function () {
       var that = this; 
       var input = bif.getInput();
       input.channel = "Anno.Plugs.Logic";
       input.router = "Platform";
-      input.method = "AddUser";
-      input.ubase = JSON.stringify(that.formData);
-      input.uroles = JSON.stringify(that.roleDataTable);
+      input.method = "SaveCurRoles";
+      input.uid=that.userId;
+      input.inputData = JSON.stringify(that.roleDataTable);
       bif.process(input, function (data) {
         if (data.status) {
           that.$message({

@@ -28,7 +28,7 @@ function Init() {
                 LoadData(val, vm.pagesize);
             },
             handleClick: function (row) {
-                window.location.href = '../pcenter.html?_id=' + row.ID+'&Tname=pcenter_m';
+                window.location.href = '../component.html?anno_component_name=anno-user-manager&_id=' + row.ID;
             }, indexMethod: function(index) {
                 return index +1;
             },
@@ -103,7 +103,7 @@ function Init() {
                 vm.currentPage = 1;
                 LoadData(vm.currentPage, vm.pagesize);
             }, AddUser: function () {
-                window.location.href = '../pcenter.html?Tname=pcenter_add';
+                window.location.href = '../component.html?anno_component_name=anno-user-add';
             }
         }, created: function () {
             $("#member").show();
