@@ -5,8 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="../js/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
     <link href="../js/lib/ligerUI/skins/Gray2014/css/all.css" rel="stylesheet" />
-    <link href="../js/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
-    <script src="../js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
     <script src="../js/lib/ligerUI/js/ligerui.min.js"></script>
     <script src="../js/lib/ligerUI/js/plugins/ligerTree.js"></script>
     <script src="../js/base.js"></script>
@@ -56,6 +55,14 @@
         .l-grid-row-cell-inner {
             line-height: 45px;
         }
+        .l-toolbar-item {
+            margin-left: 33px;
+        }
+        .l-panel-btn{
+            padding-right: 0px;
+            color: #409eff;
+        }
+        .l-panel-btn-over,.l-panel-btn-selected{background: none;border: ;}
         body {
             display: block;
             margin: 8px;
@@ -65,11 +72,11 @@
 <body>
     <form id="form1" runat="server">
         <div style="height: 100%;">
-            <div style="width:245px; height:100%; float: left;">
+            <div style="width:245px; height:100%; float: left;position: fixed;">
                 <div id="roleGrid">
                 </div>
             </div>
-            <div style="width: 50%; margin-left:5px; float: left;">
+            <div style="width: 50%; margin-left:260px; float: left;">
                 <div id="funTree" style="text-align: left;">
                 </div>
             </div>

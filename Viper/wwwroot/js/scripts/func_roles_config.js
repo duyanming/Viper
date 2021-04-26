@@ -40,7 +40,7 @@ function BuildGrid() {
         height: '100%',
         width: '245',
         heightDiff: 25,
-        toolbar: { items: [{ text: '添加', click: AddRoles, icon: 'add' }, { text: '删除', click: DelRoles, icon: 'delete' }, { text: '配置功能', click: Save, icon: 'save' }] },
+        toolbar: { items: [{ text: '添加', click: AddRoles }, { text: '删除', click: DelRoles }, { text: '配置功能', click: Save}] },
         onSelectRow: function (rowdata, rowindex, rowDomEle) {
             ClickRoles(rowdata, rowindex, rowDomEle)
         }, onBeforeEdit: function (e) {
