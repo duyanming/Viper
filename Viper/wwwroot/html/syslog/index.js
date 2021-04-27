@@ -4,12 +4,12 @@ var vm = null, _isMobile = false;
 $(function () {
     Init();
     try {
-        var args = new Object();
+        var args;
         args = bif.GetUrlParms();
-        if (args["TraceId"] != undefined && args["TraceId"] != null) {
-            vm.form.title = args["TraceId"];
+        if (args.TraceId != undefined && args.TraceId != null) {
+            vm.form.title = args.TraceId;
         }
-    } catch { }
+    } catch(ex) {console.log(ex); }
     LoadData(1, 20);
 });
 
