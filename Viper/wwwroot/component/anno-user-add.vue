@@ -100,14 +100,6 @@
 
 <script>
 module.exports = {
-  props: {
-    value: {
-      type: String,
-      default: function () {
-        return "";
-      },
-    },
-  },
   data: function () {
     return {
       span: 8,
@@ -122,12 +114,12 @@ module.exports = {
       stateOptions: [
         {
           value: "0",
-          label: "禁用",
+          label: "禁用"
         },
         {
           value: "1",
-          label: "启用",
-        },
+          label: "启用"
+        }
       ],
       rules: {
         name: [
@@ -135,37 +127,35 @@ module.exports = {
             required: true,
             message: "请输入用户名",
             trigger: "blur",
-          },
+          }
         ],
         account: [
           {
             required: true,
             message: "请输入登录名",
             trigger: "blur",
-          },
+          }
         ],
         state: [
           {
             required: true,
             message: "请选择状态",
             trigger: "blur",
-          },
+          }
         ],
         pwd: [
           {
             required: true,
             message: "请输入密码",
             trigger: "blur",
-          },
-        ],
+          }
+        ]
       },
       roleDataTable:[]
     };
   },
-  watch: {},
-  mounted: function () {},
   created: function () {
-    if (this.isMobile()) {
+    if (this.isMobile()===true) {
       this.span = 23;
     }
     //用于数据初始化
@@ -182,7 +172,7 @@ module.exports = {
       input.method = "GetcurRoles";
       input.uid = -1;
       bif.process(input, function (data) {
-        if (data.status) {
+        if (data.status===true) {
           that.roleData = data.outputData.lr;
         } else {
           that.$message.error("获取角色：" + data.msg);
@@ -190,23 +180,25 @@ module.exports = {
       });
     },
     submitForm: function () {
-      this.$refs["elForm"].validate((valid) => {
+      var that=this;
+      this.$refs["elForm"].validate(function(valid){
         if (!valid) return;
-        if(this.roleDataTable.length<=0){
-           this.$message.error("至少选择一个角色");
+        if(that.roleDataTable.length<=0){
+           that.$message.error("至少选择一个角色");
           return;
         }
-        this.addUser();
+        that.addUser();
       });
     },
     resetForm: function () {
       this.$refs["elForm"].resetFields();
     },
     keyupAnno: function () {
+      var that=this;
       document.onkeydown = function (e) {
         var _key = window.event.keyCode;
         if (_key === 13) {
-          this.addUser();
+          that.submitForm();
         }
       };
     },
@@ -219,7 +211,7 @@ module.exports = {
       input.ubase = JSON.stringify(that.formData);
       input.uroles = JSON.stringify(that.roleDataTable);
       bif.process(input, function (data) {
-        if (data.status) {
+        if (data.status===true) {
           that.$message({
             showClose: true,
             message: "保存成功",
@@ -231,21 +223,17 @@ module.exports = {
         }
       });
     },
-    handleSelectionChange(val) {
+    handleSelectionChange:function(val) {
         this.roleDataTable = val;
-      },
+    },
     isMobile: function () {
-      if (
-        window.navigator.userAgent.match(
-          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-        )
-      ) {
+      if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
         return true; // 移动端
       } else {
         return false; // PC端
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

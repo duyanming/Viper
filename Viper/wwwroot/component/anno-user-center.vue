@@ -6,8 +6,7 @@
       :rules="rules"
       size="mini"
       label-width="100px"
-      label-position="right"
-    >
+      label-position="right">
       <el-card>
         <div slot="header" class="clearfix">
           <span>基础信息</span>
@@ -208,9 +207,10 @@ module.exports = {
       });
     },
     submitForm: function () {
-      this.$refs["elForm"].validate((valid) => {
+      var that=this;
+      this.$refs["elForm"].validate(function(valid) {
         if (!valid) return;
-        this.editPwd();
+        that.editPwd();
       });
     },
     resetForm: function () {
@@ -219,12 +219,13 @@ module.exports = {
        this.pwdData.opwd="";
     },
     keyupAnno: function () {
-      document.onkeydown = function (e) {
-        var _key = window.event.keyCode;
-        if (_key === 13) {
-          this.submitForm();
-        }
-      };
+       var that=this;
+       document.onkeydown = function (e) {
+         var _key = window.event.keyCode;
+         if (_key === 13) {
+           that.submitForm();
+         }
+       };
     },
     editPwd:function() {
       var that=this;

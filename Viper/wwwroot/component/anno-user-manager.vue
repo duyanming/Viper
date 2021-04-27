@@ -103,14 +103,6 @@
 
 <script>
 module.exports = {
-  props: {
-    value: {
-      type: String,
-      default: function () {
-        return "";
-      },
-    },
-  },
   data: function () {
     return {
       userId:-1,
@@ -126,59 +118,57 @@ module.exports = {
       stateOptions: [
         {
           value: "0",
-          label: "禁用",
+          label: "禁用"
         },
         {
           value: "1",
-          label: "启用",
-        },
+          label: "启用"
+        }
       ],
       rules: {
         name: [
           {
             required: true,
             message: "请输入用户名",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         account: [
           {
             required: true,
             message: "请输入登录名",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         state: [
           {
             required: true,
             message: "请选择状态",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         pwd: [
           {
             required: true,
             message: "请输入密码",
-            trigger: "blur",
-          },
-        ],
+            trigger: "blur"
+          }
+        ]
       },
-      roleDataTable:[]
+      roleDataTable:[],
+      oldRoleData:[]
     };
   },
-  watch: {},
-  mounted: function () {
-  },
   created: function () {
-    if (this.isMobile()) {
+    if (this.isMobile()===true) {
       this.span = 23;
     }
     //用于数据初始化
     document.title = "编辑用户";
-     var args = bif.GetUrlParms();
-      if (args._id != undefined) {
-        this.userId = args._id;
-      }
+    var args = bif.GetUrlParms();
+    if (args._id != undefined) {
+      this.userId = args._id;
+    }
     this.getUserData();
     this.keyupAnno();
   },
@@ -206,7 +196,8 @@ module.exports = {
       bif.process(input, function (data) {
         if (data.status) {
           that.roleData = data.outputData.lr;
-           that.$nextTick(()=> {
+          that.oldRoleData=data.outputData.cur;
+           that.$nextTick(function() {
               that.toggleSelection(data.outputData.cur);
             });
         } else {
@@ -215,17 +206,19 @@ module.exports = {
       });
     },
     submitForm: function () {
-      this.$refs["elForm"].validate((valid) => {
+      var that = this; 
+      this.$refs["elForm"].validate(function(valid){
         if (!valid) return;
-        if(this.roleDataTable.length<=0){
-           this.$message.error("至少选择一个角色");
+        if(that.roleDataTable.length<=0){
+           that.$message.error("至少选择一个角色");
           return;
         }
-        this.saveUser();
+        that.saveUser();
       });
     },
     resetForm: function () {
        this.$refs.roleDataTable.clearSelection();
+       this.toggleSelection(this.oldRoleData);
     },
     toggleSelection:function(rows) {
         if (rows) {
@@ -245,12 +238,13 @@ module.exports = {
         return null;
       },
     keyupAnno: function () {
-      document.onkeydown = function (e) {
-        var _key = window.event.keyCode;
-        if (_key === 13) {
-          this.addUser();
-        }
-      };
+       var that = this; 
+       document.onkeydown = function (e) {
+         var _key = window.event.keyCode;
+         if (_key === 13) {
+           that.submitForm();
+         }
+       };
     },
     saveUser: function () {
       var that = this; 
@@ -273,21 +267,17 @@ module.exports = {
         }
       });
     },
-    handleSelectionChange(val) {
+    handleSelectionChange:function(val) {
         this.roleDataTable = val;
       },
     isMobile: function () {
-      if (
-        window.navigator.userAgent.match(
-          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-        )
-      ) {
+      if (window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
         return true; // 移动端
       } else {
         return false; // PC端
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
