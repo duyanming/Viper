@@ -50,9 +50,19 @@
                         <i :class="{'el-icon-s-fold':isCollapse==false,'el-icon-s-unfold':isCollapse}"></i>
                     </div>
                     <a v-show="(_isMobile&&isCollapse)||(!_isMobile)" style="cursor: pointer; text-decoration: underline; float:left;margin-left:40px;color:#3e3434;" target="_blank" href="https://duyanming.github.io/">官方文档</a>
-                    <div uInfo style="height: 60px; float: right;">
-                        <a style="cursor: pointer; text-decoration: underline;" v-on:click="openUserCenter">{{profile.name}}({{profile.account}})</a>
-                        <a style="cursor: pointer; text-decoration: underline; margin-left: 3px;" v-on:click="exitUser">退出</a>
+                    <div uInfo style="height: 60px; float: right; margin-right:10px;">
+                        <el-avatar size="medium" style="vertical-align: middle;">{{profile.account}}</el-avatar>
+                        <el-dropdown trigger="click" @@command="handleCommand">
+                            <span class="el-dropdown-link">
+                                {{profile.name}}<i class="el-icon-caret-bottom el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="openUserCenter">个人中心</el-dropdown-item>
+                                <el-dropdown-item divided command="exitUser">退出</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                        @*<a style="cursor: pointer; text-decoration: underline;" v-on:click="openUserCenter">{{profile.name}}({{profile.account}})</a>
+        <a style="cursor: pointer; text-decoration: underline; margin-left: 3px;" v-on:click="exitUser">退出</a>*@
                     </div>
                 </el-header>
                 <el-container>
@@ -124,6 +134,13 @@
             bif.ajaxpara.async = true;
         },
         methods: {
+            handleCommand: function (command) {
+                if (command === "openUserCenter") {
+                    this.openUserCenter();
+                } else if (command === "exitUser") {
+                    this.exitUser();
+                }
+            },
             removeTab: function (targetName) {
                 var that = this;
                 let tabs = that.tabs;
@@ -202,12 +219,16 @@
                 }
             },
             exitUser: function () {
-                if (confirm("确定退出？")) {
+                this.$confirm("确定退出？", "退出登录", {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
                     localStorage.clear();
                     bif.input.profile = undefined;
                     bif.input.uname = undefined;
                     window.location.href = "/Home/Login";
-                }
+                });
             },
             openUserCenter: function () {
                 this.openMenuItem({ id: "pcenter", fname: "个人中心", furl: "html/component.html?anno_component_name=anno-user-center"});
@@ -321,8 +342,6 @@
     }
 
     div[uInfo] {
-        /*color: #E7E7E7;*/
-        text-decoration: underline;
         margin-left: 10px;
     }
 
