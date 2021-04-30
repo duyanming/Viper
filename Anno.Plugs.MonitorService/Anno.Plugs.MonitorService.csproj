@@ -20,7 +20,7 @@
   <ItemGroup>
     <Content Include="$(SolutionDir)Viper\wwwroot\img\logo.jpg" Link="logo.jpg" PackagePath="\" />
     <Content Include="$(SolutionDir)LICENSE" Link="LICENSE" PackagePath="\" />
-    <PackageReference Include="Anno.EngineData" Version="1.0.3.3" />
-    <PackageReference Include="Anno.Rpc.Client" Version="1.0.3.3" />
+    <PackageReference Include="Anno.EngineData" Version="1.0.3.5" />
+    <PackageReference Include="Anno.Rpc.Client" Version="1.0.3.5" />
   </ItemGroup>
 </Project>
