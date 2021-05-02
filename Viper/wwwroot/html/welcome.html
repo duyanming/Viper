@@ -46,26 +46,39 @@
         .el-card__body {
             padding: 10px;
         }
+        .el-step__title {
+            font-size: 10px;
+            line-height: 20px;
+        }
     </style>
 </head>
 <body style="background-color:white;">
-    <div>
+    <div id="app">
+        <div class="content" style="text-align: center; font-size: 13pt; height: 100%; clear:both;margin-bottom: 10px;">
+            <el-steps :active="2" align-center>
+                <el-step title="Anno" icon="el-icon-medal-1" description="微服务引擎"></el-step>
+                <el-step title="Viper" icon="el-icon-upload" description="微服务面板"></el-step>
+                <el-step title="Develop" icon="el-icon-edit" description="开发"></el-step>
+                <el-step title="Operations" icon="el-icon-s-platform" description="运维监控"></el-step>
+            </el-steps>
+            <!--<font color="green">您好，欢迎使用<a target="_blank" href="https://github.com/duyanming/viper">Viper</a>，祝您工作愉快！</font>-->
+        </div>
         <div style="padding-top: 0px;">
-            <div id="app">
+            <div>
                 <el-row type="flex">
-                    <el-col :span="12" >
+                    <el-col :span="12">
                         <el-card class="box-card">
                             <div id="trace" class="box-card-height">
 
                             </div>
-                          
+
                         </el-card>
                     </el-col>
                     <el-col :span="12" style="margin-left: 10px">
                         <el-card class="box-card">
                             <div id="cpu" class="box-card-height">
                             </div>
-                           
+
                         </el-card>
                     </el-col>
                 </el-row>
@@ -97,11 +110,7 @@
                 </el-row>
             </div>
         </div>
-    </div>
 
-
-    <div class="content" style="text-align: center; font-size: 13pt; height: 100%; clear:both;">
-        <font color="green">您好，欢迎使用<a target="_blank" href="https://github.com/duyanming/viper">Viper</a>，祝您工作愉快！</font>
     </div>
 </body>
 
