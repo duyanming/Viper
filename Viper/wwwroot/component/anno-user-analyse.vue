@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading.fullscreen.lock="fullscreenLoading">
     <el-row type="flex">
       <el-col :span="14">
         <el-card class="box-card">
@@ -11,9 +11,11 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">排名前7用户分布</div>
           <div>
-            <el-table :data="userData"
-               stripe
-             style="width: 100%">
+            <el-table
+             :data="userData"
+              v-loading="fullscreenLoading"
+              stripe
+              style="width: 100%">
               <el-table-column type="index" label="排名" width="50"> </el-table-column>
               <el-table-column prop="name" label="地区">
               </el-table-column>
@@ -38,6 +40,7 @@ module.exports = {
   },
   data: function () {
     return {
+      fullscreenLoading:true,
       userData: []
     };
   },
@@ -59,6 +62,7 @@ module.exports = {
       input.router = "Trace";
       input.method = "UserAnalyse";
       bif.process(input, function (data) {
+        that.fullscreenLoading=false;
         for(var i=0;i<7;i++){
           that.userData.push(data.outputData[i]);
         }
