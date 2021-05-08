@@ -24,7 +24,7 @@
 <script src="~/js/httpVue/bluebird.min.js"></script>
 <script src="~/js/httpVue/httpVueLoader.min.js"></script>
 
-<div id="app" style="height:100%;">
+<div id="app" style="height:100%;display:none;">
     <el-container>
         <el-container>
             <el-aside style="background-color: #545c64;" v-bind:style="{width:menumWidth}">
@@ -61,8 +61,6 @@
                                 <el-dropdown-item divided command="exitUser">退出</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
-                        @*<a style="cursor: pointer; text-decoration: underline;" v-on:click="openUserCenter">{{profile.name}}({{profile.account}})</a>
-        <a style="cursor: pointer; text-decoration: underline; margin-left: 3px;" v-on:click="exitUser">退出</a>*@
                     </div>
                 </el-header>
                 <el-container>
@@ -73,7 +71,7 @@
                                      :name="item.name"
                                      :closable="item.closable">
                             <el-container v-loading="item.loading">
-                                <iframe :id="item.id" @@load="tabOnLoad" frameborder="0" :src="item.src" style="width: 100%; height: calc(100% - 100px);">
+                                <iframe :id="item.id" @@load="tabOnLoad" frameborder="0" :src="item.src" style="width: 100%; height: calc(100% - 5px);">
                                 </iframe>
                             </el-container>
                         </el-tab-pane>
@@ -82,7 +80,6 @@
             </el-main>
         </el-container>
     </el-container>
-
 </div>
 <script>
     if (bif.input.profile === undefined || localStorage.profile === undefined) {
@@ -111,8 +108,8 @@
             tabs: [
                 { id: "dashboard", name: "Dashboard", closable:false, src: "html/welcome.html?appName=@(Anno.Const.SettingService.AppName)", loading:false}
             ]
-        }
-        , created: function () {//用于数据初始化
+        },
+        created: function () {//用于数据初始化
             var that = this;
             if (bif.input.profile === undefined || localStorage.profile === undefined) {
                 window.location.href = "/Home/Login";
@@ -132,6 +129,7 @@
                 }
             });
             bif.ajaxpara.async = true;
+            $("#app").css("display", "");
         },
         methods: {
             handleCommand: function (command) {
@@ -392,6 +390,9 @@
         padding: 0 0;
         overflow-y: hidden;
         /*margin-left: 8px;*/
+    }
+    .el-tabs__header {
+        margin: 0px;
     }
 </style>
 

@@ -18,7 +18,7 @@
                   stripe
                   trigger="hover"
                   size="mini"
-                  max-height="415"
+                  max-height="435"
                   style="width: 100%;"
                   :cell-style="tableCellStyle">
             <el-table-column type="index"
