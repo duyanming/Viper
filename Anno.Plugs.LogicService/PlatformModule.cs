@@ -15,6 +15,7 @@ using Anno.QueryServices.Platform;
 namespace Anno.Plugs.LogicService
 {
     using Anno.CommandBus;
+    using Anno.Plugs.LogicService.Filters;
 
     public class PlatformModule : BaseModule
     {
@@ -53,6 +54,7 @@ namespace Anno.Plugs.LogicService
         /// </summary>
         /// <returns></returns>
         [AnnoInfo(Desc = "修改密码")]
+        [NotChangePassword("anno","yrm")]
         public ActionResult ChangePwd()
         {
             var dto = this.Request<ChangePwdInputDto>("dto");
