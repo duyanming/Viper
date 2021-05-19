@@ -128,20 +128,12 @@ module.exports = {
       files: [],
       formData: {
         workingDirectory: "AnnoService01",
-        nodeName: "1",
+        nodeName: null,
         cmd: "dotnet ViperService.dll -p 7018",
         autoStart: "1",
         deploySecret:""
       },
-      nodeOptions: [
-        {
-          value: "0",
-          label: "结点1",
-        },
-        {
-          value: "1",
-          label: "结点2",
-        },
+      nodeOptions: [       
       ],
       autoStartOptions: [
         {
@@ -175,7 +167,7 @@ module.exports = {
             trigger: "blur",
           }
         ]
-      },
+      }
     };
   },
   created: function () {
@@ -197,6 +189,7 @@ module.exports = {
     $("input[name=deployFile]").change(function () {
       that.files = this.files;
     });
+    this.getDeployNode();
   },
   methods: {
     submitForm: function () {
@@ -226,6 +219,7 @@ module.exports = {
       input.append("channel", "Anno.Plugs.Deploy");
       input.append("router", "FileManager");
       input.append("method", "UpLoadFile");
+      input.append("nodeName", that.formData.nodeName);
       input.append("formData", JSON.stringify(that.formData));
       if (that.files.length <= 0) {
         that.$message.error("没有找到要部署的文件");
@@ -245,7 +239,7 @@ module.exports = {
             ? window.location.protocol +
               "//" +
               window.location.host +
-              "/SysMg/Api"
+              "/Deploy/Api"
             : window.location.origin + "/SysMg/Api", //兼容老版本IE origin
         data: input,
         contentType: false,
@@ -274,6 +268,32 @@ module.exports = {
         return false; // PC端
       }
     },
+    getDeployNode:function(){
+      var that = this;
+      var input = bif.getInput();
+      input.channel = "Anno.Plugs.Deploy";
+      input.router = "DeployManager";
+      input.method = "GetDeployServices";
+      bif.process(input, function (data) {
+        if (data.status) {
+          that.nodeOptions =[];
+          for (var index = 0; index < data.outputData.length; index++) {
+            var node = data.outputData[index];
+            that.nodeOptions.push(
+              {
+                value: node.Nickname,
+                label:node.Nickname
+              }
+            );
+            if(index===0){
+              that.formData.nodeName= node.Nickname;
+            }
+          }
+        } else {
+          that.$message.error(data.msg);
+        }
+      });
+    }
   },
 };
 </script>
