@@ -240,7 +240,7 @@ module.exports = {
               "//" +
               window.location.host +
               "/Deploy/Api"
-            : window.location.origin + "/SysMg/Api", //兼容老版本IE origin
+            : window.location.origin + "/Deploy/Api", //兼容老版本IE origin
         data: input,
         contentType: false,
         processData: false,
