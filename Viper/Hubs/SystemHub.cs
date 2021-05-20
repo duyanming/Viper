@@ -224,7 +224,7 @@ namespace Viper.GetWay.Hubs
                     }
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 // ignored
             }
