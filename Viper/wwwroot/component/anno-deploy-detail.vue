@@ -124,6 +124,10 @@
 module.exports = {
   data: function () {
     return {
+      queryArgs:{
+        workingDirectory:"",
+        nodeName:""
+      },
       span: 8,
       files: [],
       formData: {
@@ -189,6 +193,13 @@ module.exports = {
     $("input[name=deployFile]").change(function () {
       that.files = this.files;
     });
+    var args = bif.GetUrlParms();
+    if (args.WorkingDirectory != undefined) {
+      that.queryArgs.workingDirectory= args.WorkingDirectory;
+      that.queryArgs.nodeName= args.NodeName;
+      that.formData.workingDirectory = args.WorkingDirectory;
+      that.formData.nodeName = args.NodeName;
+    }
     this.getDeployNode();
   },
   methods: {
@@ -221,7 +232,7 @@ module.exports = {
       input.append("method", "UpLoadFile");
       input.append("nodeName", that.formData.nodeName);
       input.append("formData", JSON.stringify(that.formData));
-      if (that.files.length <= 0) {
+      if (that.queryArgs.workingDirectory===''&&that.files.length <= 0) {
         that.$message.error("没有找到要部署的文件");
         return;
       }
@@ -289,9 +300,47 @@ module.exports = {
               that.formData.nodeName= node.Nickname;
             }
           }
+          if(that.queryArgs.workingDirectory!=""){
+            that.getServiceByWorkingName();
+          }
         } else {
           that.$message.error(data.msg);
         }
+      });
+    },
+    getServiceByWorkingName:function(){
+      var that = this;
+      var input = new FormData();
+      input.append("profile", localStorage.token);
+      input.append("uname", localStorage.account);
+      input.append("channel", "Anno.Plugs.Deploy");
+      input.append("router", "DeployManager");
+      input.append("method", "GetServiceByWorkingName");
+      input.append("nodeName", that.queryArgs.nodeName);
+      input.append("workingName", that.queryArgs.workingDirectory);
+$.ajax({
+        type: "post",
+        dataType: "json",
+        url:
+          window.location.origin === undefined
+            ? window.location.protocol +
+              "//" +
+              window.location.host +
+              "/Deploy/Api"
+            : window.location.origin + "/Deploy/Api", //兼容老版本IE origin
+        data: input,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+          if (data.status) {
+            that.formData.workingDirectory=data.outputData.WorkingDirectory;
+             that.formData.nodeName=data.outputData.NodeName;
+              that.formData.cmd=data.outputData.Cmd;
+               that.formData.autoStart=data.outputData.AutoStart;
+          } else {
+            that.$message.error(data.msg);
+          }
+        },
       });
     }
   },

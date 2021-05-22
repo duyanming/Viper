@@ -36,15 +36,15 @@
         prop="Id"
         show-overflow-tooltip
         label="进程PID"
-        width="80"
+        width="70"
       >
       </el-table-column>
       <el-table-column
         fixed
         prop="Running"
         show-overflow-tooltip
-        label="是否运行中"
-        width="120"
+        label="服务状态"
+        width="100"
       >
         <template slot-scope="scope">
           <el-tag :type="scope.row.Running ? 'success' : 'danger'">{{
@@ -58,6 +58,16 @@
         label="工作目录"
         width="120"
       >
+      </el-table-column>
+      <el-table-column
+        prop="AutoStart"
+        show-overflow-tooltip
+        label="启动方式"
+        width="80"
+      >
+       <template slot-scope="scope">
+          {{ scope.row.AutoStart==='1' ? '自动启动' : '手工启动'}}
+        </template>
       </el-table-column>
       <el-table-column prop="Cmd" show-overflow-tooltip label="启动命令">
       </el-table-column>
@@ -86,6 +96,9 @@
           >
           <el-button @click="Recycle(scope.row)" type="text" size="small"
             >回收</el-button
+          >
+           <el-button @click="GoToDeploy(scope.row)" type="text" size="small"
+            >部署</el-button
           >
         </template>
       </el-table-column>
@@ -116,6 +129,9 @@ module.exports = {
     this.getDeployNode();
   },
   methods: {
+    GoToDeploy:function(row){
+      window.location.href="./component.html?anno_component_name=anno-deploy-detail&WorkingDirectory="+row.WorkingDirectory+"&NodeName="+row.NodeName;
+    },
     Start: function (row) {
        var that = this;
        this.$prompt('请输入部署口令', '提示', {
