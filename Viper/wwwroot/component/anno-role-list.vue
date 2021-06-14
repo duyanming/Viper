@@ -12,6 +12,9 @@
         <el-button type="primary" v-on:keyup.enter="onQuery" @click="onQuery"
           >查询</el-button
         >
+        <el-button icon="el-icon-plus" type="success" @click="openAddUser"
+          >增加角色</el-button
+        >
       </el-form-item>
     </el-form>
     <el-table
@@ -43,6 +46,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog :title="currentData.title" :visible.sync="currentData.show">
+      <el-form>
+        <el-form-item label="角色名称" label-width="120px">
+          <el-input v-model="currentData.name" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="currentData.show = false">取 消</el-button>
+        <el-button type="primary" @click="addUser">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -53,6 +67,12 @@ module.exports = {
       roleData: [],
       formData: {
         roleName: "",
+      },
+      currentData: {
+        show: false,
+        title: "增加角色",
+        ID: -1,
+        name: "",
       },
       total: 0,
       currentPage: 1,
@@ -132,6 +152,28 @@ module.exports = {
           that.total = parseInt(data.outputData.Total);
         } else {
           that.$message.error(data.msg);
+        }
+      });
+    },
+    openAddUser: function () {
+      this.currentData.title = "增加角色";
+      this.currentData.ID = -1;
+      this.currentData.name = "";
+      this.currentData.show = true;
+    },
+    addUser: function () {
+      this.currentData.show = false;
+      var that = this;
+      var input = bif.getInput();
+      input.channel = "Anno.Plugs.Logic";
+      input.router = "Platform";
+      input.method = "AddRole";
+      input.Name =  this.currentData.name;
+      bif.process(input, function (data) {
+        if (data.status===true) {
+         that.onQuery();
+        } else {
+          that.$message.error("添加角色失败：" + data.msg);
         }
       });
     },
