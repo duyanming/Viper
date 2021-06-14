@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" style="height:100%;">
+
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="../js/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
@@ -9,11 +10,18 @@
     <script src="../js/lib/ligerUI/js/ligerui.min.js"></script>
     <script src="../js/lib/ligerUI/js/plugins/ligerTree.js"></script>
     <script src="../js/base.js"></script>
-    <script src="../js/scripts/func_roles_config.js"></script>
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+    <!-- 引入样式 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
-    <title>角色功能配置</title>
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>
+    <script src="../js/scripts/func_roles_config.js"></script>
+    <title>角色权限</title>
     <style>
-        .l-tree a, .l-tree span {
+        .l-tree a,
+        .l-tree span {
             color: #606266;
             font-size: 14px;
         }
@@ -23,13 +31,15 @@
             -moz-osx-font-smoothing: grayscale;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
-            font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+            font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
             color: #606266;
         }
-        .l-panel .l-toolbar{
+
+        .l-panel .l-toolbar {
             background-color: #FFF !important;
-            background:#FFF !important; 
+            background: #FFF !important;
         }
+
         .l-grid-hd-row {
             color: #909399;
             font-weight: 500;
@@ -37,17 +47,21 @@
             line-height: 36px;
             background-color: #FFF !important;
         }
-        .l-grid-header{
+
+        .l-grid-header {
             background-color: #FFF !important;
-            background:#FFF !important;
+            background: #FFF !important;
         }
-        .l-panel-topbar{
+
+        .l-panel-topbar {
             background-color: #FFF !important;
-            background:#FFF !important;
+            background: #FFF !important;
         }
-        .l-grid-row-alt .l-grid-row-cell{
+
+        .l-grid-row-alt .l-grid-row-cell {
             background: #FAFAFA !important;
         }
+
         .l-grid-row {
             color: #606266;
         }
@@ -55,32 +69,73 @@
         .l-grid-row-cell-inner {
             line-height: 45px;
         }
+
         .l-toolbar-item {
             margin-left: 33px;
         }
-        .l-panel-btn{
+
+        .l-panel-btn {
             padding-right: 0px;
             color: #409eff;
         }
-        .l-panel-btn-over,.l-panel-btn-selected{background: none;border: ;}
+
+        .l-panel-btn-over,
+        .l-panel-btn-selected {
+            background: none;
+            border: ;
+        }
+
         body {
             display: block;
             margin: 8px;
         }
     </style>
 </head>
+
 <body>
-    <form id="form1" runat="server">
-        <div style="height: 100%;">
-            <div style="width:245px; height:100%; float: left;position: fixed;">
-                <div id="roleGrid">
-                </div>
-            </div>
-            <div style="width: 50%; margin-left:260px; float: left;">
-                <div id="funTree" style="text-align: left;">
-                </div>
-            </div>
-        </div>
-    </form>
+    <div id="app" style="height: 100%;">
+        <el-row type="flex">
+            <el-col :span="8">
+                <el-card class="box-card">
+                    <div slot="header" class="clearfix">
+                      <span>角色</span>
+                      <el-button  @click="saveRoleFunc" style="float: right; padding: 3px 0" type="text">保存</el-button>
+                    </div>
+                    <el-table
+                    ref="singleTable"
+                    @row-click="handleCurrentChange"
+                    :data="roleData"
+                    border
+                    stripe
+                    size="mini"
+                    style="width: 100%"
+                  >
+                    <el-table-column type="index" fixed :index="indexMethod">
+                    </el-table-column>
+                    <el-table-column
+                      fixed
+                      prop="ID"
+                      show-overflow-tooltip
+                      label="ID"
+                      width="150"
+                    >
+                    </el-table-column>
+              
+                    <el-table-column prop="name" show-overflow-tooltip label="角色名称">
+                    </el-table-column>
+                  </el-card>
+            </el-col>
+            <el-col :span="16" style="margin-left: 10px;">
+                <el-card class="box-card">
+                    <div slot="header" class="clearfix">
+                      <span>菜单</span>
+                    </div>
+                    <div id="funTree">
+                    </div>
+                  </el-card>
+            </el-col>
+        </el-row>
+    </div>
 </body>
+
 </html>
