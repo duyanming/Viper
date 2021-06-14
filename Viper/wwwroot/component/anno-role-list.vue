@@ -33,7 +33,7 @@
       >
       </el-table-column>
 
-      <el-table-column prop="name" show-overflow-tooltip label="启动命令">
+      <el-table-column prop="name" show-overflow-tooltip label="角色名称">
       </el-table-column>
       <el-table-column fixed="right" align="center" width="180" label="操作">
         <template slot-scope="scope">
@@ -73,11 +73,22 @@ module.exports = {
   methods: {
     deleteRole: function (row) {
       var that = this;
-      this.$prompt("确定要删除角色", "提示", {
+      this.$confirm("确定要删除角色", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
       }).then(function (rlt) {
-        that.onQuery();
+        var input = bif.getInput();
+        input.channel = "Anno.Plugs.Logic";
+        input.router = "Platform";
+        input.method = "DelRole";
+        input.ID = row.ID;
+        bif.process(input, function (data) {
+          if (data.status) {
+            that.onQuery();
+          } else {
+            that.$message.error(data.msg);
+          }
+        });
       });
     },
     onQuery: function () {
@@ -96,9 +107,9 @@ module.exports = {
       };
     },
     getRoleData: function () {
-     var that = this;
-     var page =that.currentPage;
-     var  pagesize=that.pagesize;
+      var that = this;
+      var page = that.currentPage;
+      var pagesize = that.pagesize;
 
       var input = bif.getInput();
       input.channel = "Anno.Plugs.Logic";
@@ -117,13 +128,13 @@ module.exports = {
       }
       bif.process(input, function (data) {
         if (data.status) {
-           that.roleData = data.outputData.Data;
-           that.total = parseInt(data.outputData.Total);
+          that.roleData = data.outputData.Data;
+          that.total = parseInt(data.outputData.Total);
         } else {
           that.$message.error(data.msg);
         }
       });
-    }
+    },
   },
 };
 </script>
