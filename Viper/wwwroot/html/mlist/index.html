@@ -13,12 +13,12 @@
                            size="mini"
                          :model="form" >
                     <el-form-item>
-                        <el-button  icon="el-icon-plus" type="success" @click="AddUser">增加用户</el-button>
                         用户名/登录账户：
                         <el-input prefix-icon="el-icon-search"
                                   placeholder="请输入用户名/登录账户"
                                   v-model="form.account"></el-input>
                         <el-button type="primary" @click="onQuery">查询</el-button>
+                        <el-button  icon="el-icon-plus" type="success" @click="AddUser">增加用户</el-button>
                     </el-form-item>
                 </el-form>
                 <el-table :data="mData"
