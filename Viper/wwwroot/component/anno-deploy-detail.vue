@@ -70,6 +70,16 @@
               </el-input>
             </el-form-item>
           </el-col>
+            <el-col span="8">
+            <el-form-item label="服务描述：" prop="annoProcessDescription">
+                <el-input
+                placeholder="请输入服务描述"
+                v-model="formData.annoProcessDescription"
+                clearable
+              >
+              </el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row>
           <el-col span="8">
@@ -135,7 +145,8 @@ module.exports = {
         nodeName: null,
         cmd: "dotnet ViperService.dll -p 7018",
         autoStart: "1",
-        deploySecret:""
+        deploySecret:"",
+        annoProcessDescription:""
       },
       nodeOptions: [       
       ],
@@ -199,6 +210,7 @@ module.exports = {
       that.queryArgs.nodeName= args.NodeName;
       that.formData.workingDirectory = args.WorkingDirectory;
       that.formData.nodeName = args.NodeName;
+      that.formData.annoProcessDescription = args.AnnoProcessDescription;
     }
     this.getDeployNode();
   },
@@ -337,6 +349,7 @@ $.ajax({
              that.formData.nodeName=data.outputData.NodeName;
               that.formData.cmd=data.outputData.Cmd;
                that.formData.autoStart=data.outputData.AutoStart;
+               that.formData.annoProcessDescription=data.outputData.AnnoProcessDescription;
           } else {
             that.$message.error(data.msg);
           }

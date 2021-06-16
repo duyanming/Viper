@@ -71,6 +71,11 @@
       </el-table-column>
       <el-table-column prop="Cmd" show-overflow-tooltip label="启动命令">
       </el-table-column>
+       <el-table-column prop="AnnoProcessDescription" 
+       show-overflow-tooltip
+        label="描述"
+        width="120">
+      </el-table-column>
       <el-table-column
         prop="NodeName"
         show-overflow-tooltip
@@ -78,7 +83,7 @@
         width="120"
       >
       </el-table-column>
-      <el-table-column fixed="right" align="center" width="180" label="操作">
+      <el-table-column fixed="right" align="center" width="150" label="操作">
         <template slot-scope="scope">
           <el-button
             v-if="!scope.row.Running"
