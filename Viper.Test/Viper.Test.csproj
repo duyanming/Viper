@@ -9,4 +9,8 @@
     <PackageReference Include="Anno.Rpc.Server" Version="1.0.3.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Anno.Redis\Anno.Redis.csproj" />
+  </ItemGroup>
+
 </Project>
