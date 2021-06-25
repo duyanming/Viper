@@ -30,9 +30,18 @@ namespace Viper.GetWay
                     {
                         webBuilder.UseUrls(urls);
                     }
+                    /**
+                     * active 为prod 的时候关闭日志 None，默认日志级别 Information
+                     */
+                    var active = Anno.Rpc.Server.ArgsValue.GetValueByName("-active", args);
+                    LogLevel logLevel = LogLevel.Information;
+                    if (!string.IsNullOrWhiteSpace(active)&&active.Equals("prod"))
+                    {
+                        logLevel = LogLevel.None;
+                    }
                     webBuilder
                     .UseAnnoSvc()
-                        .ConfigureLogging(log => log.SetMinimumLevel(LogLevel.None))
+                        .ConfigureLogging(log => log.SetMinimumLevel(logLevel))
                         .UseContentRoot(Directory.GetCurrentDirectory())
                         .UseKestrel(option =>
                         {
