@@ -37,6 +37,39 @@ namespace Viper.Test
             var endRlt = RedisHelper.Get<int>("Anno");
             Console.WriteLine(endRlt);
         }
+
+        public void Handle1()
+        {
+            List<User> users = new List<User>();
+            users.Add(new User()
+            {
+                Id = 1,
+                Name = "1",
+                Age = 12,
+                balance = 12.12M,
+                Password = "sdfsdf"
+            });
+            users.Add(new User()
+            {
+                Id = 2,
+                Name = "2",
+                Age = 22,
+                balance = 22.12M,
+                Password = "2222"
+            });
+            users.Add(new User()
+            {
+                Id = 3,
+                Name = "3",
+                Age = 32,
+                balance = 32.12M,
+                Password = "333333"
+            });
+            RedisHelper.Set("users", users);
+
+            var _users = RedisHelper.Get<List<User>>("users");
+
+        }
         void Init()
         {
 
@@ -45,5 +78,14 @@ namespace Viper.Test
             DefaultConfigManager.SetDefaultConnectionPool(1000, Environment.ProcessorCount * 2, 50);
             DefaultConfigManager.SetDefaultConfiguration("DLockTest", "127.0.0.1", 7010, false);
         }
+    }
+
+    public class User
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public int Age { get; set; }
+        public decimal balance { get; set; }
     }
 }
