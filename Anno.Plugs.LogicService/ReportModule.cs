@@ -35,7 +35,7 @@ namespace Anno.Plugs.LogicService
                 select AppName ,id FROM sys_trace WHERE Timespan>=@startDate and Timespan<=@endDate
                 UNION ALL
                 select AppNameTarget as AppName,id FROM sys_trace  WHERE Timespan>=@startDate and Timespan<=@endDate
-                ) a GROUP BY AppName;");
+                ) a  WHERE AppName is not NULL  GROUP BY AppName;");
             var reportData = DbInstance.Db.Ado.SqlQuery<TraceDto>(queryStr.ToString(), new { startDate, endDate }).ToList();
             return new ActionResult(true, new { xAxis = reportData.Select(t => t.AppName).ToList(), values = reportData.Select(t => t.count).ToList() });
         }
