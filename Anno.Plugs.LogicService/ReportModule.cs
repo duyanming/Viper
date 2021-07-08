@@ -31,11 +31,22 @@ namespace Anno.Plugs.LogicService
             {
                 return new ActionResult(false, null, null, "统计开始日期不能小于结束日期");
             }
-            queryStr.AppendFormat(@"SELECT AppName ,count(1) as Count FROM(
+            if (DbInstance.Db.CurrentConnectionConfig.DbType == SqlSugar.DbType.MySql)
+            {
+                queryStr.AppendFormat(@"SELECT AppName , count(1) as Count FROM(
                 select AppName ,id FROM sys_trace WHERE Timespan>=@startDate and Timespan<=@endDate
                 UNION ALL
                 select AppNameTarget as AppName,id FROM sys_trace  WHERE Timespan>=@startDate and Timespan<=@endDate
                 ) a  WHERE AppName is not NULL  GROUP BY AppName;");
+            }
+            else
+            {
+                queryStr.AppendFormat(@"SELECT AppName , cast(count(1) as bigint) as Count FROM(
+                select AppName ,id FROM sys_trace WHERE Timespan>=@startDate and Timespan<=@endDate
+                UNION ALL
+                select AppNameTarget as AppName,id FROM sys_trace  WHERE Timespan>=@startDate and Timespan<=@endDate
+                ) a  WHERE AppName is not NULL  GROUP BY AppName;");
+            }
             var reportData = DbInstance.Db.Ado.SqlQuery<TraceDto>(queryStr.ToString(), new { startDate, endDate }).ToList();
             return new ActionResult(true, new { xAxis = reportData.Select(t => t.AppName).ToList(), values = reportData.Select(t => t.count).ToList() });
         }

@@ -29,7 +29,7 @@ namespace Anno.Plugs.TraceService
         {
             List<sys_trace> traces = Request<List<sys_trace>>("traces");
             traces.ForEach(t => { t.ID = IdWorker.NextId(); });
-            _db.Insertable<sys_trace>(traces).With(SqlWith.NoLock).ExecuteCommand();
+            _db.Insertable<sys_trace>(traces).ExecuteCommand();
             return new ActionResult(true, null, null, null);
         }
         /// <summary>

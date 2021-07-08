@@ -184,10 +184,21 @@ namespace Anno.QueryServices.Platform
             var usr = profile;
             if (usr != null)
             {
-                object funcList = _db.Ado.SqlQuery<dynamic>(@"SELECT * FROM sys_func f WHERE `show`=1 and f.pid is not null  AND f.id in(
-                SELECT DISTINCT frl.fid FROM sys_func_roles_link frl WHERE frl.rid in (
-                SELECT rid from sys_member_roles_link lmr WHERE lmr.mid=" + usr.ID + "))  order by forder asc");
-                return new ActionResult(true, funcList);
+                if (_db.CurrentConnectionConfig.DbType == SqlSugar.DbType.MySql)
+                {
+                    object funcList = _db.Ado.SqlQuery<dynamic>(@"SELECT * FROM sys_func f WHERE `show`=1 and f.pid is not null  AND f.id in(
+                    SELECT DISTINCT frl.fid FROM sys_func_roles_link frl WHERE frl.rid in (
+                    SELECT rid from sys_member_roles_link lmr WHERE lmr.mid=" + usr.ID + "))  order by forder asc");
+                    return new ActionResult(true, funcList);
+                }
+                else
+                {
+                    object funcList = _db.Ado.SqlQuery<dynamic>(@"SELECT * FROM sys_func f WHERE show=1 and f.pid is not null  AND f.id in(
+                    SELECT DISTINCT frl.fid FROM sys_func_roles_link frl WHERE frl.rid in (
+                    SELECT rid from sys_member_roles_link lmr WHERE lmr.mid=" + usr.ID + "))  order by forder asc");
+                    return new ActionResult(true, funcList);
+                }
+
             }
             return new ActionResult(false, null, null, "用户身份不能为空！");
         }
@@ -202,10 +213,21 @@ namespace Anno.QueryServices.Platform
             {
                 return new ActionResult(false, null, null, "无权访问，你的IP已经被记录！");
             }
-            object rootFunc = _db.Ado.SqlQuery<dynamic>(@"SELECT * FROM sys_func f WHERE `show`=1 and f.pid is  null  AND f.id in(
-            SELECT DISTINCT frl.fid FROM sys_func_roles_link frl WHERE frl.rid in (
-            SELECT rid from sys_member_roles_link lmr WHERE lmr.mid=" + profile.ID + "))  order by forder asc");
-            return new ActionResult(true, rootFunc);
+            if (_db.CurrentConnectionConfig.DbType == SqlSugar.DbType.MySql)
+            {
+                object rootFunc = _db.Ado.SqlQuery<dynamic>(@"SELECT * FROM sys_func f WHERE `show`=1 and f.pid is  null  AND f.id in(
+                SELECT DISTINCT frl.fid FROM sys_func_roles_link frl WHERE frl.rid in (
+                SELECT rid from sys_member_roles_link lmr WHERE lmr.mid=" + profile.ID + "))  order by forder asc");
+                return new ActionResult(true, rootFunc);
+            }
+            else
+            {
+                object rootFunc = _db.Ado.SqlQuery<dynamic>(@"SELECT * FROM sys_func f WHERE show=1 and f.pid is  null  AND f.id in(
+                SELECT DISTINCT frl.fid FROM sys_func_roles_link frl WHERE frl.rid in (
+                SELECT rid from sys_member_roles_link lmr WHERE lmr.mid=" + profile.ID + "))  order by forder asc");
+                return new ActionResult(true, rootFunc);
+            }
+
         }
 
         /// <summary>
