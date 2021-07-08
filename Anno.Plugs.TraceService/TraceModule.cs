@@ -82,7 +82,7 @@ namespace Anno.Plugs.TraceService
             else
             {
                 string sql = @"SELECT  * FROM  sys_trace 
-WHERE  GlobalTraceId=(SELECT  c.GlobalTraceId FROM sys_trace as c WHERE c.TraceId=@tid LIMIT 1)";
+WHERE  GlobalTraceId in(SELECT  c.GlobalTraceId FROM sys_trace as c WHERE c.TraceId=@tid)";
                 ts = _db.Ado.SqlQuery<sys_trace>(sql,new { tid }).ToList();
             }
             var output = new Dictionary<string, object> { { "#Total", ts.Count }, { "#Rows", ts } };
