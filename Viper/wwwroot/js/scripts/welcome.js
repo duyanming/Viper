@@ -341,6 +341,9 @@ function StartMonitoring() {
 }
 
 function connect(conn) {
+    if (conn.connectionState === "Connected") {
+        return;
+    }
     conn.start().then(function () {
         SetWatch(conn, defaultService);
     }).catch(function (err) {
