@@ -247,7 +247,23 @@ namespace Viper.GetWay.Hubs
             input.Add("channel", "Anno.Plugs.Monitor");
             input.Add("router", "Resource");
             input.Add("method", "GetServerStatus");
-            var actionResult = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<UseSysInfoWatch.ServerStatus>>(await Connector.BrokerDnsAsync(input, nickName));
+            var watchData = await Connector.BrokerDnsAsync(input, nickName);
+            ActionResult<UseSysInfoWatch.ServerStatus> actionResult = null;
+            try
+            {
+                if (watchData.IndexOf("tatus\":true") > 0)
+                {
+                    actionResult = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<UseSysInfoWatch.ServerStatus>>(watchData);
+                }
+                else
+                {
+                    return new UseSysInfoWatch.ServerStatus() { RunTime = "00:00:00:00", CurrentTime = DateTime.Now, Tag = nickName };
+                }
+            }
+            catch
+            {
+                return new UseSysInfoWatch.ServerStatus() { RunTime = "00:00:00:00", CurrentTime = DateTime.Now, Tag = nickName };
+            }
             return actionResult.OutputData;
         }
 
