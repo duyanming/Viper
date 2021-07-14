@@ -117,7 +117,6 @@ namespace Viper.GetWay.Hubs
         /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
-
             await Clients.Caller.SendAsync("OnConnected", $"{Context.ConnectionId} joined", "你连接成功了！");
         }
 
@@ -137,19 +136,32 @@ namespace Viper.GetWay.Hubs
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public void SetWatch(string name)
+        public async Task SetWatch(string name)
         {
-            if (!WatchData.Exists(w => w.ConnectionId == Context.ConnectionId))
+            try
             {
-                WatchData.Add(new WatchUser()
+                if (!WatchData.Exists(w => w.ConnectionId == Context.ConnectionId))
                 {
-                    ConnectionId = Context.ConnectionId,
-                    WatchServiceName = name
-                });
+                    WatchData.Add(new WatchUser()
+                    {
+                        ConnectionId = Context.ConnectionId,
+                        WatchServiceName = name
+                    });
+                }
+                else
+                {
+                    WatchData.RemoveAll(w => w.ConnectionId == Context.ConnectionId);
+                    WatchData.Add(new WatchUser()
+                    {
+                        ConnectionId = Context.ConnectionId,
+                        WatchServiceName = name
+                    });
+                }
+                await Clients.Caller.SendAsync("SetWatch", $"SetWatch {name} OK");
             }
-            else
+            catch (Exception ex)
             {
-                WatchData.Find(w => w.ConnectionId == Context.ConnectionId).WatchServiceName = name;
+                await Clients.Caller.SendAsync("SetWatch", $"SetWatch {name} {ex.Message}");
             }
         }
         /// <summary>
@@ -220,11 +232,11 @@ namespace Viper.GetWay.Hubs
                                 info.Tag = watchUser;
                                 _monitorContext.Clients.Clients(connectionIds.ToArray()).SendAsync("SendMonitorData", info);
                             }
-                        }).Wait();
+                        });
                     }
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 // ignored
             }
