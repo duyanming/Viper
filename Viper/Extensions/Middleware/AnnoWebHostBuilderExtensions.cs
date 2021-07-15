@@ -73,7 +73,7 @@ namespace Microsoft.AspNetCore
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.Map("SysMg/Api", Api);
-                    endpoints.Map("Deploy/Api", DeloyApi);
+                    endpoints.Map("Deploy/Api", DeployApi);
                 });
                 next(app);
             };
@@ -85,7 +85,7 @@ namespace Microsoft.AspNetCore
                 return Connector.BrokerDns(input);
             });
         }
-        private Task DeloyApi(HttpContext context)
+        private Task DeployApi(HttpContext context)
         {
             return ApiInvoke(context, (input) =>
             {
