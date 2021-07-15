@@ -110,7 +110,7 @@ namespace Microsoft.AspNetCore
             var headers = Request.Headers;
             try
             {
-                if (headers != null && headers.ContainsKey("X-Original-For"))
+                if (headers != null && headers.ContainsKey("X-Original-For")&& !headers["X-Original-For"].ToArray()[0].StartsWith("127.0.0.1"))
                 {
                     input.Add("X-Original-For", headers["X-Original-For"].ToArray()[0]);
                 }
