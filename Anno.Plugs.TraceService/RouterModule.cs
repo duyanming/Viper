@@ -15,8 +15,6 @@ namespace Anno.Plugs.TraceService
 {
     using Anno.Rpc;
     using Anno.Rpc.Storage;
-    using Thrift.Protocol;
-    using Thrift.Transport;
 
     public class RouterModule : BaseModule
     {
@@ -61,44 +59,31 @@ namespace Anno.Plugs.TraceService
         public ActionResult GetServiceInstances()
         {
             List<ServiceInformation> serviceInformations = new List<ServiceInformation>();
-            TTransport transport = new TSocket(Const.SettingService.Local.IpAddress, Const.SettingService.Local.Port, 3000);
             try
             {
-                TProtocol protocol = new TBinaryProtocol(transport);
-                BrokerCenter.Client client = new BrokerCenter.Client(protocol);
-                transport.Open();
-                var microList = client.GetMicro(string.Empty);
-                if (microList != null && microList.Count > 0)
+                var micros = Rpc.Client.Connector.Micros;
+                if (micros != null && micros.Count > 0)
                 {
-                    foreach (var service in microList)
+                    foreach (var service in micros)
                     {
-                        if (serviceInformations.Any(it => it.Host == service.Ip && it.Port == service.Port))
+                        if (serviceInformations.Any(it => it.Host == service.Mi.Ip && it.Port == service.Mi.Port))
                         {
                             continue;
                         }
                         ServiceInformation serviceInformation = new ServiceInformation();
 
-                        serviceInformation.Tags = service.Name.Split(new string[] { "," }
-                        , StringSplitOptions.RemoveEmptyEntries).Select(t => t.Substring(0, t.Length - 7)).ToList();
-                        serviceInformation.Host = service.Ip;
-                        serviceInformation.Port = service.Port;
-                        serviceInformation.Timeout = service.Timeout;
-                        serviceInformation.Weight = service.Weight;
-                        serviceInformation.Nickname = service.Nickname;
+                        serviceInformation.Tags = service.Tags;
+                        serviceInformation.Host = service.Mi.Ip;
+                        serviceInformation.Port = service.Mi.Port;
+                        serviceInformation.Timeout = service.Mi.Timeout;
+                        serviceInformation.Weight = service.Mi.Weight;
+                        serviceInformation.Nickname = service.Mi.Nickname;
 
                         serviceInformations.Add(serviceInformation);
                     }
                 }
             }
-            finally
-            {
-                if (transport.IsOpen)
-                {
-                    transport.Flush();
-                    transport.Close();
-                }
-                transport.Dispose();
-            }
+            catch { }
             return new ActionResult(true, serviceInformations);
         }
     }

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <DeveloperBuildCoreTfms>net5</DeveloperBuildCoreTfms>
     <StandardTfms>netstandard2.0</StandardTfms>
-    <Version>1.0.3.5</Version>
+    <Version>1.5.0.1</Version>
     <ServerName>ViperService</ServerName>
   </PropertyGroup>
 </Project>
