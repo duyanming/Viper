@@ -58,8 +58,8 @@
     <Reference Include="Anno.Log, Version=1.5.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Anno.Log.1.5.0.1\lib\net461\Anno.Log.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Rpc.Client, Version=1.5.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Rpc.Client.1.5.0.1\lib\net461\Anno.Rpc.Client.dll</HintPath>
+    <Reference Include="Anno.Rpc.Client, Version=1.5.0.2, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Rpc.Client.1.5.0.2\lib\net461\Anno.Rpc.Client.dll</HintPath>
     </Reference>
     <Reference Include="Anno.Rpc.Client.DynamicProxy, Version=1.5.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Anno.Rpc.Client.DynamicProxy.1.5.0.1\lib\net461\Anno.Rpc.Client.DynamicProxy.dll</HintPath>

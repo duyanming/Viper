@@ -19,14 +19,15 @@ namespace ViperService
         {
             if (args.Contains("-help"))
             {
-                Log.ConsoleWriteLine(@"
+                Log.WriteLineNoDate(@"
 启动参数：
-	-p 6659		设置启动端口
-	-xt 200		设置服务最大线程数
-	-t 20000		设置超时时间（单位毫秒）
-	-w 1		设置权重
-	-h 192.168.0.2	设置服务在注册中心的地址
-	-tr false		设置调用链追踪是否启用");
+                -p   6659                    设置启动端口
+                -xt  200                     设置服务最大线程数
+                -t   20000                   设置超时时间（单位毫秒）
+                -w   1                       设置权重
+                -h   192.168.0.2             设置服务在注册中心的地址
+                -tr  false                   设置调用链追踪是否启用
+");
                 return;
             }
             /**

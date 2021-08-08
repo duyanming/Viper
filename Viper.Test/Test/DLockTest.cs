@@ -47,11 +47,11 @@ namespace Viper.Test
                 using (DLock dLock = new DLock(lk, 1000))
                 {
                     counter = counter + 1;
-                    Log.ConsoleWriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1进入锁({lk})");
+                    Log.WriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1进入锁({lk})");
                     System.Threading.Thread.Sleep(50);
-                    Log.ConsoleWriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1离开锁进行中({lk})");
+                    Log.WriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1离开锁进行中({lk})");
                 }
-                Log.ConsoleWriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1离开锁({lk})");
+                Log.WriteLine($"{System.Threading.Thread.CurrentThread.ManagedThreadId} DLTest1离开锁({lk})");
             }
             catch (Exception e)
             {
