@@ -65,16 +65,18 @@
         label="启动方式"
         width="80"
       >
-       <template slot-scope="scope">
-          {{ scope.row.AutoStart==='1' ? '自动启动' : '手工启动'}}
+        <template slot-scope="scope">
+          {{ scope.row.AutoStart === "1" ? "自动启动" : "手工启动" }}
         </template>
       </el-table-column>
       <el-table-column prop="Cmd" show-overflow-tooltip label="启动命令">
       </el-table-column>
-       <el-table-column prop="AnnoProcessDescription" 
-       show-overflow-tooltip
+      <el-table-column
+        prop="AnnoProcessDescription"
+        show-overflow-tooltip
         label="描述"
-        width="120">
+        width="120"
+      >
       </el-table-column>
       <el-table-column
         prop="NodeName"
@@ -99,10 +101,13 @@
             size="small"
             >停止</el-button
           >
+          <el-button @click="Restart(scope.row)" type="text" size="small"
+            >重启</el-button
+          >
           <el-button @click="Recycle(scope.row)" type="text" size="small"
             >回收</el-button
           >
-           <el-button @click="GoToDeploy(scope.row)" type="text" size="small"
+          <el-button @click="GoToDeploy(scope.row)" type="text" size="small"
             >部署</el-button
           >
         </template>
@@ -134,38 +139,45 @@ module.exports = {
     this.getDeployNode();
   },
   methods: {
-    GoToDeploy:function(row){
-      window.location.href="./component.html?anno_component_name=anno-deploy-detail&WorkingDirectory="+row.WorkingDirectory+"&NodeName="+row.NodeName;
+    GoToDeploy: function (row) {
+      window.location.href =
+        "./component.html?anno_component_name=anno-deploy-detail&WorkingDirectory=" +
+        row.WorkingDirectory +
+        "&NodeName=" +
+        row.NodeName;
     },
     Start: function (row) {
-       var that = this;
-       this.$prompt('请输入部署口令', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          inputType:'password'
-        }).then(function(rlt){         
-       that.ExeCmd(row, "StartServiceByWorkingDirectory",rlt.value);
-        });
+      var that = this;
+      this.$prompt("请输入部署口令", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputType: "password",
+      }).then(function (rlt) {
+        that.ExeCmd(row, "StartServiceByWorkingDirectory", rlt.value);
+      });
+    },
+    Restart: function (row) {
+      this.Start(row);
     },
     Stop: function (row) {
-       var that = this;
-       this.$prompt('请输入部署口令', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          inputType:'password'
-        }).then(function(rlt){  
-       that.ExeCmd(row, "StopServiceByWorkingDirectory",rlt.value);
-        });
+      var that = this;
+      this.$prompt("请输入部署口令", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputType: "password",
+      }).then(function (rlt) {
+        that.ExeCmd(row, "StopServiceByWorkingDirectory", rlt.value);
+      });
     },
     Recycle: function (row) {
-       var that = this;
-       this.$prompt('请输入部署口令', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          inputType:'password'
-        }).then(function(rlt){         
-       that.ExeCmd(row, "StopAndRemoveServiceByWorkingDirectory",rlt.value);
-        });
+      var that = this;
+      this.$prompt("请输入部署口令", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputType: "password",
+      }).then(function (rlt) {
+        that.ExeCmd(row, "StopAndRemoveServiceByWorkingDirectory", rlt.value);
+      });
     },
     ExeCmd: function (row, action, deploySecret) {
       var that = this;
@@ -194,7 +206,7 @@ module.exports = {
         processData: false,
         success: function (data) {
           if (data.status) {
-             that.$message({
+            that.$message({
               showClose: true,
               message: "执行成功！",
               type: "success",
@@ -281,4 +293,7 @@ module.exports = {
 };
 </script>
 <style scoped>
+.el-button+.el-button {
+    margin-left: 0px;
+}
 </style>
