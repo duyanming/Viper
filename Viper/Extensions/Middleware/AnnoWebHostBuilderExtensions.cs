@@ -19,7 +19,7 @@ namespace Microsoft.AspNetCore
     using System.Collections.Concurrent;
     using Anno.CronNET;
 
-    using NetTools;
+    using Anno.Const.Enum;
 
     /// <summary>
     /// 接入服务中心的HostBuilder中间件
@@ -74,6 +74,7 @@ namespace Microsoft.AspNetCore
                 {
                     endpoints.Map("SysMg/Api", Api);
                     endpoints.Map("Deploy/Api", DeployApi);
+                    endpoints.Map("{channel}/{router}/{method}/{nodeName?}", AnnoApi);
                 });
                 next(app);
             };
@@ -101,6 +102,35 @@ namespace Microsoft.AspNetCore
             });
         }
 
+        private Task AnnoApi(HttpContext context)
+        {
+            var routeValues = context.Request.RouteValues;
+            routeValues.TryGetValue("channel", out object channel);
+            routeValues.TryGetValue("router", out object router);
+            routeValues.TryGetValue("method", out object method);
+            routeValues.TryGetValue("nodeName", out object nodeName);
+
+            return ApiInvoke(context, (input) =>
+            {
+                input[Eng.NAMESPACE] = channel.ToString();
+                input[Eng.CLASS] = router.ToString();
+                input[Eng.METHOD] = method.ToString();
+                if (nodeName != null)
+                {
+                    input["nodeName"] = nodeName.ToString();
+                }
+                input.TryGetValue("nodeName", out string nickName);
+                if (!string.IsNullOrWhiteSpace(nickName))
+                {
+                    return Connector.BrokerDnsAsync(input, nickName).ConfigureAwait(false).GetAwaiter().GetResult();
+                }
+                else
+                {
+                    return Connector.BrokerDns(input);
+                }
+            });
+        }
+
         private Task ApiInvoke(HttpContext context, Func<Dictionary<string, string>, string> invoke)
         {
             context.Response.ContentType = "Content-Type: application/javascript; charset=utf-8";
@@ -110,7 +140,7 @@ namespace Microsoft.AspNetCore
             var headers = Request.Headers;
             try
             {
-                if (headers != null && headers.ContainsKey("X-Original-For")&& !headers["X-Original-For"].ToArray()[0].StartsWith("127.0.0.1"))
+                if (headers != null && headers.ContainsKey("X-Original-For") && !headers["X-Original-For"].ToArray()[0].StartsWith("127.0.0.1"))
                 {
                     input.Add("X-Original-For", headers["X-Original-For"].ToArray()[0]);
                 }
