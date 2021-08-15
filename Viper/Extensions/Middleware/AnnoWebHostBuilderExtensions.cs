@@ -74,7 +74,7 @@ namespace Microsoft.AspNetCore
                 {
                     endpoints.Map("SysMg/Api", Api);
                     endpoints.Map("Deploy/Api", DeployApi);
-                    endpoints.Map("{channel}/{router}/{method}/{nodeName?}", AnnoApi);
+                    endpoints.Map("AnnoApi/{channel}/{router}/{method}/{nodeName?}", AnnoApi);
                 });
                 next(app);
             };
