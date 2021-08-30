@@ -278,6 +278,9 @@ function StartMonitoring() {
         SetWatch(connection, defaultService);
     });
     connection.on("SendMonitorData", function (_data) {
+        if(_data.tag!==vm.name){
+            return;
+        }
         var _date = new Date(_data.currentTime);
         date.push([_date.getHours(), _date.getMinutes(), _date.getSeconds()].join(':'));
 
