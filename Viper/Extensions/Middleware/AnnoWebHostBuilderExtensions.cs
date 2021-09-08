@@ -20,6 +20,7 @@ namespace Microsoft.AspNetCore
     using Anno.CronNET;
 
     using Anno.Const.Enum;
+    using System.Net;
 
     /// <summary>
     /// 接入服务中心的HostBuilder中间件
@@ -267,12 +268,19 @@ namespace Microsoft.AspNetCore
             bool limit = false;
             if (vierConfig.Limit?.Enable == true)
             {
-                var ip = httpContext.Connection.RemoteIpAddress.MapToIPv4();
-
                 #region IpLimit
 
                 if (vierConfig.Limit != null)
                 {
+                    IPAddress ip = httpContext.Connection.RemoteIpAddress.MapToIPv4();
+                    var headers = httpContext.Request.Headers;
+                    if (headers != null && headers.ContainsKey("X-Original-For"))
+                    {
+                        if (IPAddress.TryParse(headers["X-Original-For"].ToArray()[0], out IPAddress iPAddress))
+                        {
+                            ip = iPAddress.MapToIPv4();
+                        }
+                    }
                     if (IsBlackRateLimit(ip))//黑名单
                     {
                         return true;
@@ -286,20 +294,26 @@ namespace Microsoft.AspNetCore
                     {
                         //IP限流策略
                         Iplimit iplimit = MatchIpLimit(ip);
-                        var limitingService = LimitingFactory.Build(TimeSpan.FromSeconds(iplimit.timeSpan)
-                              , LimitingType.LeakageBucket
-                              , (int)iplimit.rps
-                              , (int)iplimit.limitSize);
-                        limitInfo = new LimitInfo()
+                        if (iplimit != null)
                         {
-                            Time = DateTime.Now,
-                            limitingService = limitingService
-                        };
-                        _rateLimitPool.TryAdd(ip.ToString(), limitInfo);
+                            var limitingService = LimitingFactory.Build(TimeSpan.FromSeconds(iplimit.timeSpan)
+                                  , LimitingType.LeakageBucket
+                                  , (int)iplimit.rps
+                                  , (int)iplimit.limitSize);
+                            limitInfo = new LimitInfo()
+                            {
+                                Time = DateTime.Now,
+                                limitingService = limitingService
+                            };
+                            _rateLimitPool.TryAdd(ip.ToString(), limitInfo);
+                        }
                     }
-                    //ipLimit.Request() ==true 代表不受限制
-                    limitInfo.Time = DateTime.Now;
-                    limit = (limitInfo.limitingService.Request() == false);
+                    if (limitInfo != null)
+                    {
+                        //ipLimit.Request() ==true 代表不受限制
+                        limitInfo.Time = DateTime.Now;
+                        limit = (limitInfo.limitingService.Request() == false);
+                    }
                     if (limit)
                     {
 #if DEBUG
