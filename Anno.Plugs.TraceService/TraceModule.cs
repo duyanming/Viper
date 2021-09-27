@@ -14,8 +14,7 @@ namespace Anno.Plugs.TraceService
     /// </summary>
     public class TraceModule : BaseModule
     {
-        private static readonly EngineData.SysInfo.UseSysInfoWatch Usi = new EngineData.SysInfo.UseSysInfoWatch();
-        private readonly SqlSugar.SqlSugarClient _db;
+        private readonly SqlSugarClient _db;
         public TraceModule()
         {
             _db = Infrastructure.DbInstance.Db;

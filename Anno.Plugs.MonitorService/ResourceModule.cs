@@ -14,7 +14,6 @@ namespace Anno.Plugs.MonitorService
 {
     public class ResourceModule : BaseModule
     {
-        private static readonly EngineData.SysInfo.UseSysInfoWatch Usi = new EngineData.SysInfo.UseSysInfoWatch();
         /// <summary>
         /// 服务资源信息
         /// </summary>
@@ -22,7 +21,7 @@ namespace Anno.Plugs.MonitorService
         [AnnoInfo(Desc = "服务资源信息CPU、Memory")]
         public ActionResult GetServerStatus()
         {
-            return new ActionResult(true, Usi.GetServerStatus());
+            return new ActionResult(true, SysWatchUtil.Usi.GetServerStatus());
         }
     }
 }
