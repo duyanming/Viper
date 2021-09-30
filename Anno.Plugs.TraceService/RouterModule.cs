@@ -13,7 +13,6 @@ using Anno.EngineData;
 
 namespace Anno.Plugs.TraceService
 {
-    using Anno.Rpc;
     using Anno.Rpc.Storage;
 
     public class RouterModule : BaseModule

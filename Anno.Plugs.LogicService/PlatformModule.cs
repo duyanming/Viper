@@ -402,7 +402,7 @@ namespace Anno.Plugs.LogicService
         /// <returns></returns>
         public ActionResult EditPersonalPwd()
         {
-            var changePwdCommand = new Anno.Command.ChangePwdCommand(Profile.ID, 1, RequestString("pwd"), RequestString("opwd"));
+            var changePwdCommand = new ChangePwdCommand(Profile.ID, 1, RequestString("pwd"), RequestString("opwd"));
             CommandBus.Instance.Send(changePwdCommand);
             return new ActionResult(changePwdCommand.Result.Status);
         }
