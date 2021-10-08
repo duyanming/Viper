@@ -134,7 +134,7 @@ namespace Microsoft.AspNetCore
 
         private Task ApiInvoke(HttpContext context, Func<Dictionary<string, string>, string> invoke)
         {
-            context.Response.ContentType = "Content-Type: application/javascript; charset=utf-8";
+            context.Response.ContentType = "application/json;charset=UTF-8";
             Dictionary<string, string> input = new Dictionary<string, string>();
             #region 接收表单参数
             var Request = context.Request;
