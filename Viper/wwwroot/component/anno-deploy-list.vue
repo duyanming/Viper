@@ -32,7 +32,6 @@
       <el-table-column type="index" fixed :index="indexMethod">
       </el-table-column>
       <el-table-column
-        fixed
         prop="Id"
         show-overflow-tooltip
         label="进程PID"
@@ -40,7 +39,6 @@
       >
       </el-table-column>
       <el-table-column
-        fixed
         prop="Running"
         show-overflow-tooltip
         label="服务状态"
@@ -69,7 +67,12 @@
           {{ scope.row.AutoStart === "1" ? "自动启动" : "手工启动" }}
         </template>
       </el-table-column>
-      <el-table-column prop="Cmd" show-overflow-tooltip label="启动命令">
+      <el-table-column 
+      prop="Cmd" 
+      show-overflow-tooltip 
+      label="启动命令"
+      min-width="320"
+       >
       </el-table-column>
       <el-table-column
         prop="AnnoProcessDescription"
