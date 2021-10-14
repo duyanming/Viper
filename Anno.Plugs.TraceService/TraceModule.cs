@@ -76,13 +76,13 @@ namespace Anno.Plugs.TraceService
             if (string.IsNullOrWhiteSpace(tid))
             {
                 string gId = RequestString("GId");
-                ts = _db.Ado.SqlQuery<sys_trace>($"select * from sys_trace where GlobalTraceId=@gId;",new { gId}).ToList();
+                ts = _db.Ado.SqlQuery<sys_trace>($"select * from sys_trace where GlobalTraceId=@gId;", new { gId }).ToList();
             }
             else
             {
                 string sql = @"SELECT  * FROM  sys_trace 
 WHERE  GlobalTraceId in(SELECT  c.GlobalTraceId FROM sys_trace as c WHERE c.TraceId=@tid)";
-                ts = _db.Ado.SqlQuery<sys_trace>(sql,new { tid }).ToList();
+                ts = _db.Ado.SqlQuery<sys_trace>(sql, new { tid }).ToList();
             }
             var output = new Dictionary<string, object> { { "#Total", ts.Count }, { "#Rows", ts } };
             return new ActionResult(true, null, output);
@@ -97,7 +97,7 @@ WHERE  GlobalTraceId in(SELECT  c.GlobalTraceId FROM sys_trace as c WHERE c.Trac
         public ActionResult LogBatch(List<sys_log> logs)
         {
             logs.ForEach(t => { t.ID = IdWorker.NextId(); });
-            _db.Insertable<sys_log>(logs).With(SqlWith.NoLock).ExecuteCommand();
+            _db.Insertable(logs).ExecuteCommand();
             return new ActionResult();
         }
 
