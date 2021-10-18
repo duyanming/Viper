@@ -33,11 +33,12 @@ namespace Anno.Plugs.LogicService
             }
             if (DbInstance.Db.CurrentConnectionConfig.DbType == SqlSugar.DbType.MySql)
             {
-                queryStr.AppendFormat(@"SELECT AppName , count(1) as Count FROM(
-                select AppName ,id FROM sys_trace WHERE Timespan>=@startDate and Timespan<=@endDate
-                UNION ALL
-                select AppNameTarget as AppName,id FROM sys_trace  WHERE Timespan>=@startDate and Timespan<=@endDate
-                ) a  WHERE AppName is not NULL  GROUP BY AppName;");
+                
+                queryStr.AppendFormat(@"SELECT AppName , SUM(Count) as Count FROM(
+                    select AppName,count(1) as Count FROM sys_trace WHERE Timespan>= @startDate and Timespan<= @endDate AND AppName is not NULL	 GROUP BY AppName
+                    UNION ALL
+					select AppNameTarget  as AppName,count(1) as Count FROM sys_trace WHERE Timespan>= @startDate and Timespan<= @endDate AND AppNameTarget is not NULL	GROUP BY AppNameTarget
+                    ) a  GROUP BY AppName;");
             }
             else
             {
