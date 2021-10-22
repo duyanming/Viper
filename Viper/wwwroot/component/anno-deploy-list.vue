@@ -29,18 +29,18 @@
       max-height="429"
       style="width: 100%"
     >
-      <el-table-column type="index" fixed :index="indexMethod">
+      <el-table-column  show-overflow-tooltip="true" type="index" fixed :index="indexMethod">
       </el-table-column>
       <el-table-column
         prop="Id"
-        show-overflow-tooltip
+        show-overflow-tooltip="true"
         label="进程PID"
         width="70"
       >
       </el-table-column>
       <el-table-column
         prop="Running"
-        show-overflow-tooltip
+        show-overflow-tooltip="true"
         label="服务状态"
         width="100"
       >
@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column
         prop="WorkingDirectory"
-        show-overflow-tooltip
+        show-overflow-tooltip="true"
         label="工作目录"
         width="120"
       >
@@ -69,26 +69,26 @@
       </el-table-column>
       <el-table-column 
       prop="Cmd" 
-      show-overflow-tooltip 
+      show-overflow-tooltip="true"
       label="启动命令"
       min-width="320"
        >
       </el-table-column>
       <el-table-column
         prop="AnnoProcessDescription"
-        show-overflow-tooltip
+        show-overflow-tooltip="true"
         label="描述"
         width="120"
       >
       </el-table-column>
       <el-table-column
         prop="NodeName"
-        show-overflow-tooltip
+        show-overflow-tooltip="true"
         label="服务节点"
         width="120"
       >
       </el-table-column>
-      <el-table-column fixed="right" align="center" width="150" label="操作">
+      <el-table-column  show-overflow-tooltip="true" fixed="right" align="center" width="150" label="操作">
         <template slot-scope="scope">
           <el-button
             v-if="!scope.row.Running"
@@ -296,6 +296,10 @@ module.exports = {
 };
 </script>
 <style scoped>
+.el-table__body {
+  width: 100%;
+  table-layout: fixed !important;
+}
 .el-button+.el-button {
     margin-left: 0px;
 }
