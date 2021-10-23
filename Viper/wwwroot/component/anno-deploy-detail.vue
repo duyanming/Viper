@@ -126,6 +126,21 @@
           </el-col>
         </el-row>
       </el-card>
+      <el-card>
+         <div slot="header" class="clearfix">
+          <span>服务输出</span>
+        </div>
+        <el-row>
+          <el-col span="24">
+            <el-input
+            autosize
+              type="textarea"
+              placeholder="请输入内容"
+              :value="formData.standardError+formData.standardOutput">
+            </el-input>            
+          </el-col>
+        </el-row>
+      </el-card>
     </el-form>
   </div>
 </template>
@@ -146,7 +161,9 @@ module.exports = {
         cmd: "dotnet ViperService.dll -p 7018",
         autoStart: "1",
         deploySecret:"",
-        annoProcessDescription:""
+        annoProcessDescription:"",
+        standardError:"",
+        standardOutput:""
       },
       nodeOptions: [       
       ],
@@ -346,16 +363,18 @@ $.ajax({
         success: function (data) {
           if (data.status) {
             that.formData.workingDirectory=data.outputData.WorkingDirectory;
-             that.formData.nodeName=data.outputData.NodeName;
-              that.formData.cmd=data.outputData.Cmd;
-               that.formData.autoStart=data.outputData.AutoStart;
-               that.formData.annoProcessDescription=data.outputData.AnnoProcessDescription;
+            that.formData.nodeName=data.outputData.NodeName;
+            that.formData.cmd=data.outputData.Cmd;
+            that.formData.autoStart=data.outputData.AutoStart;
+            that.formData.annoProcessDescription=data.outputData.AnnoProcessDescription;
+            that.formData.standardError=data.outputData.StandardError;
+            that.formData.standardOutput=data.outputData.StandardOutput;
           } else {
             that.$message.error(data.msg);
           }
         },
       });
-    }
+   }
   },
 };
 </script>
