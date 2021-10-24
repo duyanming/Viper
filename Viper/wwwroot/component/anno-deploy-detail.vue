@@ -93,23 +93,8 @@
               </el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-      </el-card>
-      <el-form-item size="mini" style="text-align: center">
-        <el-button type="primary" @click="submitForm">提交</el-button>
-        <el-button @click="resetForm">重置</el-button>
-      </el-form-item>
-      <el-card>
-        <div slot="header" class="clearfix">
-          <span>部署文件列表</span>
-        </div>
-        <el-row>
           <el-col span="16">
-            <el-form-item
-              label-width="150px"
-              label="本地部署文件夹："
-              prop="deployFile"
-            >
+            <el-form-item label-width="140" label="本地部署文件夹：" prop="deployFile">
               <el-upload
                 name="deployFile"
                 :auto-upload="false"
@@ -117,25 +102,31 @@
                 class="upload-demo"
                 multiple
               >
-                <i class="el-icon-upload"></i>
-                <div slot="tip" class="el-upload__tip">
+                <i class="el-icon-upload">
+                  <div slot="tip" class="el-upload__tip">
                   请选择要部署的文件夹,此功能支持Chrome、Edge
                 </div>
+                </i>
+                
               </el-upload>
             </el-form-item>
           </el-col>
         </el-row>
       </el-card>
+      <el-form-item size="mini" style="text-align: center">
+        <el-button type="primary" @click="submitForm">提交</el-button>
+        <el-button @click="resetForm">重置</el-button>
+      </el-form-item>
       <el-card>
          <div slot="header" class="clearfix">
-          <span>服务输出</span>
+          <span>服务输出日志</span>
         </div>
         <el-row>
           <el-col span="24">
             <el-input
             autosize
               type="textarea"
-              placeholder="请输入内容"
+              placeholder="服务控制台输出"
               :value="formData.standardError+formData.standardOutput">
             </el-input>            
           </el-col>
@@ -379,6 +370,11 @@ $.ajax({
 };
 </script>
 <style scoped>
+.el-upload__tip {
+    font-size: 12px;
+    color: #606266;
+    margin-top: 0px;
+}
 .el-card {
   margin-bottom: 10px;
 }
