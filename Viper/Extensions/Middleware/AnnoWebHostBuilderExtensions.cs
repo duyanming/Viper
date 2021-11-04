@@ -521,6 +521,7 @@ namespace Microsoft.AspNetCore
         {
             _next = next;
             configuration.Bind(viperConfig);
+            DefaultConfigManager.SetDefaultConnectionPool(500, 3, 50);
             DefaultConfigManager
                 .SetDefaultConfiguration(viperConfig.Target.AppName
                 , viperConfig.Target.IpAddress
