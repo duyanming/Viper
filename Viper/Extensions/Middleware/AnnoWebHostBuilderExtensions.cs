@@ -80,21 +80,22 @@ namespace Microsoft.AspNetCore
                 next(app);
             };
         }
-        private Task Api(HttpContext context)
+        private async Task Api(HttpContext context)
         {
-            return ApiInvoke(context, (input) =>
+            await ApiInvoke(context, (input) =>
             {
                 return Connector.BrokerDns(input);
             });
         }
-        private Task DeployApi(HttpContext context)
+        private async Task DeployApi(HttpContext context)
         {
-            return ApiInvoke(context, (input) =>
+            await ApiInvoke(context, (input) =>
             {
                 input.TryGetValue("nodeName", out string nickName);
                 if (!string.IsNullOrWhiteSpace(nickName))
                 {
-                    return Connector.BrokerDnsAsync(input, nickName).ConfigureAwait(false).GetAwaiter().GetResult();
+                    var micro = Connector.Micros.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
+                    return Connector.BrokerDns(input, micro);
                 }
                 else
                 {
@@ -103,7 +104,7 @@ namespace Microsoft.AspNetCore
             });
         }
 
-        private Task AnnoApi(HttpContext context)
+        private async Task AnnoApi(HttpContext context)
         {
             var routeValues = context.Request.RouteValues;
             routeValues.TryGetValue("channel", out object channel);
@@ -111,7 +112,7 @@ namespace Microsoft.AspNetCore
             routeValues.TryGetValue("method", out object method);
             routeValues.TryGetValue("nodeName", out object nodeName);
 
-            return ApiInvoke(context, (input) =>
+            await ApiInvoke(context,  (input) =>
             {
                 input[Eng.NAMESPACE] = channel.ToString();
                 input[Eng.CLASS] = router.ToString();
@@ -123,7 +124,8 @@ namespace Microsoft.AspNetCore
                 input.TryGetValue("nodeName", out string nickName);
                 if (!string.IsNullOrWhiteSpace(nickName))
                 {
-                    return Connector.BrokerDnsAsync(input, nickName).ConfigureAwait(false).GetAwaiter().GetResult();
+                    var micro = Connector.Micros.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
+                    return Connector.BrokerDns(input, micro);
                 }
                 else
                 {
@@ -132,7 +134,7 @@ namespace Microsoft.AspNetCore
             });
         }
 
-        private Task ApiInvoke(HttpContext context, Func<Dictionary<string, string>, string> invoke)
+        private async Task ApiInvoke(HttpContext context, Func<Dictionary<string, string>, string> invoke)
         {
             context.Response.ContentType = "application/json;charset=UTF-8";
             Dictionary<string, string> input = new Dictionary<string, string>();
@@ -156,18 +158,29 @@ namespace Microsoft.AspNetCore
                 {
                     if (Request.Method == "POST")
                     {
-                        foreach (string k in Request.Form.Keys)
+                        if (Request.HasFormContentType)
                         {
-                            input.Add(k, Request.Form[k]);
-                        }
-                        foreach (IFormFile file in Request.Form.Files)
-                        {
-                            var fileName = file.Name;
-                            if (string.IsNullOrWhiteSpace(fileName))
+                            foreach (string k in Request.Form.Keys)
                             {
-                                fileName = file.FileName;
+                                input.Add(k, Request.Form[k]);
                             }
-                            input.TryAdd(fileName, file.ToBase64());
+                            foreach (IFormFile file in Request.Form.Files)
+                            {
+                                var fileName = file.Name;
+                                if (string.IsNullOrWhiteSpace(fileName))
+                                {
+                                    fileName = file.FileName;
+                                }
+                                input.TryAdd(fileName, file.ToBase64());
+                            }
+                        }
+                        else
+                        {
+                            #region 接收Body
+                            var reader = new StreamReader(Request.Body);
+                            var contentFromBody = await reader.ReadToEndAsync();
+                            input.TryAdd("body", contentFromBody);
+                            #endregion
                         }
                     }
                 }
@@ -177,7 +190,7 @@ namespace Microsoft.AspNetCore
                     {
                         if (!input.ContainsKey(k))
                         {
-                            input.Add(k, Request.Query[k]);
+                            input.TryAdd(k, Request.Query[k]);
                         }
                     }
                 }
@@ -198,7 +211,7 @@ namespace Microsoft.AspNetCore
                 input.TryAdd("AppName", vierConfig.Target.AppName);
                 input.TryAdd("AppNameTarget", vierConfig.Target.AppName);
                 TracePool.EnQueue(TracePool.CreateTrance(input), FailMessage("Trigger current limiting.", false));
-                return context.Response.WriteAsync(rltExec);
+                await context.Response.WriteAsync(rltExec);
             }
             #endregion
             #region 处理
@@ -242,7 +255,7 @@ namespace Microsoft.AspNetCore
             rltd.Add("outputData", actionResult.OutputData);
             #endregion
             #endregion
-            return context.Response.WriteAsync(System.Text.Encoding.UTF8.GetString(rltd.ExecuteResult()));
+            await context.Response.WriteAsync(System.Text.Encoding.UTF8.GetString(rltd.ExecuteResult()));
         }
 
         #region 工具
