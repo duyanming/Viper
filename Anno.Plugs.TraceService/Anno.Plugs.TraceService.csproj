@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Anno.EngineData" Version="1.6.1.5" />
-    <PackageReference Include="Anno.Rpc.Client" Version="1.6.1.5" />
+    <PackageReference Include="Anno.Rpc.ClientGrpc" Version="1.6.1.5" />
   </ItemGroup>
 
   <ItemGroup>

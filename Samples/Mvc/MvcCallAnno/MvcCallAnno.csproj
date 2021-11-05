@@ -58,11 +58,11 @@
     <Reference Include="Anno.Log, Version=1.6.1.5, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Anno.Log.1.6.1.5\lib\net461\Anno.Log.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Rpc.Client, Version=1.6.1.5, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Rpc.Client.1.6.1.5\lib\net461\Anno.Rpc.Client.dll</HintPath>
+    <Reference Include="Anno.Rpc.Client.DynamicProxyGrpc, Version=1.6.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Rpc.Client.DynamicProxyGrpc.1.6.0.1\lib\net461\Anno.Rpc.Client.DynamicProxyGrpc.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Rpc.Client.DynamicProxy, Version=1.6.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Rpc.Client.DynamicProxy.1.6.0.1\lib\net461\Anno.Rpc.Client.DynamicProxy.dll</HintPath>
+    <Reference Include="Anno.Rpc.ClientGrpc, Version=1.6.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Rpc.ClientGrpc.1.6.0.1\lib\net461\Anno.Rpc.ClientGrpc.dll</HintPath>
     </Reference>
     <Reference Include="Autofac, Version=6.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Autofac.6.1.0\lib\netstandard2.0\Autofac.dll</HintPath>
@@ -72,6 +72,15 @@
     </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.17.3.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Google.Protobuf.3.17.3\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Grpc.Core.2.38.1\lib\net45\Grpc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Grpc.Core.Api.2.38.1\lib\net45\Grpc.Core.Api.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -192,7 +201,9 @@
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\Grpc.Core.2.38.1\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Grpc.Core.2.38.1\build\net45\Grpc.Core.targets'))" />
   </Target>
+  <Import Project="..\..\..\packages\Grpc.Core.2.38.1\build\net45\Grpc.Core.targets" Condition="Exists('..\..\..\packages\Grpc.Core.2.38.1\build\net45\Grpc.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
