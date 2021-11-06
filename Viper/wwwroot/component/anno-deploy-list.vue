@@ -29,7 +29,12 @@
       max-height="429"
       style="width: 100%"
     >
-      <el-table-column  show-overflow-tooltip="true" type="index" fixed :index="indexMethod">
+      <el-table-column
+        show-overflow-tooltip="true"
+        type="index"
+        fixed
+        :index="indexMethod"
+      >
       </el-table-column>
       <el-table-column
         prop="Id"
@@ -54,7 +59,7 @@
         prop="WorkingDirectory"
         show-overflow-tooltip="true"
         label="工作目录"
-        width="120"
+        width="150"
       >
       </el-table-column>
       <el-table-column
@@ -67,12 +72,12 @@
           {{ scope.row.AutoStart === "1" ? "自动启动" : "手工启动" }}
         </template>
       </el-table-column>
-      <el-table-column 
-      prop="Cmd" 
-      show-overflow-tooltip="true"
-      label="启动命令"
-      min-width="320"
-       >
+      <el-table-column
+        prop="Cmd"
+        show-overflow-tooltip="true"
+        label="启动命令"
+        min-width="320"
+      >
       </el-table-column>
       <el-table-column
         prop="AnnoProcessDescription"
@@ -88,7 +93,13 @@
         width="120"
       >
       </el-table-column>
-      <el-table-column  show-overflow-tooltip="true" fixed="right" align="center" width="150" label="操作">
+      <el-table-column
+        show-overflow-tooltip="true"
+        fixed="right"
+        align="center"
+        width="170"
+        label="操作"
+      >
         <template slot-scope="scope">
           <el-button
             v-if="!scope.row.Running"
@@ -113,9 +124,105 @@
           <el-button @click="GoToDeploy(scope.row)" type="text" size="small"
             >部署</el-button
           >
+          <el-button @click="CopyService(scope.row)" type="text" size="small"
+            >复制</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog title="生成副本" :visible.sync="copyServiceVisible">
+      <el-divider></el-divider>
+      <el-form 
+       :model="copyService"
+       :rules="rules"
+       size="mini" :inline="true"
+       label-position="left"
+       ref="newService">
+        <el-row>
+          <el-col :span="9">
+            <el-form-item
+              label="原服务"
+              :label-width="copyServiceformLabelWidth"
+            >
+              <el-input class="col1_width"
+                :disabled="true"
+                v-model="copyService.WorkingName"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="15">
+            <el-form-item
+              label="启动命令"            
+              :label-width="copyServiceformLabelWidth"
+            >
+              <el-input
+                :disabled="true"
+                 class="col2_width"
+                 v-model="copyService.Cmd" autocomplete="off"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="9">
+             <el-form-item 
+             prop="NewWorkingName"
+             label="新服务" :label-width="copyServiceformLabelWidth">
+          <el-input class="col1_width"
+            v-model="copyService.NewWorkingName"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+          </el-col>
+          <el-col :span="15">
+            <el-form-item
+              label="启动命令"
+               prop="NewCmd"
+              :label-width="copyServiceformLabelWidth"
+            >
+              <el-input  class="col2_width"  v-model="copyService.NewCmd" autocomplete="off"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+          <el-row>
+               <el-col :span="9">
+                  <el-form-item 
+                    prop="ReceiverdeploySecret"
+                     label="部署口令" :label-width="copyServiceformLabelWidth">
+                <el-input
+                show-password
+                  class="col1_width"
+                  v-model="copyService.ReceiverdeploySecret"
+                  autocomplete="off"
+                >
+                </el-input>
+               </el-col>
+                 <el-col :span="15">
+                         <el-form-item 
+                          prop="ReceiverNodeName"
+                         label="部署节点" :label-width="copyServiceformLabelWidth">
+                    <el-select 
+                      v-model="copyService.ReceiverNodeName"
+                      :style="{ width: '250px' }"
+                      placeholder="请选择"
+                    >
+                      <el-option
+                        v-for="item in formData.nodeOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      >
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+               </el-col>
+          </el-row>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="copyServiceVisible = false">取 消</el-button>
+        <el-button type="primary" @click="CopyServiceOk">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -129,6 +236,47 @@ module.exports = {
         nodeName: null,
         nodeOptions: [],
       },
+      copyServiceVisible: false,
+      copyServiceformLabelWidth: "80px",
+      copyService: {
+        WorkingName: "",
+        NewWorkingName: "",
+        NodeName: "",
+        ReceiverNodeName: "",
+        ReceiverdeploySecret: "",
+        Cmd: "",
+        NewCmd: "",
+      },
+      rules: {
+        NewWorkingName: [
+          {
+            required: true,
+            message: "请输入新服务名称",
+            trigger: "blur",
+          },
+        ],
+        NewCmd: [
+          {
+            required: true,
+            message: "请输入启动命令",
+            trigger: "blur",
+          },
+        ],
+        ReceiverdeploySecret:[
+          {
+            required: true,
+            message: "请输入部署口令",
+            trigger: "blur",
+          }
+        ],
+        ReceiverNodeName:[
+          {
+            required: true,
+            message: "请选择部署节点",
+            trigger: "blur",
+          }
+        ]
+      }
     };
   },
   created: function () {
@@ -292,6 +440,73 @@ module.exports = {
         },
       });
     },
+    CopyService: function (row) {
+      this.copyServiceVisible = true;
+      this.copyService = {
+        WorkingName: "",
+        NewWorkingName: "",
+        Cmd: "",
+        NewCmd: "",
+        NodeName: "",
+        ReceiverNodeName: "",
+        ReceiverdeploySecret: "",
+      };
+      this.copyService.NodeName = row.NodeName;
+      this.copyService.WorkingName = row.WorkingDirectory;
+      this.copyService.Cmd = row.Cmd;
+      this.copyService.NewWorkingName = row.WorkingDirectory;
+      this.copyService.NewCmd = row.Cmd;
+    },
+    CopyServiceOk:function(){
+       var that = this;
+      this.$refs["newService"].validate(function (valid) {
+        if (!valid) return;
+        that.CopyServiceHandle();
+      });
+    },
+    CopyServiceHandle:function(){
+      var that = this;
+      var input = new FormData();
+      input.append("profile", localStorage.token);
+      input.append("uname", localStorage.account);
+      input.append("channel", "Anno.Plugs.Deploy");
+      input.append("router", "DeployManager");
+      input.append("method", "DispatchService");
+      input.append("nodeName", that.copyService.NodeName);
+
+      input.append("ReceiverNodeName", that.copyService.ReceiverNodeName);
+      input.append("WorkingName", that.copyService.WorkingName);
+      input.append("NewWorkingName", that.copyService.NewWorkingName);
+      input.append("Cmd", that.copyService.NewCmd);
+      input.append("ReceiverdeploySecret", that.copyService.ReceiverdeploySecret);
+
+      $.ajax({
+        type: "post",
+        dataType: "json",
+        url:
+          window.location.origin === undefined
+            ? window.location.protocol +
+              "//" +
+              window.location.host +
+              "/Deploy/Api"
+            : window.location.origin + "/Deploy/Api", //兼容老版本IE origin
+        data: input,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+          if (data.status==true) {
+            that.$message({
+              showClose: true,
+              message: data.msg,
+              type: "success",
+            });
+          that.copyServiceVisible=false;
+          } else {
+            that.$message.error(data.msg);
+          }
+        },
+      });
+    }
   },
 };
 </script>
@@ -300,7 +515,20 @@ module.exports = {
   width: 100%;
   table-layout: fixed !important;
 }
-.el-button+.el-button {
-    margin-left: 0px;
+.el-button + .el-button {
+  margin-left: 0px;
+}
+.el-divider--horizontal {
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+.el-dialog__body {
+  padding: 0px 20px;
+}
+.col1_width{
+  width: 150px;
+}
+.col2_width{
+  width: 310px;
 }
 </style>
