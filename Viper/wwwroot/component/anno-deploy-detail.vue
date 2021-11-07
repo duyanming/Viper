@@ -70,9 +70,9 @@
               </el-input>
             </el-form-item>
           </el-col>
-            <el-col span="8">
+          <el-col span="8">
             <el-form-item label="服务描述：" prop="annoProcessDescription">
-                <el-input
+              <el-input
                 placeholder="请输入服务描述"
                 v-model="formData.annoProcessDescription"
                 clearable
@@ -94,7 +94,11 @@
             </el-form-item>
           </el-col>
           <el-col span="16">
-            <el-form-item label-width="140" label="本地部署文件夹：" prop="deployFile">
+            <el-form-item
+              label-width="140"
+              label="本地部署文件夹："
+              prop="deployFile"
+            >
               <el-upload
                 name="deployFile"
                 :auto-upload="false"
@@ -104,10 +108,9 @@
               >
                 <i class="el-icon-upload">
                   <div slot="tip" class="el-upload__tip">
-                  请选择要部署的文件夹,此功能支持Chrome、Edge
-                </div>
+                    请选择要部署的文件夹,此功能支持Chrome、Edge
+                  </div>
                 </i>
-                
               </el-upload>
             </el-form-item>
           </el-col>
@@ -118,17 +121,18 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
       <el-card>
-         <div slot="header" class="clearfix">
+        <div slot="header" class="clearfix">
           <span>服务输出日志</span>
         </div>
         <el-row>
           <el-col span="24">
             <el-input
-            autosize
+              autosize
               type="textarea"
               placeholder="服务控制台输出"
-              :value="formData.standardError+formData.standardOutput">
-            </el-input>            
+              :value="formData.standardError + formData.standardOutput"
+            >
+            </el-input>
           </el-col>
         </el-row>
       </el-card>
@@ -140,9 +144,9 @@
 module.exports = {
   data: function () {
     return {
-      queryArgs:{
-        workingDirectory:"",
-        nodeName:""
+      queryArgs: {
+        workingDirectory: "",
+        nodeName: "",
       },
       span: 8,
       files: [],
@@ -151,13 +155,12 @@ module.exports = {
         nodeName: null,
         cmd: "dotnet ViperService.dll -p 7018",
         autoStart: "1",
-        deploySecret:"",
-        annoProcessDescription:"",
-        standardError:"",
-        standardOutput:""
+        deploySecret: "",
+        annoProcessDescription: "",
+        standardError: "",
+        standardOutput: "",
       },
-      nodeOptions: [       
-      ],
+      nodeOptions: [],
       autoStartOptions: [
         {
           value: "0",
@@ -183,14 +186,14 @@ module.exports = {
             trigger: "blur",
           },
         ],
-        deploySecret:[
+        deploySecret: [
           {
             required: true,
             message: "请输入部署口令",
             trigger: "blur",
-          }
-        ]
-      }
+          },
+        ],
+      },
     };
   },
   created: function () {
@@ -214,8 +217,8 @@ module.exports = {
     });
     var args = bif.GetUrlParms();
     if (args.WorkingDirectory != undefined) {
-      that.queryArgs.workingDirectory= args.WorkingDirectory;
-      that.queryArgs.nodeName= args.NodeName;
+      that.queryArgs.workingDirectory = args.WorkingDirectory;
+      that.queryArgs.nodeName = args.NodeName;
       that.formData.workingDirectory = args.WorkingDirectory;
       that.formData.nodeName = args.NodeName;
       that.formData.annoProcessDescription = args.AnnoProcessDescription;
@@ -252,7 +255,7 @@ module.exports = {
       input.append("method", "UpLoadFile");
       input.append("nodeName", that.formData.nodeName);
       input.append("formData", JSON.stringify(that.formData));
-      if (that.queryArgs.workingDirectory===''&&that.files.length <= 0) {
+      if (that.queryArgs.workingDirectory === "" && that.files.length <= 0) {
         that.$message.error("没有找到要部署的文件");
         return;
       }
@@ -299,7 +302,7 @@ module.exports = {
         return false; // PC端
       }
     },
-    getDeployNode:function(){
+    getDeployNode: function () {
       var that = this;
       var input = bif.getInput();
       input.channel = "Anno.Plugs.Deploy";
@@ -307,20 +310,18 @@ module.exports = {
       input.method = "GetDeployServices";
       bif.process(input, function (data) {
         if (data.status) {
-          that.nodeOptions =[];
+          that.nodeOptions = [];
           for (var index = 0; index < data.outputData.length; index++) {
             var node = data.outputData[index];
-            that.nodeOptions.push(
-              {
-                value: node.Nickname,
-                label:node.Nickname
-              }
-            );
-            if(index===0){
-              that.formData.nodeName= node.Nickname;
+            that.nodeOptions.push({
+              value: node.Nickname,
+              label: node.Nickname,
+            });
+            if (index === 0) {
+              that.formData.nodeName = node.Nickname;
             }
           }
-          if(that.queryArgs.workingDirectory!=""){
+          if (that.queryArgs.workingDirectory != "") {
             that.getServiceByWorkingName();
           }
         } else {
@@ -328,7 +329,7 @@ module.exports = {
         }
       });
     },
-    getServiceByWorkingName:function(){
+    getServiceByWorkingName: function () {
       var that = this;
       var input = new FormData();
       input.append("profile", localStorage.token);
@@ -338,7 +339,7 @@ module.exports = {
       input.append("method", "GetServiceByWorkingName");
       input.append("nodeName", that.queryArgs.nodeName);
       input.append("workingName", that.queryArgs.workingDirectory);
-$.ajax({
+      $.ajax({
         type: "post",
         dataType: "json",
         url:
@@ -353,27 +354,28 @@ $.ajax({
         processData: false,
         success: function (data) {
           if (data.status) {
-            that.formData.workingDirectory=data.outputData.WorkingDirectory;
-            that.formData.nodeName=data.outputData.NodeName;
-            that.formData.cmd=data.outputData.Cmd;
-            that.formData.autoStart=data.outputData.AutoStart;
-            that.formData.annoProcessDescription=data.outputData.AnnoProcessDescription;
-            that.formData.standardError=data.outputData.StandardError;
-            that.formData.standardOutput=data.outputData.StandardOutput;
+            that.formData.workingDirectory = data.outputData.WorkingDirectory;
+            that.formData.nodeName = data.outputData.NodeName;
+            that.formData.cmd = data.outputData.Cmd;
+            that.formData.autoStart = data.outputData.AutoStart;
+            that.formData.annoProcessDescription =
+              data.outputData.AnnoProcessDescription;
+            that.formData.standardError = data.outputData.StandardError;
+            that.formData.standardOutput = data.outputData.StandardOutput;
           } else {
             that.$message.error(data.msg);
           }
         },
       });
-   }
+    },
   },
 };
 </script>
 <style scoped>
 .el-upload__tip {
-    font-size: 12px;
-    color: #606266;
-    margin-top: 0px;
+  font-size: 12px;
+  color: #606266;
+  margin-top: 0px;
 }
 .el-card {
   margin-bottom: 10px;
@@ -387,5 +389,11 @@ $.ajax({
 }
 .el-upload {
   font-size: 48px;
+}
+.el-textarea {
+  margin-bottom: 20px !important;
+}
+.el-textarea__inner{
+  min-height: 50px !important;
 }
 </style>

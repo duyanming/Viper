@@ -26,7 +26,7 @@
       border
       stripe
       size="mini"
-      max-height="429"
+      max-height="459"
       style="width: 100%"
     >
       <el-table-column
