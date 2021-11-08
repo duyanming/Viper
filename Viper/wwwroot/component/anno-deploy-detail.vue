@@ -117,7 +117,7 @@
         </el-row>
       </el-card>
       <el-form-item size="mini" style="text-align: center">
-        <el-button type="primary" @click="submitForm">提交</el-button>
+        <el-button type="primary" @click="submitForm" v-loading.fullscreen.lock="fullscreenLoading">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
       <el-card>
@@ -144,6 +144,7 @@
 module.exports = {
   data: function () {
     return {
+      fullscreenLoading: false,
       queryArgs: {
         workingDirectory: "",
         nodeName: "",
@@ -247,6 +248,7 @@ module.exports = {
     },
     deployService: function () {
       var that = this;
+      that.fullscreenLoading = true;
       var input = new FormData();
       input.append("profile", localStorage.token);
       input.append("uname", localStorage.account);
@@ -288,6 +290,7 @@ module.exports = {
           } else {
             that.$message.error(data.msg);
           }
+          that.fullscreenLoading = false;
         },
       });
     },
