@@ -1,5 +1,5 @@
 ﻿/// <reference path="../jquery.min.js" />
-/// <reference path="base.js" />
+/// <reference path="../base.js" />
 
 var groupicon = "../js/lib/ligerUI/skins/icons/communication.gif";
 var form;

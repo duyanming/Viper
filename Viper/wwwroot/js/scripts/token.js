@@ -1,5 +1,5 @@
 ﻿/// <reference path="../jquery.min.js" />
-/// <reference path="base.js" />
+/// <reference path="../base.js" />
 
 function exitUser() {
     if (confirm("确定退出？")) {
