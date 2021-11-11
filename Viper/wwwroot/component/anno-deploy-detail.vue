@@ -242,6 +242,7 @@
                 );
                 if (that.queryArgs.workingDirectory === "" && that.files.length <= 0) {
                     that.$message.error("没有找到要部署的文件");
+                    that.fullscreenLoading = false;
                     return;
                 }
                 for (var i = 0; i < that.files.length; i++) {
