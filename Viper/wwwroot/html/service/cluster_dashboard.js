@@ -35,7 +35,7 @@ function Init() {
 }
 function LoadData() {
     var input = anno.getInput();
-    anno.process(input, "Anno.Plugs.Trace/Router/GetServiceInstances", function (data) {
+    anno.process(input, "ServiceInstance", function (data) {
         vm.services = data.outputData;
     });
 }

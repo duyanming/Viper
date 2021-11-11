@@ -286,7 +286,7 @@
             getDeployNode: function () {
                 var that = this;
                 var input = anno.getInput();
-                anno.process(input, "Anno.Plugs.Deploy/DeployManager/GetDeployServices", function (data) {
+                anno.process(input, "DeployService", function (data) {
                     if (data.status) {
                         that.nodeOptions = [];
                         for (var index = 0; index < data.outputData.length; index++) {
