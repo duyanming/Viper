@@ -3,17 +3,14 @@
 var rlt = {};
 
 function LoadData(appName) {
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Trace";
-    input.router = "Router";
-    input.method = "GetRoutingInfo";
+    var input = anno.getInput();
     if (appName !== undefined && appName !== null) {
         input.appName = appName;
     } else {
         input.appName = vm.appName;
     }
 
-    bif.process(input, function (data) {
+    anno.process(input,"Anno.Plugs.Trace/Router/GetRoutingInfo", function (data) {
         rlt.Rows = data.outputData;
         rlt.Total = data.outputData.length;
         BuildGrid(rlt);

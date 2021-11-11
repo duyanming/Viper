@@ -5,7 +5,7 @@ $(function () {
     Init();
     try {
         var args;
-        args = bif.GetUrlParms();
+        args = anno.GetUrlParms();
         if (args.TraceId != undefined && args.TraceId != null) {
             vm.form.title = args.TraceId;
         }
@@ -58,10 +58,7 @@ function Init() {
     });
 }
 function LoadData(page, pagesize) {
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Trace";
-    input.router = "Trace";
-    input.method = "SysLog";
+    var input = anno.getInput();
     input.title = vm.form.title;
     input.logType = vm.form.logType;
     if (page !== null && page !== undefined) {
@@ -75,7 +72,7 @@ function LoadData(page, pagesize) {
 
         input.pagesize = 20;
     }
-    bif.process(input, function (data) {
+    anno.process(input, "Anno.Plugs.Trace/Trace/SysLog", function (data) {
         vm.mData = data.Rows;
         vm.total = parseInt(data.Total);
     });

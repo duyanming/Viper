@@ -45,6 +45,10 @@ namespace Viper.GetWay.Hubs
         {
             try
             {
+                if (WatchDataUtil.WatchData == null)
+                {
+                    WatchDataUtil.WatchData = new List<WatchUser>();
+                }
                 if (!WatchDataUtil.WatchData.Exists(w => w.ConnectionId == Context.ConnectionId))
                 {
                     WatchDataUtil.WatchData.Add(new WatchUser()

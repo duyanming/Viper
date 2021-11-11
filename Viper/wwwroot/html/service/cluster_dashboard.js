@@ -34,12 +34,8 @@ function Init() {
     });
 }
 function LoadData() {
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Trace";
-    input.router = "Router";
-    input.method = "GetServiceInstances";
-
-    bif.process(input, function (data) {
+    var input = anno.getInput();
+    anno.process(input, "Anno.Plugs.Trace/Router/GetServiceInstances", function (data) {
         vm.services = data.outputData;
     });
 }

@@ -35,13 +35,10 @@ function Init() {
             //启用 停用
             EditState: function (row, state) {
                 var that = this;
-                var input = bif.getInput();
-                input.channel = "Anno.Plugs.Logic";
-                input.router = "Platform";
-                input.method = "EditState";
+                var input = anno.getInput();
                 input.ID = row.ID;
                 input.state = state;
-                bif.process(input, function (data) {
+                anno.process(input,"Anno.Plugs.Logic/Platform/EditState", function (data) {
                     if (data.status) {
                         row.state = state;
                         if (state===0) {
@@ -74,13 +71,10 @@ function Init() {
                     type: 'warning',
                     callback: function (action,instance) {
                         if (action === "confirm") {
-                            var input = bif.getInput();
-                            input.channel = "Anno.Plugs.Logic";
-                            input.router = "Platform";
-                            input.method = "ReSetpwd";
+                            var input = anno.getInput();
                             input.ID = row.ID;
                             delete input.state;
-                            bif.process(input, function (data) {
+                            anno.process(input, "Anno.Plugs.Logic/Platform/ReSetpwd", function (data) {
                                 if (data.status) {
                                     that.$message({
                                         type: 'success',
@@ -111,10 +105,7 @@ function Init() {
     });
 }
 function LoadData(page,pagesize) {
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Logic";
-    input.router = "Platform";
-    input.method = "GetAllsys_member";
+    var input = anno.getInput();
     input.where = '{ "rules": [{ "field": "account", "op": "like", "value": "' + vm.form.account + '", "type": "string" }], "op": "and" }';
     if (page !== null && page !== undefined) {
         input.page = page;
@@ -127,7 +118,7 @@ function LoadData(page,pagesize) {
 
         input.pagesize = 20;
     }
-    bif.process(input, function (data) {
+    anno.process(input, "Anno.Plugs.Logic/Platform/GetAllsys_member", function (data) {
         vm.mData = data.Rows;
         vm.total = parseInt(data.Total);
     });

@@ -9,15 +9,12 @@ var rltData = null;
 var Tree;
 function _initform() {
     var args = new Object();
-    args = bif.GetUrlParms();
+    args = anno.GetUrlParms();
 
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Trace";
-    input.router = "Trace";
-    input.method = "GetTraceByGlobalTraceId";
+    var input = anno.getInput();
     input.GId = args["GlobalTraceId"];
     input.TraceId = args["TraceId"];
-    bif.process(input, function (data) {
+    anno.process(input, "Anno.Plugs.Trace/Trace/GetTraceByGlobalTraceId", function (data) {
         rltData = data;
         //BuildTree(data.outputData);
         BuildTreeTable(data);

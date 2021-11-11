@@ -32,11 +32,8 @@ function _initform() {
 
 }
 function getAllfunc() {
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Logic";
-    input.router = "Platform";
-    input.method = "Get_all_power";
-    bif.process(input, function (data) {
+    var input = anno.getInput();
+    anno.process(input, "Anno.Plugs.Logic/Platform/Get_all_power", function (data) {
         rltData = data;
         BuildTree(data.outputData);
     });
@@ -69,10 +66,7 @@ function f_save() {
         $.ligerDialog.question('请选择节点');
         return false;
     }
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Logic";
-    input.router = "Platform";
-    input.method = "EditFunc";
+    var input = anno.getInput();
     input.type =4;
     var _formdata = form.getData();
     curnode.fname = _formdata.fname;
@@ -83,7 +77,7 @@ function f_save() {
     curnode.icon = _formdata.icon;
     curnode.show = _formdata.show;
     input.inputData = JSON.stringify(curnode);
-    bif.process(input, function (data) {
+    anno.process(input, "Anno.Plugs.Logic/Platform/EditFunc", function (data) {
         if (data.status) {
             window.location = window.location;
         } else {
@@ -97,10 +91,7 @@ function f_add(type) {
         $.ligerDialog.question('请选择节点');
         return false;
     }
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Logic";
-    input.router = "Platform";
-    input.method = "EditFunc";
+    var input = anno.getInput();
     input.type = type;
     var _formdata = form.getData();
     curnode.fname = _formdata.fname;
@@ -110,7 +101,7 @@ function f_add(type) {
     curnode.furl = _formdata.furl;
     curnode.icon = _formdata.icon;
     input.inputData = JSON.stringify(curnode);
-    bif.process(input, function (data) {
+    anno.process(input, "Anno.Plugs.Logic/Platform/EditFunc", function (data) {
         if (data.status) {
             window.location = window.location;
         } else {
@@ -129,16 +120,13 @@ function f_del() {
         $.ligerDialog.question('请选择节点');
         return false;
     }
-    var input = bif.getInput();
+    var input = anno.getInput();
     $.ligerDialog.confirm('确定删除？', function (confirm) {
         if (confirm) {
-            input.channel = "Anno.Plugs.Logic";
-            input.router = "Platform";
-            input.method = "EditFunc";
             input.type = 3;
 
             input.inputData = JSON.stringify(curnode);
-            bif.process(input, function (data) {
+            anno.process(input, "Anno.Plugs.Logic/Platform/EditFunc", function (data) {
                 if (data.status) {
                     window.location = window.location;
                 } else {

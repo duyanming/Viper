@@ -52,10 +52,7 @@ function Init() {
     });
 }
 function LoadData(page,pagesize) {
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Logic";
-    input.router = "Platform";
-    input.method = "GetAllbif_company";
+    var input = anno.getInput();
     input.where = '{ "rules": [{ "field": "name", "op": "like", "value": "' + vm.form.name + '", "type": "string" }], "op": "and" }';
     if (page !== null && page !== undefined) {
         input.page = page;
@@ -68,7 +65,7 @@ function LoadData(page,pagesize) {
 
         input.pagesize = 20;
     }
-    bif.process(input, function (data) {
+    anno.process(input,"Anno.Plugs.Logic/Platform/GetAllbif_company", function (data) {
         vm.companysData = data.Rows;
         vm.total = parseInt(data.Total);
     });

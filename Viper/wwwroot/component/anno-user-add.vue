@@ -166,12 +166,9 @@ module.exports = {
   methods: {
     getRoleData: function () {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Logic";
-      input.router = "Platform";
-      input.method = "GetcurRoles";
+      var input = anno.getInput();
       input.uid = -1;
-      bif.process(input, function (data) {
+          anno.process(input, "Anno.Plugs.Logic/Platform/GetcurRoles", function (data) {
         if (data.status===true) {
           that.roleData = data.outputData.lr;
         } else {
@@ -204,13 +201,10 @@ module.exports = {
     },
     addUser: function () {
       var that = this; 
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Logic";
-      input.router = "Platform";
-      input.method = "AddUser";
+      var input = anno.getInput();
       input.ubase = JSON.stringify(that.formData);
       input.uroles = JSON.stringify(that.roleDataTable);
-      bif.process(input, function (data) {
+        anno.process(input, "Anno.Plugs.Logic/Platform/AddUser", function (data) {
         if (data.status===true) {
           that.$message({
             showClose: true,

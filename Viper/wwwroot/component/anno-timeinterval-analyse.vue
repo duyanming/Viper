@@ -101,13 +101,10 @@ module.exports = {
     },
     all_service: function (startDate, endDate) {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "UserVisitTrend";
+      var input = anno.getInput();
       input.startDate = startDate;
       input.endDate = endDate;
-      bif.process(input, function (data) {
+        anno.process(input, "Anno.Plugs.Analyse/Trace/UserVisitTrend", function (data) {
         that.init_all_echarts(data.outputData);
       });
     },

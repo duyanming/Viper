@@ -128,49 +128,37 @@ module.exports = {
     },
     serviceModuleAnalyse: function (startDate, endDate) {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "ServiceModuleAnalyse";
+      var input = anno.getInput();
       input.startDate = startDate;
       input.endDate = endDate;
-      bif.process(input, function (data) {
+        anno.process(input, "Anno.Plugs.Analyse/Trace/ServiceModuleAnalyse",function (data) {
         that.init_echarts(data.outputData, "ServiceModuleAnalyse", "管道 Top 10");
       });
     },
     serviceRouterAnalyse: function (startDate, endDate) {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "ServiceRouterAnalyse";
+      var input = anno.getInput();
       input.startDate = startDate;
       input.endDate = endDate;
-      bif.process(input, function (data) {
+        anno.process(input, "Anno.Plugs.Analyse/Trace/ServiceRouterAnalyse", function (data) {
         that.init_echarts(data.outputData, "ServiceRouterAnalyse", "路由 Top 10");
       });
     },
     serviceMethodAnalyse: function (startDate, endDate) {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "ServiceMethodAnalyse";
+      var input = anno.getInput();
       input.startDate = startDate;
       input.endDate = endDate;
-      bif.process(input, function (data) {
+        anno.process(input,"Anno.Plugs.Analyse/Trace/ServiceMethodAnalyse", function (data) {
         that.init_echarts(data.outputData, "ServiceMethodAnalyse", "方法 Top 10");
       });
     },
     serviceMethodErrorAnalyse: function (startDate, endDate) {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "ServiceMethodErrorAnalyse";
+      var input = anno.getInput();
       input.startDate = startDate;
       input.endDate = endDate;
-      bif.process(input, function (data) {
+        anno.process(input,"Anno.Plugs.Analyse/Trace/ServiceMethodErrorAnalyse", function (data) {
         that.init_echarts(data.outputData, "ServiceMethodErrorAnalyse", "Error方法 Top 10");
       });
     },

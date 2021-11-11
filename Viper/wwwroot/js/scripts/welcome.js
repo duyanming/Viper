@@ -14,17 +14,14 @@ $(function () {
     Disk([]);
 });
 function PageInit() {
-    var args = bif.GetUrlParms();
+    var args = anno.GetUrlParms();
     if (args.appName !== undefined) {
         defaultService = args.appName;
     }
-    var input = bif.getInput();
-    input.channel = "Anno.Plugs.Logic";
-    input.router = "Report";
-    input.method = "GetServiceReport";
+    var input = anno.getInput();
     //input.startDate = new Date().toLocaleDateString();
     //input.endDate = "2019-10-01";
-    bif.process(input, function (data) {
+    anno.process(input,"Anno.Plugs.Logic/Report/GetServiceReport", function (data) {
         var myChart = echarts.init(document.getElementById('trace'));
         // 指定图表的配置项和数据
         var option = {

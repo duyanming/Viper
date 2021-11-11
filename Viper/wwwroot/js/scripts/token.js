@@ -3,24 +3,24 @@
 
 function exitUser() {
     if (confirm("确定退出？")) {
-        //input.channel = "bif.Platform";
+        //input.channel = "anno.Platform";
         //input.method = "LogOut";
 
         //process(input, function () {});//退出清空Session
         localStorage.clear();
-        bif.input.profile = undefined;
-        bif.input.uname = undefined;
+        anno.input.profile = undefined;
+        anno.input.uname = undefined;
         window.location.href = "/";
     }
 }
 
 function getfunc() {
-    var input = bif.getInput();
+    var input = anno.getInput();
     input.channel = "Anno.Plugs.Logic";
     router = "Platform";
     input.method = "GetFunc";
-    bif.ajaxpara.async = false;
-    bif.process(input, function (data) {
+    anno.ajaxpara.async = false;
+    anno.process(input, function (data) {
         flist = data.outputData;
     });
 }

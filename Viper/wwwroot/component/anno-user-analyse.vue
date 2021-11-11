@@ -57,11 +57,8 @@ module.exports = {
   methods: {
     anno_user: function () {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "UserAnalyse";
-      bif.process(input, function (data) {
+      var input = anno.getInput();
+          anno.process(input,"Anno.Plugs.Analyse/Trace/UserAnalyse", function (data) {
         that.fullscreenLoading=false;
         for(var i=0;i<7;i++){
           that.userData.push(data.outputData[i]);

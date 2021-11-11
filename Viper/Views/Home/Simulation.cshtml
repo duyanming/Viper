@@ -55,7 +55,11 @@
             } catch (ex) {
                 $("#output").val(ex);
             }
-            bif.process(inputJson, function (data, status) {
+            var url=inputJson.channel+"/"+inputJson.router+"/"+inputJson.method;
+            delete inputJson.channel;
+            delete inputJson.router;
+            delete inputJson.method;
+            anno.process(inputJson,url, function (data, status) {
                 outEditor.set(data)
                 //$("#output").val(JSON.stringify(data));
             }, function (data, status) {

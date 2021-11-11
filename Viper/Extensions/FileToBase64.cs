@@ -16,7 +16,7 @@ namespace Microsoft.AspNetCore
             {
                 return null;
             }
-            BinaryReader objReader = new BinaryReader(stream);
+            using BinaryReader objReader = new BinaryReader(stream);
             //读取文件内容
             byte[] byteFile = objReader.ReadBytes((int)stream.Length);
             string base64 = Convert.ToBase64String(byteFile);
@@ -30,8 +30,8 @@ namespace Microsoft.AspNetCore
             {
                 return null;
             }
-            Stream stream = file.OpenReadStream();
-            BinaryReader objReader = new BinaryReader(stream);
+            using Stream stream = file.OpenReadStream();
+            using BinaryReader objReader = new BinaryReader(stream);
             //读取文件内容
             byte[] byteFile = objReader.ReadBytes((int)stream.Length);
             var afile = new AnnoFile()

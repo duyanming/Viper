@@ -62,6 +62,7 @@ namespace Microsoft.AspNetCore
         public AnnoSetupFilter(ViperConfig _viperConfig)
         {
             CronDaemon.AddJob("1 */10 * * * ? *", ClearLimit);
+            CronDaemon.AddJob("*/30 * * * * ? *", UtilJob.GcTask);
             CronDaemon.Start();
             this.vierConfig = _viperConfig;
         }
@@ -74,33 +75,45 @@ namespace Microsoft.AspNetCore
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.Map("SysMg/Api", Api);
-                    endpoints.Map("Deploy/Api", DeployApi);
+                    endpoints.Map("AnnoApi/ServiceInstance", ServiceInstanceApi);
+                    endpoints.Map("AnnoApi/DeployService", DeployServiceApi);
                     endpoints.Map("AnnoApi/{channel}/{router}/{method}/{nodeName?}", AnnoApi);
                 });
                 next(app);
             };
         }
+        private async Task ServiceInstanceApi(HttpContext context)
+        {
+            context.Response.ContentType = "application/javascript; charset=utf-8";
+            var instances = UtilService.GetServiceInstances();
+            context.Response.StatusCode = 200;
+            Dictionary<string, object> rlt = new Dictionary<string, object>();
+            rlt.Add("output", null);
+            rlt.Add("outputData", instances);
+            rlt.Add("status", true);
+            rlt.Add("msg", null);
+            var rltExec = System.Text.Encoding.UTF8.GetString(rlt.ExecuteResult());
+            await context.Response.WriteAsync(rltExec);
+        }
+        private async Task DeployServiceApi(HttpContext context)
+        {
+            context.Response.ContentType = "application/javascript; charset=utf-8";
+            var instances = UtilService.GetDeployServices();
+            context.Response.StatusCode = 200;
+            Dictionary<string, object> rlt = new Dictionary<string, object>();
+            rlt.Add("output", null);
+            rlt.Add("outputData", instances);
+            rlt.Add("status", true);
+            rlt.Add("msg", null);
+            var rltExec = System.Text.Encoding.UTF8.GetString(rlt.ExecuteResult());
+            await context.Response.WriteAsync(rltExec);
+        }
+
         private async Task Api(HttpContext context)
         {
             await ApiInvoke(context, (input) =>
             {
                 return Connector.BrokerDns(input);
-            });
-        }
-        private async Task DeployApi(HttpContext context)
-        {
-            await ApiInvoke(context, (input) =>
-            {
-                input.TryGetValue("nodeName", out string nickName);
-                if (!string.IsNullOrWhiteSpace(nickName))
-                {
-                    var micro = Connector.Micros.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
-                    return Connector.BrokerDns(input, micro);
-                }
-                else
-                {
-                    return Connector.BrokerDns(input);
-                }
             });
         }
 

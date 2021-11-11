@@ -82,7 +82,7 @@
     </el-container>
 </div>
 <script>
-    if (bif.input.profile === undefined || localStorage.profile === undefined) {
+    if (anno.input.profile === undefined || localStorage.profile === undefined) {
         window.location.href = "/Home/Login";
     }
     var _isCollapse = false, _isMobile = false, _menumWidth = "200px";
@@ -111,15 +111,12 @@
         },
         created: function () {//用于数据初始化
             var that = this;
-            if (bif.input.profile === undefined || localStorage.profile === undefined) {
+            if (anno.input.profile === undefined || localStorage.profile === undefined) {
                 window.location.href = "/Home/Login";
             }
-            var input = bif.getInput();
-            input.method = "GetUsrFc";
-            input.router = "Platform";
-            input.channel = "Anno.Plugs.Logic";
-            bif.ajaxpara.async = false;
-            bif.process(input, function (data) {
+            var input = anno.getInput();
+            anno.ajaxpara.async = false;
+            anno.process(input,"Anno.Plugs.Logic/Platform/GetUsrFc", function (data) {
                 that.menuroot = data.outputData;
                 that.getFunc();
             }, function (data) {
@@ -128,7 +125,7 @@
                     window.location.href = "/Home/Login";
                 }
             });
-            bif.ajaxpara.async = true;
+            anno.ajaxpara.async = true;
             $("#app").css("display", "");
         },
         methods: {
@@ -223,8 +220,8 @@
                     type: 'warning'
                 }).then(function () {
                     localStorage.clear();
-                    bif.input.profile = undefined;
-                    bif.input.uname = undefined;
+                    anno.input.profile = undefined;
+                    anno.input.uname = undefined;
                     window.location.href = "/Home/Login";
                 });
             },
@@ -233,12 +230,9 @@
             },
             getFunc: function () {
                 var that = this;
-                var input = bif.getInput();
-                input.channel = "Anno.Plugs.Logic";
-                input.router = "Platform";
-                input.method = "GetFunc";
-                bif.ajaxpara.async = false;
-                bif.process(input, function (data) {
+                var input = anno.getInput();
+                anno.ajaxpara.async = false;
+                anno.process(input,"Anno.Plugs.Logic/Platform/GetFunc", function (data) {
                     that.InitMenuRoot(data.outputData);
                 });
             },

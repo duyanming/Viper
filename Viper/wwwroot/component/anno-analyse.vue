@@ -107,13 +107,10 @@ module.exports = {
     },
     all_service: function (startDate, endDate) {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "ServiceAnalyse";
+      var input = anno.getInput();
       input.startDate = startDate;
       input.endDate = endDate;
-      bif.process(input, function (data) {
+        anno.process(input, "Anno.Plugs.Analyse/Trace/ServiceAnalyse", function (data) {
         that.init_all_echarts(data.outputData);
       });
     },
@@ -153,13 +150,10 @@ module.exports = {
     },
     error_service: function (startDate, endDate) {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Analyse";
-      input.router = "Trace";
-      input.method = "ServiceErrorAnalyse";
+      var input = anno.getInput();
       input.startDate = startDate;
       input.endDate = endDate;
-      bif.process(input, function (data) {
+        anno.process(input, "Anno.Plugs.Analyse/Trace/ServiceErrorAnalyse", function (data) {
         that.init_error_echarts(data.outputData);
       });
     },

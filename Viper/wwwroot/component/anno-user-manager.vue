@@ -165,7 +165,7 @@ module.exports = {
     }
     //用于数据初始化
     document.title = "编辑用户";
-    var args = bif.GetUrlParms();
+    var args = anno.GetUrlParms();
     if (args._id != undefined) {
       this.userId = args._id;
     }
@@ -175,25 +175,19 @@ module.exports = {
   methods: {
     getUserData: function () {
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Logic";
-      input.router = "Platform";
-      input.method = "PCenter";
+      var input = anno.getInput();
       input.type = "m";
       input.id = this.userId;
-      bif.process(input, function (data) {
+          anno.process(input, "Anno.Plugs.Logic/Platform/PCenter", function (data) {
         if (data.status) {
           that.formData = data.outputData;
         } else {
           that.$message.error(data.msg);
         }
       });
-      input.channel = "Anno.Plugs.Logic";
-      input.router = "Platform";
-      input.method = "GetcurRoles";
       delete input.id;
       input.uid = this.userId;
-      bif.process(input, function (data) {
+          anno.process(input, "Anno.Plugs.Logic/Platform/GetcurRoles", function (data) {
         if (data.status) {
           that.roleData = data.outputData.lr;
           that.oldRoleData=data.outputData.cur;
@@ -248,13 +242,10 @@ module.exports = {
     },
     saveUser: function () {
       var that = this; 
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Logic";
-      input.router = "Platform";
-      input.method = "SaveCurRoles";
+      var input = anno.getInput();
       input.uid=that.userId;
       input.inputData = JSON.stringify(that.roleDataTable);
-      bif.process(input, function (data) {
+        anno.process(input, "Anno.Plugs.Logic/Platform/SaveCurRoles", function (data) {
         if (data.status) {
           that.$message({
             showClose: true,

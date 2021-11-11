@@ -82,17 +82,14 @@ function AddParameter() {
     });
 }
 function Debug() {
-    var input = bif.getInput();
-    input.channel = data.Channel.substring(0,data.Channel.length-7);
-    input.router = data.Router.substring(0, data.Router.length - 6);
-    input.method = data.Method;
+    var input = anno.getInput();
     var manager = $("#grid").ligerGetGridManager();
     var gdata = manager.getData();
 
     $.each(gdata, function(i, item) {
         input[item.Name] = item.Pvalue;
     });
-    bif.process(input, function (ds) {
+    anno.process(input, data.Channel.substring(0, data.Channel.length - 7) + "/" + data.Router.substring(0, data.Router.length - 6) + "/" + data.Method, function (ds) {
         data.Rlt = JSON.stringify(ds);
         form.setData(data);
     });

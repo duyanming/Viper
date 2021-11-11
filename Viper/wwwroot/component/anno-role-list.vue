@@ -97,12 +97,9 @@ module.exports = {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
       }).then(function (rlt) {
-        var input = bif.getInput();
-        input.channel = "Anno.Plugs.Logic";
-        input.router = "Platform";
-        input.method = "DelRole";
+        var input = anno.getInput();
         input.ID = row.ID;
-        bif.process(input, function (data) {
+          anno.process(input,"Anno.Plugs.Logic/Platform/DelRole", function (data) {
           if (data.status) {
             that.onQuery();
           } else {
@@ -131,10 +128,7 @@ module.exports = {
       var page = that.currentPage;
       var pagesize = that.pagesize;
 
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Logic";
-      input.router = "Platform";
-      input.method = "GetRolePage";
+      var input = anno.getInput();
       input.roleName = that.formData.roleName;
       if (page !== null && page !== undefined) {
         input.page = page;
@@ -146,7 +140,7 @@ module.exports = {
       } else {
         input.pagesize = 20;
       }
-      bif.process(input, function (data) {
+        anno.process(input,"Anno.Plugs.Logic/Platform/GetRolePage", function (data) {
         if (data.status) {
           that.roleData = data.outputData.Data;
           that.total = parseInt(data.outputData.Total);
@@ -164,12 +158,9 @@ module.exports = {
     addUser: function () {
       this.currentData.show = false;
       var that = this;
-      var input = bif.getInput();
-      input.channel = "Anno.Plugs.Logic";
-      input.router = "Platform";
-      input.method = "AddRole";
+      var input = anno.getInput();
       input.Name =  this.currentData.name;
-      bif.process(input, function (data) {
+        anno.process(input,"Anno.Plugs.Logic/Platform/AddRole", function (data) {
         if (data.status===true) {
          that.onQuery();
         } else {

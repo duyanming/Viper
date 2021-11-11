@@ -10,6 +10,6 @@ namespace Viper.GetWay.Hubs.Util
 {
     public static class WatchDataUtil
     {
-        public static List<WatchUser> WatchData = new List<WatchUser>();
+        public static List<WatchUser> WatchData { get; set; } = new List<WatchUser>();
     }
 }

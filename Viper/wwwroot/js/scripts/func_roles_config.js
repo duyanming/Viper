@@ -30,13 +30,10 @@ $(function () {
                 for (var i = 0; i < checkdata.length; i++) {
                     rfl.push({ ID: i, rid: that.currentRow.ID, fid: checkdata[i].data.ID });
                 }
-                var input = bif.getInput();
-                input.channel = "Anno.Plugs.Logic";
-                input.router = "Platform";
-                input.method = "ModifyRoleLink";
+                var input = anno.getInput();
                 input.inputData = JSON.stringify(rfl);
                 input.rid = that.currentRow.ID;
-                bif.process(input, function (data) {
+                anno.process(input, "Anno.Plugs.Logic/Platform/ModifyRoleLink", function (data) {
                     if (data.status) {
                         ds.outputData.lrl = data.outputData;
                         that.$message({
@@ -52,11 +49,8 @@ $(function () {
         },
         created: function () {
             var that = this;
-            var input = bif.getInput();
-            input.channel = "Anno.Plugs.Logic";
-            input.router = "Platform";
-            input.method = "Get_rfs";
-            bif.process(input, function (data) {
+            var input = anno.getInput();
+            anno.process(input, "Anno.Plugs.Logic/Platform/Get_rfs", function (data) {
                 if (data.status) {
                     ds=data;
                     that.roleData = data.outputData.lr;
