@@ -227,7 +227,7 @@ namespace Microsoft.AspNetCore
                 await context.Response.WriteAsync(rltExec);
             }
             #endregion
-            if (Request.Form.Files.Count > 0)
+            if (Request.HasFormContentType&&Request.Form.Files.Count > 0)
             {
                 UtilJob.NeedGc = true;
             }
