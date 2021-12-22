@@ -225,6 +225,7 @@ namespace Microsoft.AspNetCore
                 input.TryAdd("AppNameTarget", vierConfig.Target.AppName);
                 TracePool.EnQueue(TracePool.CreateTrance(input), FailMessage("Trigger current limiting.", false));
                 await context.Response.WriteAsync(rltExec);
+                return;
             }
             #endregion
             if (Request.HasFormContentType&&Request.Form.Files.Count > 0)
