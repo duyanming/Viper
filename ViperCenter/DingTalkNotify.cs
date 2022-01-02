@@ -30,8 +30,8 @@ namespace ViperCenter
                        msgtype = "markdown",
                        markdown = new
                        {
-                           title = $"{service.NickName}-->{noticeType.ToString()}",
-                           text = $"#### {service.NickName}-->{noticeType.ToString()} \n{BuildMsg(service)}"
+                           title = $"{service.NickName}-->{GetNoticeType(noticeType)}",
+                           text = $"#### **{service.NickName} {GetNoticeType(noticeType)}** \n{BuildMsg(service)}"
                        }
                    }
                    ).ReceiveJson().Result;
@@ -50,24 +50,40 @@ namespace ViperCenter
                     markdown = new
                     {
                         title = $"{oldService.NickName} --> {newService.NickName}",
-                        text = $"#### {oldService.NickName} --> {newService.NickName}\n#### 变更前\n{BuildMsg(oldService)} \n#### 变更后\n{BuildMsg(newService)}"
+                        text = $"#### 变更前:**{oldService.NickName}**\n{BuildMsg(oldService)} \n#### 变更后:**{newService.NickName}**\n{BuildMsg(newService)}"
                     }
                 }
                 ).ReceiveJson().Result;
+        }
+        public static string GetNoticeType(NoticeType noticeType) {
+            switch (noticeType)
+            {
+                case NoticeType.OnLine:
+                    return "服务上线";
+                    case NoticeType.OffLine:
+                    return "服务下线";
+                case NoticeType.NotHealth:
+                    return "服务不可用";
+                case NoticeType.RecoverHealth:
+                    return "服务恢复正常";
+                default:
+                    return "未知状态";
+            }
         }
 
         public static string BuildMsg(ServiceInfo service)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"> #### Address：{service.Ip}:{service.Port}");
-            sb.AppendLine($"> #### Timeout：{service.Timeout}(毫秒)");
-            sb.AppendLine($"> #### Weight ：{service.Weight}");
-            sb.AppendLine($"> #### Tag:");
+            sb.AppendLine($"> #### 服务地址：**{service.Ip}:{service.Port}**");
+            sb.AppendLine($"> #### 超时时间：**{service.Timeout}**(毫秒)");
+            sb.AppendLine($"> #### 服务权重：**{service.Weight}**");
+            sb.AppendLine($"> #### 服务标签:");
             string[] tags = service.Name.Split(',');
             foreach (string tag in tags)
             {
                 sb.AppendLine($">  - {tag}");
             }
+            sb.AppendLine($"\n#### 预警时间:**{DateTime.Now:yyyy:MM:dd HH:mm:ss}**");
             return sb.ToString();
         }
         public static void Init()
