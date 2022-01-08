@@ -1,0 +1,16 @@
+ ::-webkit-scrollbar {
+    height: 12px!important;
+    width: 12px!important;
+}
+ ::-webkit-scrollbar-thumb {
+    border-radius: 6px!important;
+    border-style: dashed;
+    background-color: #bfc7d5!important;
+    border-color: transparent;
+    border-width: 2px!important;
+    background-clip: padding-box;
+    box-shadow: none!important;
+}
+ ::-webkit-scrollbar-track {
+    box-shadow: none!important;
+}

@@ -19,7 +19,7 @@
                   border
                   stripe
                   size="mini"
-                  max-height="459"
+                  :max-height="window.innerHeight-68"
                   style="width: 100%">
             <el-table-column show-overflow-tooltip="true"
                              type="index"

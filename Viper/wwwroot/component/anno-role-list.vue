@@ -22,7 +22,7 @@
       border
       stripe
       size="mini"
-      max-height="429"
+      :max-height="window.innerHeight-68"
       style="width: 100%"
     >
       <el-table-column type="index" fixed :index="indexMethod">
