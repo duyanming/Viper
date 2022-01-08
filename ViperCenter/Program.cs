@@ -12,13 +12,14 @@ namespace ViperCenter
         static void Main(string[] args)
         {
             Console.Title = "ViperCenter";
+            DingTalkNotify.CustomConfiguration.InitConst();
             Bootstrap.StartUp(args
                 , (service, noticeType) =>//上线下线
                 {
-
+                    DingTalkNotify.Notice(service,noticeType);
                 }, (newService, oldService) =>//服务配置更改
                 {
-
+                    DingTalkNotify.ChangeNotice(newService, oldService);
                 });
         }
     }
