@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Anno.EngineData" Version="1.6.1.5" />
     <PackageReference Include="Anno.EventBus" Version="1.0.3.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,12 +15,6 @@
     <ProjectReference Include="..\..\Anno.Common\Anno.Common.csproj" />
     <ProjectReference Include="..\Anno.Command\Anno.Command.csproj" />
     <ProjectReference Include="..\Anno.Domain.Dto\Anno.Domain.Dto.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp">
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.CSharp\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.CSharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
