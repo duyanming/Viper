@@ -142,9 +142,25 @@ namespace Microsoft.AspNetCore
                 }
                 else
                 {
+                    input[Eng.NAMESPACE] = CompatibilityChannel(channel.ToString());
                     return Connector.BrokerDns(input);
                 }
             });
+        }
+        /// <summary>
+        /// AnnoApi/{channel}/{router}/{method}/{nodeName?}
+        ///     -AnnoApi/Anno.Plugs.Analyse/Trace/UserVisitTrend
+        ///     -AnnoApi/Analyse/Trace/UserVisitTrend
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns></returns>
+        private string CompatibilityChannel(string channel)
+        {
+            var micro = Connector.Micros.FirstOrDefault((MicroCache m) => m.Tags.Exists((string t) => t == channel));
+            if (micro == null && !channel.StartsWith("Anno.Plugs.")) {
+                channel = $"Anno.Plugs.{channel}";
+            }
+            return channel;
         }
 
         private async Task ApiInvoke(HttpContext context, Func<Dictionary<string, string>, string> invoke)
