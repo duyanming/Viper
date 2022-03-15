@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.Rpc.Center" Version="1.6.1.5" />
+    <PackageReference Include="Anno.Rpc.Center" Version="1.7.0.1" />
     <PackageReference Include="Flurl.Http" Version="3.2.0" />
   </ItemGroup>
 

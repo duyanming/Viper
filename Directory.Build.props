@@ -2,6 +2,6 @@
   <PropertyGroup>
     <DeveloperBuildCoreTfms>net6.0</DeveloperBuildCoreTfms>
     <StandardTfms>netstandard2.0</StandardTfms>
-    <Version>1.6.1.5</Version>
+    <Version>1.7.0.1</Version>
   </PropertyGroup>
 </Project>
