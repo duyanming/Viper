@@ -124,3 +124,19 @@ function LoadScriptToHead(src,callback) {
     script.src = src;
     head.appendChild(script);
 }
+
+function LoadStyleToHead(src,callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('link');
+    script.rel = 'stylesheet';
+    script.onload = script.onreadystatechange = function () {
+        if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+          if(callback!=undefined&&callback!=null&&(typeof callback)==="function"){
+              callback();
+          }
+        script.onload = script.onreadystatechange = null;
+        }
+    };
+    script.href = src;
+    head.appendChild(script);
+}
