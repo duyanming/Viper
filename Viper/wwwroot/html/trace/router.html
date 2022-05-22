@@ -6,27 +6,36 @@
     <link href="../../js/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
     <link href="../../js/lib/ligerUI/skins/Gray2014/css/all.css" rel="stylesheet" />
     <link href="../../js/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
-    <!--<script src="../../js/jquery.min.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>-->
     <script src="../../js/lib/ligerUI/js/ligerui.min.js"></script>
     <script src="../../js/base.js"></script>
     <script src="router.js"></script>
     <title>集群路由</title>
-    <!-- 生产环境版本，优化了尺寸和速度 -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+
+    <!-- 先引入 Vue -->
+    <script src="../../js/vue.min.js"></script>
+    <!-- 引入组件库 -->
+    <script src="../../js/element-ui-index.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">
+    <link href="../../css/element-ui-index.css" rel="stylesheet" />
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>-->
+    <!-- 引入样式 -->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/theme-chalk/index.css">-->
     <link rel="stylesheet" href="../../css/common.css">
     <!-- 引入组件库 -->
-    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.0/lib/index.js"></script>-->
 
     <script src="../../js/httpVue/bluebird.min.js"></script>
     <script src="../../js/httpVue/httpVueLoader.min.js"></script>
     <style>
-        .l-panel .l-toolbar{
+        .l-panel .l-toolbar {
             background-color: #FFF !important;
-            background:#FFF !important; 
+            background: #FFF !important;
         }
+
         .l-grid-hd-row {
             color: #909399;
             font-weight: 500;
@@ -34,17 +43,21 @@
             line-height: 36px;
             background-color: #FFF !important;
         }
-        .l-grid-header{
+
+        .l-grid-header {
             background-color: #FFF !important;
-            background:#FFF !important;
+            background: #FFF !important;
         }
-        .l-panel-topbar{
+
+        .l-panel-topbar {
             background-color: #FFF !important;
-            background:#FFF !important;
+            background: #FFF !important;
         }
-        .l-grid-row-alt .l-grid-row-cell{
+
+        .l-grid-row-alt .l-grid-row-cell {
             background: #FAFAFA !important;
         }
+
         .l-grid-row {
             color: #606266;
         }
@@ -52,6 +65,7 @@
         .l-grid-row-cell-inner {
             line-height: 45px;
         }
+
         body {
             display: block;
             margin: 8px;

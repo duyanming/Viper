@@ -147,6 +147,10 @@
                         value: "1",
                         label: "自动启动",
                     },
+                    {
+                        value: "2",
+                        label: "Windows服务",
+                    }
                 ],
                 rules: {
                     workingDirectory: [
@@ -226,8 +230,9 @@
                 var that = this;
                 that.fullscreenLoading = true;
                 var input = new FormData();
-                var url = "Anno.Plugs.Deploy/FileManager/UpLoadFile"
+                var url = "Anno.Plugs.Deploy/FileManager/UpLoadFile/" + that.formData.nodeName
                 input.append("nodeName", that.formData.nodeName);
+                input.append("annoToken", localStorage.annoToken);
                 input.append("formData",
                     JSON.stringify(
                         {
@@ -310,9 +315,10 @@
             getServiceByWorkingName: function () {
                 var that = this;
                 var input = new FormData();
-                var url = "Anno.Plugs.Deploy/DeployManager/GetServiceByWorkingName";
+                var url = "Anno.Plugs.Deploy/DeployManager/GetServiceByWorkingName/" + that.queryArgs.nodeName;
                 input.append("nodeName", that.queryArgs.nodeName);
                 input.append("workingName", that.queryArgs.workingDirectory);
+                input.append("annoToken", localStorage.annoToken);
                 $.ajax({
                     type: "post",
                     dataType: "json",

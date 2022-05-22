@@ -51,9 +51,9 @@
             <el-table-column prop="AutoStart"
                              show-overflow-tooltip
                              label="启动方式"
-                             width="80">
+                             width="100">
                 <template slot-scope="scope">
-                    {{ scope.row.AutoStart === "1" ? "自动启动" : "手工启动" }}
+                    {{ scope.row.AutoStart === "1" ? "自动启动" : ( scope.row.AutoStart === "0" ? "手工启动":"Windows服务") }}
                 </template>
             </el-table-column>
             <el-table-column prop="Cmd"
@@ -276,10 +276,11 @@
             ExeCmd: function (row, action, deploySecret) {
                 var that = this;
                 var input = new FormData();
-                var url = "Anno.Plugs.Deploy/DeployManager/" + action;
+                var url = "Anno.Plugs.Deploy/DeployManager/" + action + "/" + row.NodeName;
                 input.append("workingName", row.WorkingDirectory);
                 input.append("nodeName", row.NodeName);
                 input.append("deploySecret", deploySecret);
+                input.append("annoToken", localStorage.annoToken);
                 $.ajax({
                     type: "post",
                     dataType: "json",
@@ -340,9 +341,10 @@
             },
             getDeployServiceByNode: function () {
                 var that = this;
-                var url = "Anno.Plugs.Deploy/DeployManager/GetServices"
+                var url = "Anno.Plugs.Deploy/DeployManager/GetServices/" + that.formData.nodeName
                 var input = new FormData();
                 input.append("nodeName", that.formData.nodeName);
+                input.append("annoToken", localStorage.annoToken);
                 $.ajax({
                     type: "post",
                     dataType: "json",
@@ -386,7 +388,7 @@
             CopyServiceHandle: function () {
                 var that = this;
                 var input = new FormData();
-                var url = "Anno.Plugs.Deploy/DeployManager/DispatchService";
+                var url = "Anno.Plugs.Deploy/DeployManager/DispatchService/" + that.copyService.NodeName;
                 input.append("nodeName", that.copyService.NodeName);
 
                 input.append("ReceiverNodeName", that.copyService.ReceiverNodeName);
@@ -394,7 +396,7 @@
                 input.append("NewWorkingName", that.copyService.NewWorkingName);
                 input.append("Cmd", that.copyService.NewCmd);
                 input.append("ReceiverdeploySecret", that.copyService.ReceiverdeploySecret);
-
+                input.append("annoToken", localStorage.annoToken);
                 $.ajax({
                     type: "post",
                     dataType: "json",
