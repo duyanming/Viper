@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Anno.EngineData.SysInfo;
 using Viper.GetWay.Hubs.Util;
+using Anno.Log;
 
 namespace Viper.GetWay.Hubs
 {
     public class MonitorHub : Hub
     {
+        private static object _locker = new object();
         public MonitorHub(TaskManager taskManager)
         {
 
@@ -45,32 +47,36 @@ namespace Viper.GetWay.Hubs
         {
             try
             {
-                if (WatchDataUtil.WatchData == null)
+                lock (_locker)
                 {
-                    WatchDataUtil.WatchData = new List<WatchUser>();
-                }
-                if (!WatchDataUtil.WatchData.Exists(w => w.ConnectionId == Context.ConnectionId))
-                {
-                    WatchDataUtil.WatchData.Add(new WatchUser()
+                    if (WatchDataUtil.WatchData == null)
                     {
-                        ConnectionId = Context.ConnectionId,
-                        WatchServiceName = name
-                    });
-                }
-                else
-                {
-                    WatchDataUtil.WatchData.RemoveAll(w => w.ConnectionId == Context.ConnectionId);
-                    WatchDataUtil.WatchData.Add(new WatchUser()
+                        Log.Anno("WatchDataUtil.WatchData is null");
+                        WatchDataUtil.WatchData = new List<WatchUser>();
+                    }
+                    if (Context != null && WatchDataUtil.WatchData != null && !WatchDataUtil.WatchData.Exists(w => w != null && w.ConnectionId == Context.ConnectionId))
                     {
-                        ConnectionId = Context.ConnectionId,
-                        WatchServiceName = name
-                    });
+                        WatchDataUtil.WatchData.Add(new WatchUser()
+                        {
+                            ConnectionId = Context.ConnectionId,
+                            WatchServiceName = name
+                        });
+                    }
+                    else if (Context != null && WatchDataUtil.WatchData != null)
+                    {
+                        WatchDataUtil.WatchData.RemoveAll(w => w == null || w.ConnectionId == Context.ConnectionId);
+                        WatchDataUtil.WatchData.Add(new WatchUser()
+                        {
+                            ConnectionId = Context.ConnectionId,
+                            WatchServiceName = name
+                        });
+                    }
                 }
                 await Clients.Caller.SendAsync("SetWatch", $"SetWatch {name} OK");
             }
             catch (Exception ex)
             {
-                await Clients.Caller.SendAsync("SetWatch", $"SetWatch {name} {ex.Message}");
+                await Clients.Caller.SendAsync("SetWatch", $"SetWatch {name} {ex.Message} \r\n {ex.StackTrace}");
             }
         }
         /// <summary>
