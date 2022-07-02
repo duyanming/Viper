@@ -1,7 +1,5 @@
 ﻿<template>
-  <div
-    id="luckysheet"
-    style="
+  <div id="luckysheet" style="
       margin: 0px;
       padding: 0px;
       position: absolute;
@@ -9,8 +7,7 @@
       height: 100%;
       left: 0px;
       top: 0px;
-    "
-  ></div>
+    "></div>
 </template>
 <script>
 module.exports = {
@@ -69,12 +66,16 @@ module.exports = {
       document.onkeydown = function (e) {
         var _key = window.event.keyCode;
         if (_key === 13) {
-          that;
-          debugger;
+          that.saveAllSheets(that);
         }
       };
     },
-  },
+    saveAllSheets: function (that) {
+      var sheetsData = luckysheet.getAllSheets();
+      console.log(sheetsData);
+      debugger;
+    }
+  }
 };
 </script>
 <style scoped>
@@ -86,6 +87,7 @@ body {
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
     Microsoft YaHei, Arial, sans-serif;
 }
+
 .luckysheet-share-logo {
   height: 32px;
   width: 152px;
