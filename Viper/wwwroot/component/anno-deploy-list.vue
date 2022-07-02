@@ -143,6 +143,7 @@
                                       v-model="copyService.ReceiverdeploySecret"
                                       autocomplete="off">
                             </el-input>
+                        </el-form-item>
                     </el-col>
                     <el-col :span="15">
                         <el-form-item prop="ReceiverNodeName"

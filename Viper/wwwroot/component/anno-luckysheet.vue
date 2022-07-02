@@ -22,13 +22,17 @@ module.exports = {
   data: function () {
     return {
       value: new Date(),
-      editor: null,
+      luckysheetName: "Anno"
     };
   },
   watch: {},
   created: function () {
     //用于数据初始化
-
+    if (args.name != undefined && args.name != null && args.name != "") {
+      this.name = args.name;
+    } else {
+      this.name = "Anno";
+    }
     this.keyupAnno();
   },
   mounted: function () {
@@ -51,12 +55,16 @@ module.exports = {
     LoadScriptToHead(
       "//cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js",
       function () {
-        var options = {
-          container: "luckysheet", //luckysheet为容器id
-          title: "Anno 测试webExcel表格", // 设定表格名称
-          lang: "zh", // 设定表格语言
-        };
-        that.editor = luckysheet.create(options);
+        // var options = {
+        //   container: "luckysheet", //luckysheet为容器id
+        //   title: "Anno 测试webExcel表格", // 设定表格名称
+        //   lang: "zh", // 设定表格语言
+        // };
+        // that.editor = luckysheet.create(options);
+        that.getAllSheets();
+        setInterval(function(){
+          that.saveAllSheets(that);
+        },1000*2);
       }
     );
   },
@@ -72,8 +80,37 @@ module.exports = {
     },
     saveAllSheets: function (that) {
       var sheetsData = luckysheet.getAllSheets();
-      console.log(sheetsData);
-      debugger;
+      var input = anno.getInput();
+      input.name = that.name;
+      input.data = JSON.stringify(sheetsData);
+      anno.process(input, "Anno.Plugs.LuckySheet/LuckySheet/Save", function (data) {
+        if (data.status) {
+        } else {
+          that.$message.error(data.msg);
+        }
+      });
+    }
+    , getAllSheets: function () {
+      var that = this;
+      var input = anno.getInput();
+      if (that.name != undefined && that.name != null && that.name != "") {
+        input.name = that.name;
+      } else {
+        input.name = "Anno";
+      }
+      anno.process(input, "Anno.Plugs.LuckySheet/LuckySheet/Get", function (data) {
+        if (data.status) {
+          var options = {
+              container: "luckysheet", //luckysheet为容器id
+              title: that.name, // 设定表格名称
+              lang: "zh", // 设定表格语言
+              data: eval(data.outputData)
+            };
+          luckysheet.create(options);
+        } else {
+          that.$message.error(data.msg);
+        }
+      });
     }
   }
 };
