@@ -8,6 +8,7 @@ using Anno.EngineData.SysInfo;
 using Anno.EngineData;
 using Anno.Rpc.Client;
 using Viper.GetWay.Hubs.Util;
+using Microsoft.AspNetCore;
 
 namespace Viper.GetWay.Hubs
 {
@@ -56,6 +57,8 @@ namespace Viper.GetWay.Hubs
                     if (watchUser == viperConfig.Target.AppName)
                     {
                         var info = Usi.GetServerStatus();
+                        info.EngineCounter = UtilEngineCounter.GateEngineCounter;
+                        info.EngineCounter = info.EngineCounter + 1;
                         info.Tag = watchUser;
                         _monitorContext.Clients.Clients(connectionIds.ToArray()).SendAsync("SendMonitorData", info);
                     }

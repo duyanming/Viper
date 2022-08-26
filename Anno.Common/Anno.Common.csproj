@@ -8,7 +8,7 @@
     <Compile Remove="RSAWinHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-  <PackageReference Include="Anno.Const" Version="1.7.0.1" />
+  <PackageReference Include="Anno.Const" Version="1.7.0.6" />
   </ItemGroup>
 
 </Project>

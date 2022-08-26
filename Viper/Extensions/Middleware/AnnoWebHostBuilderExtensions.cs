@@ -21,6 +21,7 @@ namespace Microsoft.AspNetCore
 
     using Anno.Const.Enum;
     using System.Net;
+    using System.Threading;
 
     /// <summary>
     /// 接入服务中心的HostBuilder中间件
@@ -84,68 +85,100 @@ namespace Microsoft.AspNetCore
         }
         private async Task ServiceInstanceApi(HttpContext context)
         {
-            context.Response.ContentType = "application/javascript; charset=utf-8";
-            var instances = UtilService.GetServiceInstances();
-            context.Response.StatusCode = 200;
-            Dictionary<string, object> rlt = new Dictionary<string, object>();
-            rlt.Add("output", null);
-            rlt.Add("outputData", instances);
-            rlt.Add("status", true);
-            rlt.Add("msg", null);
-            var rltExec = System.Text.Encoding.UTF8.GetString(rlt.ExecuteResult());
-            await context.Response.WriteAsync(rltExec);
+            try
+            {
+                Interlocked.Increment(ref UtilEngineCounter.GateEngineCounter);
+                context.Response.ContentType = "application/javascript; charset=utf-8";
+                var instances = UtilService.GetServiceInstances();
+                context.Response.StatusCode = 200;
+                Dictionary<string, object> rlt = new Dictionary<string, object>();
+                rlt.Add("output", null);
+                rlt.Add("outputData", instances);
+                rlt.Add("status", true);
+                rlt.Add("msg", null);
+                var rltExec = System.Text.Encoding.UTF8.GetString(rlt.ExecuteResult());
+                await context.Response.WriteAsync(rltExec);
+            }
+            finally
+            {
+                Interlocked.Decrement(ref UtilEngineCounter.GateEngineCounter);
+            }
         }
         private async Task DeployServiceApi(HttpContext context)
         {
-            context.Response.ContentType = "application/javascript; charset=utf-8";
-            var instances = UtilService.GetDeployServices();
-            context.Response.StatusCode = 200;
-            Dictionary<string, object> rlt = new Dictionary<string, object>();
-            rlt.Add("output", null);
-            rlt.Add("outputData", instances);
-            rlt.Add("status", true);
-            rlt.Add("msg", null);
-            var rltExec = System.Text.Encoding.UTF8.GetString(rlt.ExecuteResult());
-            await context.Response.WriteAsync(rltExec);
+            try
+            {
+                Interlocked.Increment(ref UtilEngineCounter.GateEngineCounter);
+                context.Response.ContentType = "application/javascript; charset=utf-8";
+                var instances = UtilService.GetDeployServices();
+                context.Response.StatusCode = 200;
+                Dictionary<string, object> rlt = new Dictionary<string, object>();
+                rlt.Add("output", null);
+                rlt.Add("outputData", instances);
+                rlt.Add("status", true);
+                rlt.Add("msg", null);
+                var rltExec = System.Text.Encoding.UTF8.GetString(rlt.ExecuteResult());
+                await context.Response.WriteAsync(rltExec);
+            }
+            finally
+            {
+                Interlocked.Decrement(ref UtilEngineCounter.GateEngineCounter);
+            }
         }
 
         private async Task Api(HttpContext context)
         {
-            await ApiInvoke(context, (input) =>
+            try
             {
-                return Connector.BrokerDns(input);
-            });
+                Interlocked.Increment(ref UtilEngineCounter.GateEngineCounter);
+                await ApiInvoke(context, (input) =>
+                {
+                    return Connector.BrokerDns(input);
+                });
+            }
+            finally
+            {
+                Interlocked.Decrement(ref UtilEngineCounter.GateEngineCounter);
+            }
         }
 
         private async Task AnnoApi(HttpContext context)
         {
-            var routeValues = context.Request.RouteValues;
-            routeValues.TryGetValue("channel", out object channel);
-            routeValues.TryGetValue("router", out object router);
-            routeValues.TryGetValue("method", out object method);
-            routeValues.TryGetValue("nodeName", out object nodeName);
-
-            await ApiInvoke(context,  (input) =>
+            try
             {
-                input[Eng.NAMESPACE] = channel.ToString();
-                input[Eng.CLASS] = router.ToString();
-                input[Eng.METHOD] = method.ToString();
-                if (nodeName != null)
-                {
-                    input["nodeName"] = nodeName.ToString();
-                }
-                input.TryGetValue("nodeName", out string nickName);
-                if (!string.IsNullOrWhiteSpace(nickName))
-                {
-                    var micro = Connector.Micros.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
-                    return Connector.BrokerDns(input, micro);
-                }
-                else
-                {
-                    input[Eng.NAMESPACE] = CompatibilityChannel(channel.ToString());
-                    return Connector.BrokerDns(input);
-                }
-            });
+                Interlocked.Increment(ref UtilEngineCounter.GateEngineCounter);
+                var routeValues = context.Request.RouteValues;
+                routeValues.TryGetValue("channel", out object channel);
+                routeValues.TryGetValue("router", out object router);
+                routeValues.TryGetValue("method", out object method);
+                routeValues.TryGetValue("nodeName", out object nodeName);
+
+                await ApiInvoke(context, (input) =>
+               {
+                   input[Eng.NAMESPACE] = channel.ToString();
+                   input[Eng.CLASS] = router.ToString();
+                   input[Eng.METHOD] = method.ToString();
+                   if (nodeName != null)
+                   {
+                       input["nodeName"] = nodeName.ToString();
+                   }
+                   input.TryGetValue("nodeName", out string nickName);
+                   if (!string.IsNullOrWhiteSpace(nickName))
+                   {
+                       var micro = Connector.Micros.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
+                       return Connector.BrokerDns(input, micro);
+                   }
+                   else
+                   {
+                       input[Eng.NAMESPACE] = CompatibilityChannel(channel.ToString());
+                       return Connector.BrokerDns(input);
+                   }
+               });
+            }
+            finally
+            {
+                Interlocked.Decrement(ref UtilEngineCounter.GateEngineCounter);
+            }
         }
         /// <summary>
         /// AnnoApi/{channel}/{router}/{method}/{nodeName?}
@@ -157,7 +190,8 @@ namespace Microsoft.AspNetCore
         private string CompatibilityChannel(string channel)
         {
             var micro = Connector.Micros.FirstOrDefault((MicroCache m) => m.Tags.Exists((string t) => t == channel));
-            if (micro == null && !channel.StartsWith("Anno.Plugs.")) {
+            if (micro == null && !channel.StartsWith("Anno.Plugs."))
+            {
                 channel = $"Anno.Plugs.{channel}";
             }
             return channel;
@@ -244,7 +278,7 @@ namespace Microsoft.AspNetCore
                 return;
             }
             #endregion
-            if (Request.HasFormContentType&&Request.Form.Files.Count > 0)
+            if (Request.HasFormContentType && Request.Form.Files.Count > 0)
             {
                 UtilJob.NeedGc = true;
             }

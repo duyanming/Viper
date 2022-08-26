@@ -44,25 +44,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Anno.Const, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Const.1.7.0.1\lib\net461\Anno.Const.dll</HintPath>
+      <HintPath>..\..\..\packages\Anno.Const.1.7.0.6\lib\net461\Anno.Const.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.CronNET, Version=1.7.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.CronNET.1.7.0.1\lib\net461\Anno.CronNET.dll</HintPath>
+    <Reference Include="Anno.CronNET, Version=1.7.0.6, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.CronNET.1.7.0.6\lib\net461\Anno.CronNET.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.EngineData, Version=1.7.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.EngineData.1.7.0.1\lib\net461\Anno.EngineData.dll</HintPath>
+    <Reference Include="Anno.EngineData, Version=1.7.0.6, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.EngineData.1.7.0.6\lib\net461\Anno.EngineData.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Loader, Version=1.7.0.3, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Loader.1.7.0.3\lib\net461\Anno.Loader.dll</HintPath>
+    <Reference Include="Anno.Loader, Version=1.7.0.6, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Loader.1.7.0.6\lib\net461\Anno.Loader.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Log, Version=1.7.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Log.1.7.0.1\lib\net461\Anno.Log.dll</HintPath>
+    <Reference Include="Anno.Log, Version=1.7.0.6, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Log.1.7.0.6\lib\net461\Anno.Log.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Rpc.Client, Version=1.7.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Rpc.Client.1.7.0.1\lib\net461\Anno.Rpc.Client.dll</HintPath>
+    <Reference Include="Anno.Rpc.Client, Version=1.7.0.6, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Rpc.Client.1.7.0.6\lib\net461\Anno.Rpc.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Rpc.Client.DynamicProxy, Version=1.7.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Rpc.Client.DynamicProxy.1.7.0.1\lib\net461\Anno.Rpc.Client.DynamicProxy.dll</HintPath>
+    <Reference Include="Anno.Rpc.Client.DynamicProxy, Version=1.7.0.3, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Rpc.Client.DynamicProxy.1.7.0.3\lib\net461\Anno.Rpc.Client.DynamicProxy.dll</HintPath>
     </Reference>
     <Reference Include="Autofac, Version=6.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Autofac.6.1.0\lib\netstandard2.0\Autofac.dll</HintPath>
@@ -77,8 +77,8 @@
       <HintPath>..\..\..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
