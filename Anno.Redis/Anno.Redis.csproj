@@ -6,11 +6,11 @@
 
   <ItemGroup>
     
-    <PackageReference Include="Anno.Log" Version="1.7.0.6" />
+    <PackageReference Include="Anno.Log" Version="2.0.0" />
     
-    <PackageReference Include="Anno.Rpc.Client" Version="1.7.0.6" />
+    <PackageReference Include="Anno.Rpc.Client" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.1.58" />
+    <PackageReference Include="StackExchange.Redis" Version="2.6.70" />
   </ItemGroup>
 
 
