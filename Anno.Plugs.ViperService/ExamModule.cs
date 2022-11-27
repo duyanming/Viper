@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Anno.Plugs.ViperService
 {
-    public class ExamModule: BaseModule
+    public class ExamModule : BaseModule
     {
         public string SayHi(string name)
         {
@@ -41,14 +41,43 @@ namespace Anno.Plugs.ViperService
         /// </summary>
         /// <returns></returns>
         [AnnoInfo(Desc = "上传文件")]
-        public dynamic UpLoadFile() {
+        public dynamic UpLoadFile()
+        {
             var file = Request<AnnoFile>("annoFile");
             var filePath = AppDomain.CurrentDomain.BaseDirectory;
-            using (var stream = System.IO.File.Create(Path.Combine(filePath,file.FileName)))
+            using (var stream = System.IO.File.Create(Path.Combine(filePath, file.FileName)))
             {
-                stream.Write(file.Content,0,file.Length);
+                stream.Write(file.Content, 0, file.Length);
             }
             return new ActionResult(true, new { Msg = "上传成功", SourceId = 18 });
         }
+        [AnnoInfo(Desc = "获取类型数据")]
+        public List<AnnoObj> GetObjInfo()
+        {
+            int nummber = new Random().Next();
+            return new List<AnnoObj>() {
+                new AnnoObj()
+                {
+                    Name = "AnnoObj-1" + nummber,
+                    Age = nummber,
+                    Height = long.MaxValue,
+                    Total = 123.456M
+                },  new AnnoObj()
+                {
+                    Name = "AnnoObj-2" + nummber,
+                    Age = nummber,
+                    Height = int.MaxValue,
+                    Total = 123.456M
+                }
+            };
+        }
+    }
+
+    public class AnnoObj
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public long Height { get; set; }
+        public decimal Total { get; set; }
     }
 }

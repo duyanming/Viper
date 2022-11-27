@@ -410,7 +410,7 @@ namespace Microsoft.AspNetCore
                     var taglimit = MatchTag(httpContext);
                     if (taglimit != null)
                     {
-                        _rateLimitPool.TryGetValue($"{ taglimit.channel}.{ taglimit.router}", out LimitInfo limitInfo);
+                        _rateLimitPool.TryGetValue($"{taglimit.channel}.{taglimit.router}", out LimitInfo limitInfo);
                         if (limitInfo == null)
                         {
                             var limitingService = LimitingFactory.Build(TimeSpan.FromSeconds(taglimit.timeSpan)
@@ -422,7 +422,7 @@ namespace Microsoft.AspNetCore
                                 Time = DateTime.Now,
                                 limitingService = limitingService
                             };
-                            _rateLimitPool.TryAdd($"{ taglimit.channel}.{ taglimit.router}", limitInfo);
+                            _rateLimitPool.TryAdd($"{taglimit.channel}.{taglimit.router}", limitInfo);
                         }
                         //ipLimit.Request() ==true 代表不受限制
                         limitInfo.Time = DateTime.Now;
@@ -661,7 +661,15 @@ namespace Microsoft.AspNetCore
                 writer.WriteNull();
                 return;
             }
-            writer.WriteValue(value.ToString());
+            long valueLong = (long)value;
+            if (valueLong > int.MaxValue)
+            {
+                writer.WriteValue(value.ToString());
+            }
+            else
+            {
+                writer.WriteValue(value);
+            }
         }
     }
 
