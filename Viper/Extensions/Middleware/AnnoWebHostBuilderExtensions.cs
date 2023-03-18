@@ -14,7 +14,6 @@ namespace Microsoft.AspNetCore
 {
     using Anno.EngineData;
     using Anno.Rpc.Client;
-    using Viper.GetWay;
     using Anno.RateLimit;
     using System.Collections.Concurrent;
     using Anno.CronNET;
@@ -22,6 +21,7 @@ namespace Microsoft.AspNetCore
     using Anno.Const.Enum;
     using System.Net;
     using System.Threading;
+    using Viper.GateWay;
 
     /// <summary>
     /// 接入服务中心的HostBuilder中间件

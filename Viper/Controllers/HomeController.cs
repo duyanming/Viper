@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Viper.GetWay.Controllers
+namespace Viper.GateWay.Controllers
 {
     public class HomeController : Controller
     {

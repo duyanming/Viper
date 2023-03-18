@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Viper.GetWay
+namespace Viper.GateWay
 {
     public class Startup
     {
@@ -42,10 +42,10 @@ namespace Viper.GetWay
             }
             app.UseResponseCompression();
 
-            //Ìí¼ÓMIME
+            //ï¿½ï¿½ï¿½ï¿½MIME
             var provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".vue"] = "text/plain";
-            //Ê¹ÓÃ¾²Ì¬ÎÄ¼þÄ¬ÈÏµÄÎÄ¼þ¼ÐÎªwwwroot
+            //Ê¹ï¿½Ã¾ï¿½Ì¬ï¿½Ä¼ï¿½Ä¬ï¿½Ïµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Îªwwwroot
             app.UseStaticFiles(new StaticFileOptions
             {
                 ContentTypeProvider = provider

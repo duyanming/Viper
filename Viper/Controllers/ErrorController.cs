@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Viper.GetWay.Controllers
+namespace Viper.GateWay.Controllers
 {
 
     [Route("error")]

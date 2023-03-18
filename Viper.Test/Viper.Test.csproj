@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.Rpc.Server" Version="2.1.0.1" />
+    <PackageReference Include="Anno.Rpc.Server" Version="2.1.0.4" />
   </ItemGroup>
 
   <ItemGroup>

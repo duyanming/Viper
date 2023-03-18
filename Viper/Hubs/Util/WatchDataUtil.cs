@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Viper.GetWay.Hubs.Util
+namespace Viper.GateWay.Hubs.Util
 {
     public static class WatchDataUtil
     {

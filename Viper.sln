@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Viper.GetWay", "Viper\Viper.GetWay.csproj", "{E762B341-4B1E-4288-8B6B-6EBDB592DB79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Viper.GateWay", "Viper\Viper.GateWay.csproj", "{E762B341-4B1E-4288-8B6B-6EBDB592DB79}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViperCenter", "ViperCenter\ViperCenter.csproj", "{D5394B7C-98A8-4625-AC5B-0AEFC1846E45}"
 EndProject
@@ -56,7 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Builder", "Builder", "{A61F
 		LICENSE = LICENSE
 		README.md = README.md
 		viperCenter.bat = viperCenter.bat
-		viperGetWayDebug.bat = viperGetWayDebug.bat
+		viperGateWayDebug.bat = viperGateWayDebug.bat
 		viperService.bat = viperService.bat
 	EndProjectSection
 EndProject

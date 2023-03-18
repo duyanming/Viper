@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.EngineData" Version="2.1.0.1" />
+    <PackageReference Include="Anno.EngineData" Version="2.1.0.4" />
     <PackageReference Include="Anno.Plugs.MonitorService" Version="1.7.0.1" />
-    <PackageReference Include="Anno.Rpc.Server" Version="2.1.0.1" />
+    <PackageReference Include="Anno.Rpc.Server" Version="2.1.0.4" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Viper.GetWay
+namespace Viper.GateWay
 {
     public class Program
     {
@@ -31,7 +31,7 @@ namespace Viper.GetWay
                         webBuilder.UseUrls(urls);
                     }
                     /**
-                     * active Îªprod µÄÊ±ºò¹Ø±ÕÈÕÖ¾ None£¬Ä¬ÈÏÈÕÖ¾¼¶±ð Information
+                     * active Îªprod ï¿½ï¿½Ê±ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Ö¾ Noneï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ Information
                      */
                     var active = Anno.Rpc.Server.ArgsValue.GetValueByName("-active", args);
                     LogLevel logLevel = LogLevel.Information;

@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anno.EngineData" Version="2.1.0.1" />
+    <PackageReference Include="Anno.EngineData" Version="2.1.0.4" />
     <PackageReference Include="Anno.RateLimit" Version="1.7.0.1" />
-    <PackageReference Include="Anno.Rpc.Client" Version="2.1.0.1" />
-    <PackageReference Include="Anno.Rpc.Server" Version="2.1.0.1" />
+    <PackageReference Include="Anno.Rpc.Client" Version="2.1.0.4" />
+    <PackageReference Include="Anno.Rpc.Server" Version="2.1.0.4" />
     <PackageReference Include="IPAddressRange" Version="4.2.0" />
   </ItemGroup>
 

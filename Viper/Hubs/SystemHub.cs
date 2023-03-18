@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Viper.GetWay.Hubs
+namespace Viper.GateWay.Hubs
 {
     public class SystemHub : Hub
     {

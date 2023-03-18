@@ -7,10 +7,10 @@ using Anno.CronNET;
 using Anno.EngineData.SysInfo;
 using Anno.EngineData;
 using Anno.Rpc.Client;
-using Viper.GetWay.Hubs.Util;
+using Viper.GateWay.Hubs.Util;
 using Microsoft.AspNetCore;
 
-namespace Viper.GetWay.Hubs
+namespace Viper.GateWay.Hubs
 {
 
     public class TaskManager

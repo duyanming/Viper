@@ -43,22 +43,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Anno.Const, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Const.2.1.0.1\lib\net461\Anno.Const.dll</HintPath>
+      <HintPath>..\..\..\packages\Anno.Const.2.1.0.4\lib\net461\Anno.Const.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.CronNET, Version=2.1.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.CronNET.2.1.0.1\lib\net461\Anno.CronNET.dll</HintPath>
+    <Reference Include="Anno.CronNET, Version=2.1.0.4, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.CronNET.2.1.0.4\lib\net461\Anno.CronNET.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.EngineData, Version=2.1.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.EngineData.2.1.0.1\lib\net461\Anno.EngineData.dll</HintPath>
+    <Reference Include="Anno.EngineData, Version=2.1.0.4, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.EngineData.2.1.0.4\lib\net461\Anno.EngineData.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Loader, Version=2.1.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Loader.2.1.0.1\lib\net461\Anno.Loader.dll</HintPath>
+    <Reference Include="Anno.Loader, Version=2.1.0.4, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Loader.2.1.0.4\lib\net461\Anno.Loader.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Log, Version=2.1.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Log.2.1.0.1\lib\net461\Anno.Log.dll</HintPath>
+    <Reference Include="Anno.Log, Version=2.1.0.4, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Log.2.1.0.4\lib\net461\Anno.Log.dll</HintPath>
     </Reference>
-    <Reference Include="Anno.Rpc.Client, Version=2.1.0.1, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Anno.Rpc.Client.2.1.0.1\lib\net461\Anno.Rpc.Client.dll</HintPath>
+    <Reference Include="Anno.Rpc.Client, Version=2.1.0.4, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Anno.Rpc.Client.2.1.0.4\lib\net461\Anno.Rpc.Client.dll</HintPath>
     </Reference>
     <Reference Include="Anno.Rpc.Client.DynamicProxy, Version=2.0.0.0, Culture=neutral, PublicKeyToken=2655831855184ca4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Anno.Rpc.Client.DynamicProxy.2.0.0\lib\net461\Anno.Rpc.Client.DynamicProxy.dll</HintPath>

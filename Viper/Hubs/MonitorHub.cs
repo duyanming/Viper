@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Anno.EngineData.SysInfo;
-using Viper.GetWay.Hubs.Util;
+using Viper.GateWay.Hubs.Util;
 using Anno.Log;
 
-namespace Viper.GetWay.Hubs
+namespace Viper.GateWay.Hubs
 {
     public class MonitorHub : Hub
     {
