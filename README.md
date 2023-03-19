@@ -1,11 +1,11 @@
 # 🎄Viper
-    Viper 是一个基于Anno微服务引擎开发的Dashboard项目、示例项目。Anno 底层通讯采用 grpc、thrift。自带服务发现、调用链追踪、Cron 调度、限流、事件总线等等
+​		Viper 是一个基于[Anno](https://github.com/duyanming/Anno.Core)微服务引擎开发的Dashboard项目、示例项目。Anno 底层通讯可选用grpc、thrift。自带服务发现、调用链追踪、Cron 调度、限流、事件总线等等
 
-![Dashboard](https://z3.ax1x.com/2021/06/29/Rade3R.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RadaKP.png)
+![Dashboard](https://s1.ax1x.com/2023/03/19/ppYj8ED.png)
+![Dashboard](https://s1.ax1x.com/2023/03/19/ppYjsUg.png)
 ![Dashboard](https://z3.ax1x.com/2021/06/29/RawXSs.png)
 ![Dashboard](https://z3.ax1x.com/2021/06/29/Ra0FfJ.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RadBVS.png)
+![Dashboard](https://s1.ax1x.com/2023/03/19/ppYj22n.png)
 ![Dashboard](https://z3.ax1x.com/2021/06/29/RadWrV.png)
 ![Dashboard](https://z3.ax1x.com/2021/06/29/RadXqK.png)
 ![Dashboard](https://z3.ax1x.com/2021/06/29/RawPxI.png)
@@ -17,12 +17,12 @@
 
 ##  🎩[Java 实现 ](https://github.com/duyanming/anno.thrift-parent) : https://github.com/duyanming/anno.thrift-parent
 
-##  🔥[在线演示地址](http://49.232.112.70) :http://49.232.112.70
+##  🔥[在线演示地址](http://anno.liqingxi.cn) :http://anno.liqingxi.cn
     账号：anno
     密码：123456
 # 🎃Anno 分布式开发框架
 
-    Anno 是一个分布式开发框架，同时支持 .net core3.1 、.net frameworker4.6.1
+​			Anno 是一个分布式开发框架，支持 .net core3.1 、.net frameworker4.5 、 java
 
 ## 🎯1、运行Viper
 
@@ -34,7 +34,7 @@
 	1、Viper\database\viper20210617_01.sql
 
 	2、修改viperService 数据库连接字符串
-		Viper\ViperService\bin\Debug\net5\Anno.config
+		Viper\ViperService\bin\Debug\net6.0\Anno.config
 ```
 
 ```xml
@@ -47,7 +47,7 @@
 
 ```
 第一步：启动注册中心
-	Viper\ViperCenter\bin\Debug\net5\Anno.config
+	Viper\ViperCenter\bin\Debug\net6.0\Anno.config
 ```
 
 ``` xml
@@ -66,14 +66,16 @@
 
 
 
-    进入项目文件夹 Viper\ViperCenter\bin\Debug\net5
-    运行命令 dotnet ViperCenter.dll
-    看到下图 说明运行成功
+### 进入项目文件夹 
+
+Viper\ViperCenter\bin\Debug\net6.0
+运行命令 dotnet ViperCenter.dll
+看到下图 说明运行成功
 ![第一步](https://z3.ax1x.com/2021/04/01/cE4a5T.png)
 
 ```
 第二步：启动 ViperService
-	Viper\ViperService\bin\Debug\net5\Anno.config
+	Viper\ViperService\bin\Debug\net6.0\Anno.config
 ```
 
 ``` xml
@@ -116,11 +118,11 @@
     redisPrefix Key 前缀 Anno:
     redisExpiryDate Key 有效期  单位（分钟） 20
     redisSwitch 是否开启数据库 false 不开启 false
-    -->
     <add key="redisConn" value=""/>
     <add key="redisPrefix" value="SW:"/>
     <add key="redisExpiryDate" value="20"/>
     <add key="redisSwitch" value="false"/>
+    -->
   </appSettings>
 </configuration>
 
@@ -139,7 +141,7 @@
 
 
     ViperService 可以和 ViperCenter 不在同一台电脑，也可以运行多个server 也可以负载均衡，高级用法随后介绍
-    进入项目文件夹 Viper\ViperService\bin\Debug\net5 
+    进入项目文件夹 Viper\ViperService\bin\Debug\net6.0 
     运行命令 dotnet ViperService.dll
     看到下图 说明 ViperService 成功运行 并且已经注册到 注册中心（ViperCenter）运行成功
 ![第二步](https://z3.ax1x.com/2021/04/01/cE5PZq.png)
