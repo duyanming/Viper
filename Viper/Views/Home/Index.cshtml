@@ -49,17 +49,17 @@
                     <div v-on:click="changeisCollapse" style="width: 1px; float: left; cursor: pointer;">
                         <i :class="{'el-icon-s-fold':isCollapse==false,'el-icon-s-unfold':isCollapse}"></i>
                     </div>
-                    <a v-show="(_isMobile&&isCollapse)||(!_isMobile)" style="cursor: pointer; text-decoration: underline; float:left;margin-left:40px;color:#3e3434;" target="_blank" href="https://duyanming.github.io/">官方文档</a>
+                    <a v-show="!isMobile" style="cursor: pointer; text-decoration: underline; float:left;margin-left:40px;color:#3e3434;" target="_blank" href="https://duyanming.github.io/">官方文档</a>
                     <div uInfo style="height: 60px; float: right; margin-right:10px;">
-                        <el-tag v-show="(_isMobile&&isCollapse)||(!_isMobile)">
+                        <el-tag v-show="!isMobile">
                             系统：
                             <span style="color:#606266;">
                                 @($"{System.Environment.OSVersion}"),<b>@System.Runtime.InteropServices.RuntimeInformation.OSArchitecture.ToString().ToLower()</b>,处理器 <b>@System.Environment.ProcessorCount</b>
                             </span>
                          </el-tag>
-                        <el-tag>注册中心：<span style="color:#606266;">@(Anno.Const.SettingService.Local?.IpAddress + ":" + Anno.Const.SettingService.Local?.Port)</span></el-tag>
-                        <el-tag>运行服务：<span style="color:#606266;">@Anno.Rpc.Client.Connector.Micros?.LongCount()</span></el-tag>
-                        <el-tag>网关版本：<span style="color:#606266;">@(typeof(Anno.Rpc.Client.Connector).Assembly.GetName().Version)</span></el-tag>
+                        <el-tag v-show="!isMobile">注册中心：<span style="color:#606266;">@(Anno.Const.SettingService.Local?.IpAddress + ":" + Anno.Const.SettingService.Local?.Port)</span></el-tag>
+                        <el-tag v-show="!isMobile">运行服务：<span style="color:#606266;">@Anno.Rpc.Client.Connector.Micros?.LongCount()</span></el-tag>
+                        <el-tag v-show="!isMobile">网关版本：<span style="color:#606266;">@(typeof(Anno.Rpc.Client.Connector).Assembly.GetName().Version)</span></el-tag>
                         <el-avatar size="medium" style="vertical-align: middle;">{{profile.account}}</el-avatar>
                         <el-dropdown trigger="click" @@command="handleCommand">
                             <span class="el-dropdown-link">
